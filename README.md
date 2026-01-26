@@ -11,7 +11,18 @@ pip install iucn-get-data
 ## Usage
 
 ```python
-from iucn_get_data import get_realms, get_biomes, get_groups
+from iucn_get_data import get_realms, get_biomes, get_groups, get_typology
+
+# Get complete typology as a dictionary
+typology = get_typology()
+print(typology.keys())  # dict_keys(['realms'])
+print(len(typology['realms']))  # 10
+
+# Access the raw structure
+for realm in typology['realms']:
+    print(f"{realm['code']}: {realm['name']}")
+    for biome in realm['biomes']:
+        print(f"  - {biome['code']}: {biome['name']}")
 
 # Get all realms (10 total: 4 core + 6 transitional)
 realms = get_realms()

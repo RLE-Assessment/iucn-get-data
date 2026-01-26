@@ -143,3 +143,49 @@ def test_get_realms_marine_m1_has_10_groups():
     # Check that M1.10 exists
     fg_codes = {fg['code'] for fg in m1_biome['functional_groups']}
     assert 'M1.10' in fg_codes
+
+
+def test_get_typology_returns_dict():
+    """Test that get_typology returns a dictionary."""
+    from iucn_get_data.main import get_typology
+    typology = get_typology()
+    assert isinstance(typology, dict)
+
+
+def test_get_typology_has_realms_key():
+    """Test that get_typology returns a dict with 'realms' key."""
+    from iucn_get_data.main import get_typology
+    typology = get_typology()
+    assert 'realms' in typology
+    assert isinstance(typology['realms'], list)
+
+
+def test_get_typology_realms_count():
+    """Test that get_typology returns 10 realms."""
+    from iucn_get_data.main import get_typology
+    typology = get_typology()
+    assert len(typology['realms']) == 10
+
+
+def test_get_typology_file_not_found():
+    """Test that get_typology raises FileNotFoundError for non-existent file."""
+    from iucn_get_data.main import get_typology
+    with pytest.raises(FileNotFoundError):
+        get_typology("nonexistent/path.yaml")
+
+
+def test_get_typology_complete_structure():
+    """Test that get_typology returns complete hierarchical structure."""
+    from iucn_get_data.main import get_typology
+    typology = get_typology()
+
+    # Verify structure exists
+    assert len(typology['realms']) > 0
+    first_realm = typology['realms'][0]
+    assert 'code' in first_realm
+    assert 'name' in first_realm
+    assert 'biomes' in first_realm
+    assert len(first_realm['biomes']) > 0
+
+    first_biome = first_realm['biomes'][0]
+    assert 'functional_groups' in first_biome

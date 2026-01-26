@@ -125,6 +125,35 @@ def get_groups(realm=None, biome=None, file_path="data/typology.yaml"):
     return all_groups
 
 
+def get_typology(file_path="data/typology.yaml"):
+    """
+    Get the complete IUCN Global Ecosystem Typology data as a dictionary.
+
+    Args:
+        file_path: Path to the typology YAML file (default: "data/typology.yaml")
+
+    Returns:
+        dict: Complete typology data structure with 'realms' key containing
+              all realms, biomes, and functional groups
+
+    Example:
+        >>> typology = get_typology()
+        >>> typology.keys()
+        dict_keys(['realms'])
+        >>> len(typology['realms'])
+        10
+    """
+    yaml_path = Path(file_path)
+
+    if not yaml_path.exists():
+        raise FileNotFoundError(f"Typology file not found: {file_path}")
+
+    with open(yaml_path, 'r') as f:
+        data = yaml.safe_load(f)
+
+    return data
+
+
 def main():
 
     # Example usage - get_realms
@@ -170,6 +199,12 @@ def main():
     print("\nExample: Get functional groups from biome M1")
     m1_groups = get_groups(biome='M1')
     print(f"M1 functional groups: {len(m1_groups)}")
+
+    # Example usage - get_typology
+    print("\nExample: Get complete typology data")
+    typology = get_typology()
+    print(f"Typology data keys: {list(typology.keys())}")
+    print(f"Total realms in typology: {len(typology['realms'])}")
 
 
 if __name__ == "__main__":
