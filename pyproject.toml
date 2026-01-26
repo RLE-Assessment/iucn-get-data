@@ -17,9 +17,9 @@ dev = [
 requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools.packages.find]
-where = ["src"]
-include = ["iucn_get_data*"]
+[tool.setuptools]
+packages = ["iucn_get_data"]
+package-dir = {"" = "src"}
 
 [tool.setuptools.package-data]
 iucn_get_data = ["py.typed"]
