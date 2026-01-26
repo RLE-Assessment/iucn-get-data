@@ -1,6 +1,6 @@
 import pytest
 from pathlib import Path
-from src.main import get_realms
+from iucn_get_data.main import get_realms
 
 
 def test_get_realms_returns_list():
