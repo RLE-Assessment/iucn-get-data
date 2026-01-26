@@ -1,0 +1,478 @@
+realms:
+  - code: T
+    name: Terrestrial
+    transitional: false
+    url: https://global-ecosystems.org/explore/realms/T
+    biomes:
+      - code: T1
+        name: Tropical-subtropical forests
+        url: https://global-ecosystems.org/explore/biomes/T1
+        functional_groups:
+          - code: T1.1
+            name: Tropical/Subtropical lowland rainforests
+            url: https://global-ecosystems.org/explore/groups/T1.1
+          - code: T1.2
+            name: Tropical/Subtropical dry forests and thickets
+            url: https://global-ecosystems.org/explore/groups/T1.2
+          - code: T1.3
+            name: Tropical/Subtropical montane rainforests
+            url: https://global-ecosystems.org/explore/groups/T1.3
+          - code: T1.4
+            name: Tropical heath forests
+            url: https://global-ecosystems.org/explore/groups/T1.4
+      - code: T2
+        name: Temperate-boreal forests and woodlands
+        url: https://global-ecosystems.org/explore/biomes/T2
+        functional_groups:
+          - code: T2.1
+            name: Boreal and temperate high montane forests and woodlands
+            url: https://global-ecosystems.org/explore/groups/T2.1
+          - code: T2.2
+            name: Deciduous temperate forests
+            url: https://global-ecosystems.org/explore/groups/T2.2
+          - code: T2.3
+            name: Oceanic cool temperate rainforests
+            url: https://global-ecosystems.org/explore/groups/T2.3
+          - code: T2.4
+            name: Warm temperate laurophyll forests
+            url: https://global-ecosystems.org/explore/groups/T2.4
+          - code: T2.5
+            name: Temperate pyric humid forests
+            url: https://global-ecosystems.org/explore/groups/T2.5
+          - code: T2.6
+            name: Temperate pyric sclerophyll forests and woodlands
+            url: https://global-ecosystems.org/explore/groups/T2.6
+      - code: T3
+        name: Shrublands and shrubby woodlands
+        url: https://global-ecosystems.org/explore/biomes/T3
+        functional_groups:
+          - code: T3.1
+            name: Seasonally dry tropical shrublands
+            url: https://global-ecosystems.org/explore/groups/T3.1
+          - code: T3.2
+            name: Seasonally dry temperate heath and shrublands
+            url: https://global-ecosystems.org/explore/groups/T3.2
+          - code: T3.3
+            name: Cool temperate heathlands
+            url: https://global-ecosystems.org/explore/groups/T3.3
+          - code: T3.4
+            name: Young rocky pavements, lava flows and screes
+            url: https://global-ecosystems.org/explore/groups/T3.4
+      - code: T4
+        name: Savannas and grasslands
+        url: https://global-ecosystems.org/explore/biomes/T4
+        functional_groups:
+          - code: T4.1
+            name: Trophic savannas
+            url: https://global-ecosystems.org/explore/groups/T4.1
+          - code: T4.2
+            name: Pyric tussock savannas
+            url: https://global-ecosystems.org/explore/groups/T4.2
+          - code: T4.3
+            name: Hummock savannas
+            url: https://global-ecosystems.org/explore/groups/T4.3
+          - code: T4.4
+            name: Temperate woodlands
+            url: https://global-ecosystems.org/explore/groups/T4.4
+          - code: T4.5
+            name: Temperate subhumid grasslands
+            url: https://global-ecosystems.org/explore/groups/T4.5
+      - code: T5
+        name: Deserts and semi-deserts
+        url: https://global-ecosystems.org/explore/biomes/T5
+        functional_groups:
+          - code: T5.1
+            name: Semi-desert steppe
+            url: https://global-ecosystems.org/explore/groups/T5.1
+          - code: T5.2
+            name: Succulent or Thorny deserts and semi-deserts
+            url: https://global-ecosystems.org/explore/groups/T5.2
+          - code: T5.3
+            name: Sclerophyll hot deserts and semi-deserts
+            url: https://global-ecosystems.org/explore/groups/T5.3
+          - code: T5.4
+            name: Cool deserts and semi-deserts
+            url: https://global-ecosystems.org/explore/groups/T5.4
+          - code: T5.5
+            name: Hyper-arid deserts
+            url: https://global-ecosystems.org/explore/groups/T5.5
+      - code: T6
+        name: Polar/alpine (cryogenic)
+        url: https://global-ecosystems.org/explore/biomes/T6
+        functional_groups:
+          - code: T6.1
+            name: Ice sheets, glaciers and perennial snowfields
+            url: https://global-ecosystems.org/explore/groups/T6.1
+          - code: T6.2
+            name: Polar/alpine cliffs, screes, outcrops and lava flows
+            url: https://global-ecosystems.org/explore/groups/T6.2
+          - code: T6.3
+            name: Polar tundra and deserts
+            url: https://global-ecosystems.org/explore/groups/T6.3
+          - code: T6.4
+            name: Temperate alpine grasslands and shrublands
+            url: https://global-ecosystems.org/explore/groups/T6.4
+          - code: T6.5
+            name: Tropical alpine grasslands and herbfields
+            url: https://global-ecosystems.org/explore/groups/T6.5
+      - code: T7
+        name: Intensive land-use
+        url: https://global-ecosystems.org/explore/biomes/T7
+        functional_groups:
+          - code: T7.1
+            name: Annual croplands
+            url: https://global-ecosystems.org/explore/groups/T7.1
+          - code: T7.2
+            name: Sown pastures and fields
+            url: https://global-ecosystems.org/explore/groups/T7.2
+          - code: T7.3
+            name: Plantations
+            url: https://global-ecosystems.org/explore/groups/T7.3
+          - code: T7.4
+            name: Urban and industrial ecosystems
+            url: https://global-ecosystems.org/explore/groups/T7.4
+          - code: T7.5
+            name: Derived semi-natural pastures and old fields
+            url: https://global-ecosystems.org/explore/groups/T7.5
+  - code: M
+    name: Marine
+    transitional: false
+    url: https://global-ecosystems.org/explore/realms/M
+    biomes:
+      - code: M1
+        name: Marine shelf
+        url: https://global-ecosystems.org/explore/biomes/M1
+        functional_groups:
+          - code: M1.1
+            name: Seagrass meadows
+            url: https://global-ecosystems.org/explore/groups/M1.1
+          - code: M1.2
+            name: Kelp forests
+            url: https://global-ecosystems.org/explore/groups/M1.2
+          - code: M1.3
+            name: Photic coral reefs
+            url: https://global-ecosystems.org/explore/groups/M1.3
+          - code: M1.4
+            name: Shellfish beds and reefs
+            url: https://global-ecosystems.org/explore/groups/M1.4
+          - code: M1.5
+            name: Photo-limited marine animal forests
+            url: https://global-ecosystems.org/explore/groups/M1.5
+          - code: M1.6
+            name: Subtidal rocky reefs
+            url: https://global-ecosystems.org/explore/groups/M1.6
+          - code: M1.7
+            name: Subtidal sand beds
+            url: https://global-ecosystems.org/explore/groups/M1.7
+          - code: M1.8
+            name: Subtidal mud plains
+            url: https://global-ecosystems.org/explore/groups/M1.8
+          - code: M1.9
+            name: Upwelling zones
+            url: https://global-ecosystems.org/explore/groups/M1.9
+          - code: M1.10
+            name: Rhodolith/Maërl beds
+            url: https://global-ecosystems.org/explore/groups/M1.10
+      - code: M2
+        name: Pelagic ocean waters
+        url: https://global-ecosystems.org/explore/biomes/M2
+        functional_groups:
+          - code: M2.1
+            name: Epipelagic ocean waters
+            url: https://global-ecosystems.org/explore/groups/M2.1
+          - code: M2.2
+            name: Mesopelagic ocean water
+            url: https://global-ecosystems.org/explore/groups/M2.2
+          - code: M2.3
+            name: Bathypelagic ocean waters
+            url: https://global-ecosystems.org/explore/groups/M2.3
+          - code: M2.4
+            name: Abyssopelagic ocean waters
+            url: https://global-ecosystems.org/explore/groups/M2.4
+          - code: M2.5
+            name: Sea ice
+            url: https://global-ecosystems.org/explore/groups/M2.5
+      - code: M3
+        name: Deep sea floors
+        url: https://global-ecosystems.org/explore/biomes/M3
+        functional_groups:
+          - code: M3.1
+            name: Continental and island slopes
+            url: https://global-ecosystems.org/explore/groups/M3.1
+          - code: M3.2
+            name: Submarine canyons
+            url: https://global-ecosystems.org/explore/groups/M3.2
+          - code: M3.3
+            name: Abyssal plains
+            url: https://global-ecosystems.org/explore/groups/M3.3
+          - code: M3.4
+            name: Seamounts, ridges and plateaus
+            url: https://global-ecosystems.org/explore/groups/M3.4
+          - code: M3.5
+            name: Deepwater biogenic beds
+            url: https://global-ecosystems.org/explore/groups/M3.5
+          - code: M3.6
+            name: Hadal trenches and troughs
+            url: https://global-ecosystems.org/explore/groups/M3.6
+          - code: M3.7
+            name: Chemosynthetic-based-ecosystems (CBE)
+            url: https://global-ecosystems.org/explore/groups/M3.7
+      - code: M4
+        name: Anthropogenic marine
+        url: https://global-ecosystems.org/explore/biomes/M4
+        functional_groups:
+          - code: M4.1
+            name: Submerged artificial structures
+            url: https://global-ecosystems.org/explore/groups/M4.1
+          - code: M4.2
+            name: Marine aquafarms
+            url: https://global-ecosystems.org/explore/groups/M4.2
+  - code: F
+    name: Freshwater
+    transitional: false
+    url: https://global-ecosystems.org/explore/realms/F
+    biomes:
+      - code: F1
+        name: Rivers and streams
+        url: https://global-ecosystems.org/explore/biomes/F1
+        functional_groups:
+          - code: F1.1
+            name: Permanent upland streams
+            url: https://global-ecosystems.org/explore/groups/F1.1
+          - code: F1.2
+            name: Permanent lowland rivers
+            url: https://global-ecosystems.org/explore/groups/F1.2
+          - code: F1.3
+            name: Freeze-thaw rivers and streams
+            url: https://global-ecosystems.org/explore/groups/F1.3
+          - code: F1.4
+            name: Seasonal upland streams
+            url: https://global-ecosystems.org/explore/groups/F1.4
+          - code: F1.5
+            name: Seasonal lowland rivers
+            url: https://global-ecosystems.org/explore/groups/F1.5
+          - code: F1.6
+            name: Episodic arid rivers
+            url: https://global-ecosystems.org/explore/groups/F1.6
+          - code: F1.7
+            name: Large lowland rivers
+            url: https://global-ecosystems.org/explore/groups/F1.7
+      - code: F2
+        name: Lakes
+        url: https://global-ecosystems.org/explore/biomes/F2
+        functional_groups:
+          - code: F2.1
+            name: Large permanent freshwater lakes
+            url: https://global-ecosystems.org/explore/groups/F2.1
+          - code: F2.2
+            name: Small permanent freshwater lakes
+            url: https://global-ecosystems.org/explore/groups/F2.2
+          - code: F2.3
+            name: Seasonal freshwater lakes
+            url: https://global-ecosystems.org/explore/groups/F2.3
+          - code: F2.4
+            name: Freeze-thaw freshwater lakes
+            url: https://global-ecosystems.org/explore/groups/F2.4
+          - code: F2.5
+            name: Ephemeral freshwater lakes
+            url: https://global-ecosystems.org/explore/groups/F2.5
+          - code: F2.6
+            name: Permanent salt and soda lakes
+            url: https://global-ecosystems.org/explore/groups/F2.6
+          - code: F2.7
+            name: Ephemeral salt lakes
+            url: https://global-ecosystems.org/explore/groups/F2.7
+          - code: F2.8
+            name: Artesian springs and oases
+            url: https://global-ecosystems.org/explore/groups/F2.8
+          - code: F2.9
+            name: Geothermal pools and wetlands
+            url: https://global-ecosystems.org/explore/groups/F2.9
+          - code: F2.10
+            name: Subglacial lakes
+            url: https://global-ecosystems.org/explore/groups/F2.10
+      - code: F3
+        name: Artificial wetlands
+        url: https://global-ecosystems.org/explore/biomes/F3
+        functional_groups:
+          - code: F3.1
+            name: Large reservoirs
+            url: https://global-ecosystems.org/explore/groups/F3.1
+          - code: F3.2
+            name: Constructed lacustrine wetlands
+            url: https://global-ecosystems.org/explore/groups/F3.2
+          - code: F3.3
+            name: Rice paddies
+            url: https://global-ecosystems.org/explore/groups/F3.3
+          - code: F3.4
+            name: Freshwater aquafarms
+            url: https://global-ecosystems.org/explore/groups/F3.4
+          - code: F3.5
+            name: Canals, ditches and drains
+            url: https://global-ecosystems.org/explore/groups/F3.5
+  - code: S
+    name: Subterranean
+    transitional: false
+    url: https://global-ecosystems.org/explore/realms/S
+    biomes:
+      - code: S1
+        name: Subterranean lithic systems
+        url: https://global-ecosystems.org/explore/biomes/S1
+        functional_groups:
+          - code: S1.1
+            name: Aerobic caves
+            url: https://global-ecosystems.org/explore/groups/S1.1
+      - code: S2
+        name: Anthropogenic subterranean voids
+        url: https://global-ecosystems.org/explore/biomes/S2
+        functional_groups:
+          - code: S2.1
+            name: Anthropogenic subterranean voids
+            url: https://global-ecosystems.org/explore/groups/S2.1
+  - code: TF
+    name: Terrestrial-Freshwater
+    transitional: true
+    url: https://global-ecosystems.org/explore/realms/TF
+    biomes:
+      - code: TF1
+        name: Palustrine wetlands
+        url: https://global-ecosystems.org/explore/biomes/TF1
+        functional_groups:
+          - code: TF1.1
+            name: Tropical flooded forests and peat forests
+            url: https://global-ecosystems.org/explore/groups/TF1.1
+          - code: TF1.2
+            name: Subtropical/temperate forested wetlands
+            url: https://global-ecosystems.org/explore/groups/TF1.2
+          - code: TF1.3
+            name: Permanent marshes
+            url: https://global-ecosystems.org/explore/groups/TF1.3
+          - code: TF1.4
+            name: Seasonal floodplain marshes
+            url: https://global-ecosystems.org/explore/groups/TF1.4
+          - code: TF1.5
+            name: Episodic arid floodplains
+            url: https://global-ecosystems.org/explore/groups/TF1.5
+          - code: TF1.6
+            name: Boreal, temperate and montane peat bogs
+            url: https://global-ecosystems.org/explore/groups/TF1.6
+          - code: TF1.7
+            name: Boreal and temperate fens
+            url: https://global-ecosystems.org/explore/groups/TF1.7
+  - code: FM
+    name: Freshwater-Marine
+    transitional: true
+    url: https://global-ecosystems.org/explore/realms/FM
+    biomes:
+      - code: FM1
+        name: Semi-confined transitional waters
+        url: https://global-ecosystems.org/explore/biomes/FM1
+        functional_groups:
+          - code: FM1.1
+            name: Deepwater coastal inlets
+            url: https://global-ecosystems.org/explore/groups/FM1.1
+          - code: FM1.2
+            name: Permanently open riverine estuaries and bays
+            url: https://global-ecosystems.org/explore/groups/FM1.2
+          - code: FM1.3
+            name: Intermittently closed and open lakes and lagoons
+            url: https://global-ecosystems.org/explore/groups/FM1.3
+  - code: MFT
+    name: Marine-Freshwater-Terrestrial
+    transitional: true
+    url: https://global-ecosystems.org/explore/realms/MFT
+    biomes:
+      - code: MFT1
+        name: Brackish tidal systems
+        url: https://global-ecosystems.org/explore/biomes/MFT1
+        functional_groups:
+          - code: MFT1.1
+            name: Coastal river deltas
+            url: https://global-ecosystems.org/explore/groups/MFT1.1
+          - code: MFT1.2
+            name: Intertidal forests and shrublands
+            url: https://global-ecosystems.org/explore/groups/MFT1.2
+          - code: MFT1.3
+            name: Coastal saltmarshes and reedbeds
+            url: https://global-ecosystems.org/explore/groups/MFT1.3
+  - code: MT
+    name: Marine-Terrestrial
+    transitional: true
+    url: https://global-ecosystems.org/explore/realms/MT
+    biomes:
+      - code: MT1
+        name: Shorelines
+        url: https://global-ecosystems.org/explore/biomes/MT1
+        functional_groups:
+          - code: MT1.1
+            name: Rocky Shorelines
+            url: https://global-ecosystems.org/explore/groups/MT1.1
+          - code: MT1.2
+            name: Muddy Shorelines
+            url: https://global-ecosystems.org/explore/groups/MT1.2
+          - code: MT1.3
+            name: Sandy Shorelines
+            url: https://global-ecosystems.org/explore/groups/MT1.3
+          - code: MT1.4
+            name: Boulder and cobble shores
+            url: https://global-ecosystems.org/explore/groups/MT1.4
+      - code: MT2
+        name: Supralittoral coastal systems
+        url: https://global-ecosystems.org/explore/biomes/MT2
+        functional_groups:
+          - code: MT2.1
+            name: Coastal shrublands and grasslands
+            url: https://global-ecosystems.org/explore/groups/MT2.1
+          - code: MT2.2
+            name: Large seabird and pinniped colonies
+            url: https://global-ecosystems.org/explore/groups/MT2.2
+      - code: MT3
+        name: Anthropogenic shorelines
+        url: https://global-ecosystems.org/explore/biomes/MT3
+        functional_groups:
+          - code: MT3.1
+            name: Artificial shorelines
+            url: https://global-ecosystems.org/explore/groups/MT3.1
+  - code: SF
+    name: Subterranean-Freshwater
+    transitional: true
+    url: https://global-ecosystems.org/explore/realms/SF
+    biomes:
+      - code: SF1
+        name: Subterranean freshwaters
+        url: https://global-ecosystems.org/explore/biomes/SF1
+        functional_groups:
+          - code: SF1.1
+            name: Underground streams and pools
+            url: https://global-ecosystems.org/explore/groups/SF1.1
+          - code: SF1.2
+            name: Groundwater ecosystems
+            url: https://global-ecosystems.org/explore/groups/SF1.2
+      - code: SF2
+        name: Anthropogenic subterranean freshwaters
+        url: https://global-ecosystems.org/explore/biomes/SF2
+        functional_groups:
+          - code: SF2.1
+            name: Water pipes and subterranean canals
+            url: https://global-ecosystems.org/explore/groups/SF2.1
+          - code: SF2.2
+            name: Flooded mines and other voids
+            url: https://global-ecosystems.org/explore/groups/SF2.2
+  - code: SM
+    name: Subterranean-Marine
+    transitional: true
+    url: https://global-ecosystems.org/explore/realms/SM
+    biomes:
+      - code: SM1
+        name: Subterranean tidal systems
+        url: https://global-ecosystems.org/explore/biomes/SM1
+        functional_groups:
+          - code: SM1.1
+            name: Anchialine caves
+            url: https://global-ecosystems.org/explore/groups/SM1.1
+          - code: SM1.2
+            name: Anchialine pools
+            url: https://global-ecosystems.org/explore/groups/SM1.2
+          - code: SM1.3
+            name: Sea caves
+            url: https://global-ecosystems.org/explore/groups/SM1.3
