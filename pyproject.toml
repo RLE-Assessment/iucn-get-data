@@ -22,7 +22,7 @@ packages = ["iucn_get_data"]
 package-dir = {"" = "src"}
 
 [tool.setuptools.package-data]
-iucn_get_data = ["py.typed"]
+iucn_get_data = ["py.typed", "data/*.yaml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

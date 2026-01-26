@@ -1,36 +1,52 @@
 import yaml
 from pathlib import Path
+from importlib import resources
 
 
-def get_realms(file_path="data/typology.yaml"):
+def _get_default_typology_path():
+    """Get the path to the bundled typology.yaml file."""
+    return resources.files("iucn_get_data").joinpath("data/typology.yaml")
+
+
+def _load_yaml(file_path=None):
+    """Load YAML data from the specified path or the default bundled file."""
+    if file_path is None:
+        # Use bundled data file
+        typology_file = _get_default_typology_path()
+        with resources.as_file(typology_file) as path:
+            with open(path, 'r') as f:
+                return yaml.safe_load(f)
+    else:
+        # Use user-specified path
+        yaml_path = Path(file_path)
+        if not yaml_path.exists():
+            raise FileNotFoundError(f"Typology file not found: {file_path}")
+        with open(yaml_path, 'r') as f:
+            return yaml.safe_load(f)
+
+
+def get_realms(file_path=None):
     """
     Get a list of realms from the YAML file.
 
     Args:
-        file_path: Path to the typology YAML file (default: "data/typology.yaml")
+        file_path: Path to a custom typology YAML file. If None, uses the bundled data file.
 
     Returns:
         list: List of realm dictionaries containing code, name, transitional flag, url, and biomes
     """
-    yaml_path = Path(file_path)
-
-    if not yaml_path.exists():
-        raise FileNotFoundError(f"Typology file not found: {file_path}")
-
-    with open(yaml_path, 'r') as f:
-        data = yaml.safe_load(f)
-
+    data = _load_yaml(file_path)
     return data.get('realms', [])
 
 
-def get_biomes(realm=None, file_path="data/typology.yaml"):
+def get_biomes(realm=None, file_path=None):
     """
     Get a list of biomes from the YAML file, optionally filtered by realm.
 
     Args:
         realm: Optional realm code to filter biomes (e.g., 'T', 'M', 'F', 'S', 'TF', etc.)
                If None, returns all biomes from all realms.
-        file_path: Path to the typology YAML file (default: "data/typology.yaml")
+        file_path: Path to a custom typology YAML file. If None, uses the bundled data file.
 
     Returns:
         list: List of biome dictionaries containing code, name, url, and functional_groups
@@ -61,7 +77,7 @@ def get_biomes(realm=None, file_path="data/typology.yaml"):
     raise ValueError(f"Realm '{realm}' not found. Valid realms: {', '.join([r.get('code') for r in realms])}")
 
 
-def get_groups(realm=None, biome=None, file_path="data/typology.yaml"):
+def get_groups(realm=None, biome=None, file_path=None):
     """
     Get a list of functional groups from the YAML file, optionally filtered by realm and/or biome.
 
@@ -70,7 +86,7 @@ def get_groups(realm=None, biome=None, file_path="data/typology.yaml"):
                If None, searches all realms.
         biome: Optional biome code to filter functional groups (e.g., 'T1', 'M2', 'MT1', etc.)
                If None, returns all functional groups from the specified realm(s).
-        file_path: Path to the typology YAML file (default: "data/typology.yaml")
+        file_path: Path to a custom typology YAML file. If None, uses the bundled data file.
 
     Returns:
         list: List of functional group dictionaries containing code, name, and url
@@ -125,12 +141,12 @@ def get_groups(realm=None, biome=None, file_path="data/typology.yaml"):
     return all_groups
 
 
-def get_typology(file_path="data/typology.yaml"):
+def get_typology(file_path=None):
     """
     Get the complete IUCN Global Ecosystem Typology data as a dictionary.
 
     Args:
-        file_path: Path to the typology YAML file (default: "data/typology.yaml")
+        file_path: Path to a custom typology YAML file. If None, uses the bundled data file.
 
     Returns:
         dict: Complete typology data structure with 'realms' key containing
@@ -143,15 +159,7 @@ def get_typology(file_path="data/typology.yaml"):
         >>> len(typology['realms'])
         10
     """
-    yaml_path = Path(file_path)
-
-    if not yaml_path.exists():
-        raise FileNotFoundError(f"Typology file not found: {file_path}")
-
-    with open(yaml_path, 'r') as f:
-        data = yaml.safe_load(f)
-
-    return data
+    return _load_yaml(file_path)
 
 
 def main():
