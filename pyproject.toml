@@ -1,6 +1,6 @@
 [project]
 name = "iucn-get-data"
-version = "0.0.2"
+version = "0.0.3"
 description = "Tools for working with IUCN Global Ecosystem Typology data"
 readme = "README.md"
 requires-python = ">=3.11"
