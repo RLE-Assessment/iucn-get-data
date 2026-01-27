@@ -1,478 +1,622 @@
 realms:
   - code: T
     name: Terrestrial
+    description: All dry land, its vegetation cover, proximate atmosphere and substrate (soils, rocks) to the rooting depth of plants, and associated animals and microbes.
     transitional: false
     url: https://global-ecosystems.org/explore/realms/T
     biomes:
       - code: T1
         name: Tropical-subtropical forests
+        description: Moderate to highly productive ecosystems with closed tree canopies occurring at lower latitudes north and south of the equator.
         url: https://global-ecosystems.org/explore/biomes/T1
         functional_groups:
           - code: T1.1
             name: Tropical/Subtropical lowland rainforests
+            description: A huge diversity of species occupy niches within a complex vertically-layered structure of plant forms. High productivity is fuelled by rapid-growing plants including buttressed trees, bamboos, epiphytes, lianas and ferns.
             url: https://global-ecosystems.org/explore/groups/T1.1
           - code: T1.2
             name: Tropical/Subtropical dry forests and thickets
+            description: Tropical-subtropical dry forests and thickets are characterised by fertile substrates and seasonally dry conditions (~1800 mm per year, with a period of 3 to 6 months receiving less than 100 mm per month) that drive markedly seasonal patterns of productivity.
             url: https://global-ecosystems.org/explore/groups/T1.2
           - code: T1.3
             name: Tropical/Subtropical montane rainforests
+            description: These mountain rainforests are characterised by a single-layered tree canopy, with epiphytic ferns, bryophytes, lichens, orchids, and bromeliads draping tree branches.
             url: https://global-ecosystems.org/explore/groups/T1.3
           - code: T1.4
             name: Tropical heath forests
+            description: These structurally unique forests are restricted to less fertile soils on acidic sandy substrates best known in Amazonia and Southeast Asia.
             url: https://global-ecosystems.org/explore/groups/T1.4
       - code: T2
         name: Temperate-boreal forests and woodlands
+        description: Moderate to highly productive tree-dominated systems with a wide range of physiognomic and structural expressions distributed from warm-temperate to boreal latitudes.
         url: https://global-ecosystems.org/explore/biomes/T2
         functional_groups:
           - code: T2.1
             name: Boreal and temperate high montane forests and woodlands
+            description: In boreal and mountainous cold, seasonally snow-prone climates, acid soils support structurally simple forests made up of needle-leaf conifer trees, sometimes with broad-leaf deciduous trees.
             url: https://global-ecosystems.org/explore/groups/T2.1
           - code: T2.2
             name: Deciduous temperate forests
+            description: At cool temperate latitudes in the Northern hemisphere, fertile soils and high precipitation support forests dominated by broadleaf deciduous trees, although evergreen needleleaf trees may account for up to one-third of the canopy.
             url: https://global-ecosystems.org/explore/groups/T2.2
           - code: T2.3
             name: Oceanic cool temperate rainforests
+            description: Oceanic cool temperate rainforests feature evergreen or semi-deciduous, small-leaved trees with some conifers.
             url: https://global-ecosystems.org/explore/groups/T2.3
           - code: T2.4
             name: Warm temperate laurophyll forests
+            description: With a patchy warm-temperate distribution, laurophyll forests are extensive in some regions, but more typically occupy topographic refugia in a matrix of drier, more fire-prone ecosystems.
             url: https://global-ecosystems.org/explore/groups/T2.4
           - code: T2.5
             name: Temperate pyric humid forests
+            description: Forests with the tallest flowering trees on earth are complex in structure, with an open canopy of sclerophyll trees 40-90m tall allowing light to filter through to multiple understorey layers and a ground flora of ferns, grasses and mosses.
             url: https://global-ecosystems.org/explore/groups/T2.5
           - code: T2.6
             name: Temperate pyric sclerophyll forests and woodlands
+            description: In fire-prone temperate regions, temperate pyric sclerophyll forests are characterised by an open canopy of hard-leaved trees with a shrub layer underneath, sometimes with grasses and forbs.
             url: https://global-ecosystems.org/explore/groups/T2.6
       - code: T3
         name: Shrublands and shrubby woodlands
+        description: Oligotrophic systems occurring on acidic, sandy soils that are often shallow or skeletal.
         url: https://global-ecosystems.org/explore/biomes/T3
         functional_groups:
           - code: T3.1
             name: Seasonally dry tropical shrublands
+            description: Occurring on nutrient-deficient soils of tropical regions, these fire-prone shrublands and low forests are associated with dry tropical winters, often occurring in a matrix with savannas or tropical dry forests.
             url: https://global-ecosystems.org/explore/groups/T3.1
           - code: T3.2
             name: Seasonally dry temperate heath and shrublands
+            description: These temperate ecosystems are dominated by sclerophyll shrubs with small or ericoid leaves.
             url: https://global-ecosystems.org/explore/groups/T3.2
           - code: T3.3
             name: Cool temperate heathlands
+            description: In cool temperate, humid, maritime environments, a dense cover of low shrubs with small tough leaves is interspersed with grasses and ferns.
             url: https://global-ecosystems.org/explore/groups/T3.3
           - code: T3.4
             name: Young rocky pavements, lava flows and screes
+            description: With a scattered distribution globally, these young rocky ecosystems are exposed to extreme temperatures, weathering and disturbance, and have limited capacity to retain water and nutrients.
             url: https://global-ecosystems.org/explore/groups/T3.4
       - code: T4
         name: Savannas and grasslands
+        description: Ecological functions depend on a mostly continuous ground layer of grasses that contribute moderate to very high levels of primary productivity driven by seasonal fluctuations in water availability.
         url: https://global-ecosystems.org/explore/biomes/T4
         functional_groups:
           - code: T4.1
             name: Trophic savannas
+            description: An unparalleled abundance and diversity of large herbivores maintain an open structure of these tree-grass ecosystems in the seasonal tropics of Africa and south Asia.
             url: https://global-ecosystems.org/explore/groups/T4.1
           - code: T4.2
             name: Pyric tussock savannas
+            description: In pyric savannas, recurring fire is the principal agent that limits tree dominance and maintains tree-grass coexistence.
             url: https://global-ecosystems.org/explore/groups/T4.2
           - code: T4.3
             name: Hummock savannas
+            description: Found only in northern Australia, hummock savannas are distinguished by a ground layer of slow-growing, domed hummock grasses interspersed with bare ground and some trees and shrubs.
             url: https://global-ecosystems.org/explore/groups/T4.3
           - code: T4.4
             name: Temperate woodlands
+            description: Temperate woodlands are structurally simple, with widely-spaced trees and a ground layer of grasses with scattered shrubs.
             url: https://global-ecosystems.org/explore/groups/T4.4
           - code: T4.5
             name: Temperate subhumid grasslands
+            description: Temperate subhumid grasslands are simple in structure, composed of tussock grasses with scattered forbs, with few isolated trees and shrubs.
             url: https://global-ecosystems.org/explore/groups/T4.5
       - code: T5
         name: Deserts and semi-deserts
+        description: Ecosystems with very low to low primary productivity limited by water availability in arid regions.
         url: https://global-ecosystems.org/explore/biomes/T5
         functional_groups:
           - code: T5.1
             name: Semi-desert steppe
+            description: Semi-desert steppes on all continents are dominated by perennial shrubs, often with semi-fleshy or velvety foliage, and tussock grasses interspersed with bare ground.
             url: https://global-ecosystems.org/explore/groups/T5.1
           - code: T5.2
             name: Succulent or Thorny deserts and semi-deserts
+            description: Succulent or Thorny deserts and semi-deserts are restricted in their occurrence to parts of the Americas, Africa, Madagascar and south Asia.
             url: https://global-ecosystems.org/explore/groups/T5.2
           - code: T5.3
             name: Sclerophyll hot deserts and semi-deserts
+            description: Sclerophyll hot deserts and semi-deserts occur across central and western Australia on sandy soils.
             url: https://global-ecosystems.org/explore/groups/T5.3
           - code: T5.4
             name: Cool deserts and semi-deserts
+            description: Cool deserts and semi-deserts occur on cool temperate plains and plateaus in central Eurasia and temperate parts of the Americas from sea level up to 4,000 m.
             url: https://global-ecosystems.org/explore/groups/T5.4
           - code: T5.5
             name: Hyper-arid deserts
+            description: Hyper-arid deserts are the most extreme of all desert ecosystems, limited by very dry and often windy conditions with high temperatures and sandy or stony soils.
             url: https://global-ecosystems.org/explore/groups/T5.5
       - code: T6
         name: Polar/alpine (cryogenic)
+        description: Encompasses the extensive Arctic and Antarctic regions as well as high mountainous areas across all continental land masses.
         url: https://global-ecosystems.org/explore/biomes/T6
         functional_groups:
           - code: T6.1
             name: Ice sheets, glaciers and perennial snowfields
+            description: Found in polar regions and on high mountains, ice sheets, glaciers and perennial snowfields make up around 10% of the earth's surface.
             url: https://global-ecosystems.org/explore/groups/T6.1
           - code: T6.2
             name: Polar/alpine cliffs, screes, outcrops and lava flows
+            description: Polar-alpine rocky outcrops occur in permanently ice-free areas of polar regions and high mountains.
             url: https://global-ecosystems.org/explore/groups/T6.2
           - code: T6.3
             name: Polar tundra and deserts
+            description: Polar tundra and deserts have continuous to sparse cover of cold-tolerant mosses, liverworts, lichens, grasses, low shrubs and other flowering plants.
             url: https://global-ecosystems.org/explore/groups/T6.3
           - code: T6.4
             name: Temperate alpine grasslands and shrublands
+            description: Temperate alpine grasslands and shrublands occur above the treeline, on temperate and boreal mountains worldwide.
             url: https://global-ecosystems.org/explore/groups/T6.4
           - code: T6.5
             name: Tropical alpine grasslands and herbfields
+            description: Tropical alpine grasslands and herbfields are limited to a few mountainous areas of Africa, the Americas and southeast Asia.
             url: https://global-ecosystems.org/explore/groups/T6.5
       - code: T7
         name: Intensive land-use
+        description: Major anthropogenic enterprises of cropping, pastoralism, plantation farming, and urbanisation where human activity is the dominant ecological driver.
         url: https://global-ecosystems.org/explore/biomes/T7
         functional_groups:
           - code: T7.1
             name: Annual croplands
+            description: Croplands are intensively managed agricultural ecosystems maintained by supplementation of nutrients and water, sowing and harvesting, soil cultivation and control of non-target plants and animals (weeds and pests).
             url: https://global-ecosystems.org/explore/groups/T7.1
           - code: T7.2
-            name: Sown pastures and fields
+            name: Sown livestock pastures
+            description: In these intensively managed agricultural systems, grasses and legumes are sown and cultivated, with regular inputs of nutrients and (sometimes) water, primarily for the mostly commercial production of livestock or food (hay) for livestock.
             url: https://global-ecosystems.org/explore/groups/T7.2
           - code: T7.3
             name: Plantations
+            description: Plantations are generally long-rotation perennial woody crops established and maintained for a variety of food and materials.
             url: https://global-ecosystems.org/explore/groups/T7.3
           - code: T7.4
             name: Urban and industrial ecosystems
+            description: Cities, smaller settlements and industrial areas are structurally complex ecosystems characterised by their highly dynamic spatial structure.
             url: https://global-ecosystems.org/explore/groups/T7.4
           - code: T7.5
             name: Derived semi-natural pastures and old fields
+            description: These managed ecosystems are derived from a range of other ecosystems by the removal or modification of woody plant components.
             url: https://global-ecosystems.org/explore/groups/T7.5
   - code: M
     name: Marine
+    description: All interconnected saltwater ocean environments shaped by waves, tides, and currents.
     transitional: false
     url: https://global-ecosystems.org/explore/realms/M
     biomes:
       - code: M1
         name: Marine shelf
+        description: Spans globally from the shoreline to deep sea-floor regions, characterized by benthic productivity on biogenic and minerogenic substrates.
         url: https://global-ecosystems.org/explore/biomes/M1
         functional_groups:
           - code: M1.1
             name: Seagrass meadows
+            description: These shallow, subtidal systems are the only marine ecosystems with an abundance of flowering plants.
             url: https://global-ecosystems.org/explore/groups/M1.1
           - code: M1.2
             name: Kelp forests
+            description: Kelps (large, brown macroalgae up to 30m in length) form the basis of these highly productive systems found on shallow, subtidal rocky reefs around cold temperate and polar coastlines.
             url: https://global-ecosystems.org/explore/groups/M1.2
           - code: M1.3
             name: Photic coral reefs
+            description: These slow growing biogenic structures are formed by the calcium carbonate skeletons of certain coral species that depend on symbiotic relationships with algae.
             url: https://global-ecosystems.org/explore/groups/M1.3
           - code: M1.4
             name: Shellfish beds and reefs
+            description: These productive intertidal or subtidal biogenic ecosystems are formed and dominated by sessile molluscs like mussels or oysters, around temperate or tropical coasts and estuaries globally.
             url: https://global-ecosystems.org/explore/groups/M1.4
           - code: M1.5
             name: Photo-limited marine animal forests
+            description: These subtidal biogenic ecosystems, formed by either a single species or a community of sessile filter feeders such as sponges, ascidians or aphotic corals, are found mostly on hard substrates.
             url: https://global-ecosystems.org/explore/groups/M1.5
           - code: M1.6
             name: Subtidal rocky reefs
+            description: These rocky subtidal ecosystems are widespread globally on ocean shelves.
             url: https://global-ecosystems.org/explore/groups/M1.6
           - code: M1.7
             name: Subtidal sand beds
+            description: These relatively unstable shelf ecosystems in turbulent waters support moderately diverse communities made up largely of consumers, like invertebrate detritivores and filter-feeders, including burrowing polychaetes, crustaceans, echinoderms, and molluscs.
             url: https://global-ecosystems.org/explore/groups/M1.7
           - code: M1.8
             name: Subtidal mud plains
+            description: These low energy, muddy ocean shelf ecosystems are moderately productive and typically dominated by microalgal and bacterial primary producers, microbial decomposers, and larger deposit feeders like burrowing polychaete worms and molluscs.
             url: https://global-ecosystems.org/explore/groups/M1.8
           - code: M1.9
             name: Upwelling zones
+            description: These productive regions are often associated with eastern-boundary current systems on the transition between marine shelves and the open ocean, forming where divergence of surface water causes upwelling of cold, nutrient-rich water.
             url: https://global-ecosystems.org/explore/groups/M1.9
           - code: M1.10
             name: Rhodolith/Maërl beds
+            description: These slow growing biogenic structures are formed by long-lived coralline algae that absorb a wide spectrum of light, provide energy to the system and contribute to nutrient cycles.
             url: https://global-ecosystems.org/explore/groups/M1.10
       - code: M2
         name: Pelagic ocean waters
+        description: The largest biome on earth, comprising the open-ocean water column across all latitudes.
         url: https://global-ecosystems.org/explore/biomes/M2
         functional_groups:
           - code: M2.1
             name: Epipelagic ocean waters
+            description: This uppermost ocean layer (0-200m depth) is the most influenced by the atmosphere, and is defined and structured by light availability.
             url: https://global-ecosystems.org/explore/groups/M2.1
           - code: M2.2
             name: Mesopelagic ocean water
+            description: The mesopelagic zone is a very low light 'twilight zone' spanning roughly 200 to 1,000 meters deep, positioned between surface waters and the deep ocean.
             url: https://global-ecosystems.org/explore/groups/M2.2
           - code: M2.3
             name: Bathypelagic ocean waters
+            description: These deep (~1000-3000m depth), open-ocean ecosystems receive no sunlight and rely on detritus from upper layers for nutrients.
             url: https://global-ecosystems.org/explore/groups/M2.3
           - code: M2.4
             name: Abyssopelagic ocean waters
+            description: At greater depths (~3,000-6,000m) than bathypelagic systems, these very deep open ocean ecosystems receive no light and rely solely on debris from upper layers for nutrients.
             url: https://global-ecosystems.org/explore/groups/M2.4
           - code: M2.5
             name: Sea ice
+            description: These seasonally frozen surface waters in polar oceans are one of the most dynamic ecosystems on earth.
             url: https://global-ecosystems.org/explore/groups/M2.5
       - code: M3
         name: Deep sea floors
+        description: The ocean bottom below approximately 250 meters, where insufficient light prevents photosynthetic productivity.
         url: https://global-ecosystems.org/explore/biomes/M3
         functional_groups:
           - code: M3.1
             name: Continental and island slopes
+            description: These lightless slopes of sand, mud and rocky outcrops run down from the shallower shelf break to the very deep abyssal basins.
             url: https://global-ecosystems.org/explore/groups/M3.1
           - code: M3.2
             name: Submarine canyons
+            description: Submarine canyons house some of the most productive and diverse deep sea ecosystems.
             url: https://global-ecosystems.org/explore/groups/M3.2
           - code: M3.3
             name: Abyssal plains
+            description: These ecosystems on the very deep seafloors (3000-6000m) of all oceans support a low biomass but high diversity of small invertebrates and microbes, along with larger crustaceans, demersal fish and echinoderms like starfish.
             url: https://global-ecosystems.org/explore/groups/M3.3
           - code: M3.4
             name: Seamounts, ridges and plateaus
+            description: These deep, lightless ecosystems are centred on major geomorphic features of deep ocean floors.
             url: https://global-ecosystems.org/explore/groups/M3.4
           - code: M3.5
             name: Deepwater biogenic beds
+            description: Relatively complex three-dimensional structures are formed by slow-growing, filter-feeders like sponges, corals and bivalves.
             url: https://global-ecosystems.org/explore/groups/M3.5
           - code: M3.6
             name: Hadal trenches and troughs
+            description: The deepest ocean trenches, up to 11 km beneath the surface, are the least explored marine ecosystems.
             url: https://global-ecosystems.org/explore/groups/M3.6
           - code: M3.7
             name: Chemosynthetic-based-ecosystems (CBE)
+            description: In these very deep, high pressure ecosystems, primary productivity is fuelled by chemical compounds as energy sources instead of light (chemoautotrophy).
             url: https://global-ecosystems.org/explore/groups/M3.7
       - code: M4
         name: Anthropogenic marine
+        description: Artificial structures in oceans that either contain managed marine life or attract organisms to otherwise uninhabitable areas.
         url: https://global-ecosystems.org/explore/biomes/M4
         functional_groups:
           - code: M4.1
             name: Submerged artificial structures
+            description: Submerged structures, including rubble piles, ship wrecks, oil and gas infrastructure and artificial reefs provide vertically oriented hard substrates for marine organisms in coastal waters worldwide.
             url: https://global-ecosystems.org/explore/groups/M4.1
           - code: M4.2
             name: Marine aquafarms
+            description: High-productivity marine aquafarms are enclosed areas for the breeding, rearing, and harvesting of marine plants and animals, including finfish like salmon, molluscs, crustaceans, and algae.
             url: https://global-ecosystems.org/explore/groups/M4.2
   - code: F
     name: Freshwater
+    description: All permanent and temporary freshwater bodies as well as saline water bodies that are not directly connected to the oceans.
     transitional: false
     url: https://global-ecosystems.org/explore/realms/F
     biomes:
       - code: F1
         name: Rivers and streams
+        description: Lotic ecosystems flowing from elevated uplands or underground springs to deltas, estuaries, and lakes.
         url: https://global-ecosystems.org/explore/biomes/F1
         functional_groups:
           - code: F1.1
             name: Permanent upland streams
+            description: These small rivers or streams in mountainous or hilly areas are characterised by steep gradients and fast flow.
             url: https://global-ecosystems.org/explore/groups/F1.1
           - code: F1.2
             name: Permanent lowland rivers
+            description: Lowland rivers with slow continuous flows up to 10,000m³/s are common at low elevations throughout tropical and temperate parts of the world.
             url: https://global-ecosystems.org/explore/groups/F1.2
           - code: F1.3
             name: Freeze-thaw rivers and streams
+            description: In cold climates at high latitudes or altitudes, the surfaces of both small streams and large rivers freeze in winter.
             url: https://global-ecosystems.org/explore/groups/F1.3
           - code: F1.4
             name: Seasonal upland streams
+            description: Seasonal rainfall patterns in large parts of the tropics and temperate regions generate flows that are hugely variable in narrow and steep upland streams.
             url: https://global-ecosystems.org/explore/groups/F1.4
           - code: F1.5
             name: Seasonal lowland rivers
+            description: These medium to large rivers in tropical, subtropical and temperate lowlands have markedly seasonal flows due to seasonal water supply in the catchments.
             url: https://global-ecosystems.org/explore/groups/F1.5
           - code: F1.6
             name: Episodic arid rivers
+            description: These desert rivers occur mostly in flat areas of arid and semi-arid mid-latitudes.
             url: https://global-ecosystems.org/explore/groups/F1.6
           - code: F1.7
             name: Large lowland rivers
+            description: These very large rivers transport massive volumes of freshwater (>10,000m³/s) through flat lowlands, mostly in tropical or subtropical regions.
             url: https://global-ecosystems.org/explore/groups/F1.7
       - code: F2
         name: Lakes
+        description: Lentic ecosystems defined by their still waters, varying in area, depth, water regime, and connectivity.
         url: https://global-ecosystems.org/explore/biomes/F2
         functional_groups:
           - code: F2.1
             name: Large permanent freshwater lakes
+            description: Large volumes of permanent water in these lakes buffer water temperatures and effects of nutrient input on water quality.
             url: https://global-ecosystems.org/explore/groups/F2.1
           - code: F2.2
             name: Small permanent freshwater lakes
+            description: With a surface area of up to 100 km², the diversity of small permanent lakes, ponds and pools depends on their size, depth and connectivity.
             url: https://global-ecosystems.org/explore/groups/F2.2
           - code: F2.3
             name: Seasonal freshwater lakes
+            description: Small seasonal lakes, pools and rock holes have plants and animals specialised to seasonally changing wet and dry conditions in temperate and wet-dry tropical regions.
             url: https://global-ecosystems.org/explore/groups/F2.3
           - code: F2.4
             name: Freeze-thaw freshwater lakes
+            description: Many plants and animals survive surface freezing of freshwater lakes, in dormant life stages, by reducing activity beneath the ice, or by moving.
             url: https://global-ecosystems.org/explore/groups/F2.4
           - code: F2.5
             name: Ephemeral freshwater lakes
+            description: These are shallow lakes that are mostly dry, and then fill for weeks or months, before drying again.
             url: https://global-ecosystems.org/explore/groups/F2.5
           - code: F2.6
             name: Permanent salt and soda lakes
+            description: These lakes are usually large and shallow in semi-arid regions, with high concentrations of salts, mediated by inflows of water.
             url: https://global-ecosystems.org/explore/groups/F2.6
           - code: F2.7
             name: Ephemeral salt lakes
+            description: Ephemeral salt lakes in semi-arid and arid regions are shallow, with extreme variation in salinity during wet-dry cycles that limits life to a low diversity of specialised salt-tolerant species.
             url: https://global-ecosystems.org/explore/groups/F2.7
           - code: F2.8
             name: Artesian springs and oases
+            description: Surface waterbodies fed by groundwaters rising to the surface are scattered throughout dry landscapes across Africa, the Middle East, Eurasia, North America, and Australia, though they also exist in humid regions.
             url: https://global-ecosystems.org/explore/groups/F2.8
           - code: F2.9
             name: Geothermal pools and wetlands
+            description: Geothermal pools and associated wetlands are fed by deeply circulating groundwater that mixes with magma and hot rocks in volcanically active regions.
             url: https://global-ecosystems.org/explore/groups/F2.9
           - code: F2.10
             name: Subglacial lakes
+            description: These hidden lakes exist beneath permanent ice sheets, sometimes tens to thousands of metres below, mostly in Antarctica and Greenland.
             url: https://global-ecosystems.org/explore/groups/F2.10
       - code: F3
         name: Artificial wetlands
+        description: Built structures that hold or transfer water for human use, treatment, or disposal.
         url: https://global-ecosystems.org/explore/biomes/F3
         functional_groups:
           - code: F3.1
             name: Large reservoirs
+            description: Large dams or reservoirs occur in humid, populated areas of the world.
             url: https://global-ecosystems.org/explore/groups/F3.1
           - code: F3.2
             name: Constructed lacustrine wetlands
+            description: Small farm dams, wastewater ponds and mine pits generally form lake-like environments, common in humid and semi-arid climates world-wide.
             url: https://global-ecosystems.org/explore/groups/F3.2
           - code: F3.3
             name: Rice paddies
+            description: Rice paddies cover more than a million square kilometres mostly in tropical to warm temperate climates, especially Southeast Asia.
             url: https://global-ecosystems.org/explore/groups/F3.3
           - code: F3.4
             name: Freshwater aquafarms
+            description: Freshwater aquafarms are ponds constructed from earthworks or cages built within freshwater lakes, rivers and reservoirs.
             url: https://global-ecosystems.org/explore/groups/F3.4
           - code: F3.5
             name: Canals, ditches and drains
+            description: Canals, ditches and drains are associated with agriculture and cities throughout the world.
             url: https://global-ecosystems.org/explore/groups/F3.5
   - code: S
     name: Subterranean
+    description: The earth's crust and subsurface voids characterised by an absence or very low intensity of sunlight.
     transitional: false
     url: https://global-ecosystems.org/explore/realms/S
     biomes:
       - code: S1
-        name: Subterranean lithic systems
+        name: Subterranean lithic
+        description: Non-aquatic lithic systems beneath the earth's surface.
         url: https://global-ecosystems.org/explore/biomes/S1
         functional_groups:
           - code: S1.1
             name: Aerobic caves
+            description: These subterranean air-filled spaces function as basic, low-productivity ecosystems constrained by the lack of sunlight, with the exception of areas near surface openings.
             url: https://global-ecosystems.org/explore/groups/S1.1
       - code: S2
         name: Anthropogenic subterranean voids
+        description: Ecosystems created through human excavation, including underground mines, transport tunnels, tombs, and other infrastructure.
         url: https://global-ecosystems.org/explore/biomes/S2
         functional_groups:
           - code: S2.1
             name: Anthropogenic subterranean voids
+            description: Industrial excavations create artificial voids that resemble caves.
             url: https://global-ecosystems.org/explore/groups/S2.1
   - code: TF
     name: Terrestrial-Freshwater
+    description: Transitional zone where palustrine wetlands occur at the boundary separating terrestrial and freshwater environments.
     transitional: true
     url: https://global-ecosystems.org/explore/realms/TF
     biomes:
       - code: TF1
         name: Palustrine wetlands
+        description: At the interface of terrestrial and freshwater realms, includes vegetated floodplains, groundwater seeps, and mires with permanent or intermittent surface water.
         url: https://global-ecosystems.org/explore/biomes/TF1
         functional_groups:
           - code: TF1.1
             name: Tropical flooded forests and peat forests
+            description: These tropical swamps have closed forest canopies and experience high rainfall and consistent temperatures all year.
             url: https://global-ecosystems.org/explore/groups/TF1.1
           - code: TF1.2
             name: Subtropical/temperate forested wetlands
+            description: Forested wetlands in temperate and subtropical climates undergo periodic flooding.
             url: https://global-ecosystems.org/explore/groups/TF1.2
           - code: TF1.3
             name: Permanent marshes
+            description: Permanent marshes occur throughout tropical and temperate regions of the world in flat areas with stable water levels close to the surface.
             url: https://global-ecosystems.org/explore/groups/TF1.3
           - code: TF1.4
             name: Seasonal floodplain marshes
+            description: Seasonal flooding and drying regimes characterise high productivity floodplain marshes in the seasonal tropics and subhumid temperate regions.
             url: https://global-ecosystems.org/explore/groups/TF1.4
           - code: TF1.5
             name: Episodic arid floodplains
+            description: Episodic arid floodplains rarely flood and are predominantly dry, sometimes for years.
             url: https://global-ecosystems.org/explore/groups/TF1.5
           - code: TF1.6
             name: Boreal, temperate and montane peat bogs
+            description: Peat bogs in the boreal-subarctic and temperate areas of the world account for up to 40% of the world's soil carbon.
             url: https://global-ecosystems.org/explore/groups/TF1.6
           - code: TF1.7
             name: Boreal and temperate fens
+            description: Fens occur extensively in boreal-subarctic and cool temperate regions.
             url: https://global-ecosystems.org/explore/groups/TF1.7
   - code: FM
     name: Freshwater-Marine
+    description: Brackish aquatic ecosystems on marine coasts, bridging freshwater and marine environments.
     transitional: true
     url: https://global-ecosystems.org/explore/realms/FM
     biomes:
       - code: FM1
         name: Semi-confined transitional waters
+        description: Coastal inlets influenced by inputs of both fresh and marine water from terrestrial catchments and ocean tides, waves, and currents.
         url: https://global-ecosystems.org/explore/biomes/FM1
         functional_groups:
           - code: FM1.1
             name: Deepwater coastal inlets
+            description: Ecosystems in these deep, narrow inlets were mostly formed by glaciers and subsequently flooded (e.g. fjords).
             url: https://global-ecosystems.org/explore/groups/FM1.1
           - code: FM1.2
             name: Permanently open riverine estuaries and bays
+            description: These coastal ecosystems are shifting mosaics of different habitats, depending on the shape of the local coast, and proportional inflow of freshwater and seawater.
             url: https://global-ecosystems.org/explore/groups/FM1.2
           - code: FM1.3
             name: Intermittently closed and open lakes and lagoons
+            description: Opportunistic, short-lived organisms live in these ecosystems, where conditions change rapidly as lagoon entrances to the open ocean open or close.
             url: https://global-ecosystems.org/explore/groups/FM1.3
   - code: MFT
     name: Marine-Freshwater-Terrestrial
+    description: Transitional zone where marine and terrestrial environments meet, often shaped by freshwater input creating intertidal wetlands and river deltas.
     transitional: true
     url: https://global-ecosystems.org/explore/realms/MFT
     biomes:
       - code: MFT1
-        name: Brackish tidal systems
+        name: Brackish tidal
+        description: Occupies the interface of terrestrial, freshwater, and marine realms, with ecosystems ranging from fluvial deltas to intertidal forests and coastal saltmarshes.
         url: https://global-ecosystems.org/explore/biomes/MFT1
         functional_groups:
           - code: MFT1.1
             name: Coastal river deltas
+            description: At the convergence of terrestrial, freshwater and marine realms, coastal river deltas are shaped by river inflows that deposit sediment and ocean tides and currents that disperse it.
             url: https://global-ecosystems.org/explore/groups/MFT1.1
           - code: MFT1.2
             name: Intertidal forests and shrublands
+            description: Mangroves create structurally complex and productive ecosystems in the intertidal zone of depositional coasts, around tropical and warm temperate regions.
             url: https://global-ecosystems.org/explore/groups/MFT1.2
           - code: MFT1.3
             name: Coastal saltmarshes and reedbeds
+            description: Coastal salt marshes and reedbeds are mosaics of salt-tolerant grasses and low, typically succulent shrubs.
             url: https://global-ecosystems.org/explore/groups/MFT1.3
   - code: MT
     name: Marine-Terrestrial
+    description: Transitional zone with steep environmental gradients in desiccation, salinity and wave and tide disturbance.
     transitional: true
     url: https://global-ecosystems.org/explore/realms/MT
     biomes:
       - code: MT1
         name: Shorelines
+        description: Naturally formed, intertidal abiogenic habitats situated at the interface between land and sea.
         url: https://global-ecosystems.org/explore/biomes/MT1
         functional_groups:
           - code: MT1.1
             name: Rocky Shorelines
+            description: Waves, tides and a gradient of exposure drive the structure and function of these productive intertidal ecosystems found mostly on high energy coasts.
             url: https://global-ecosystems.org/explore/groups/MT1.1
           - code: MT1.2
             name: Muddy Shorelines
+            description: Mudflats occur on low-energy coastlines.
             url: https://global-ecosystems.org/explore/groups/MT1.2
           - code: MT1.3
             name: Sandy Shorelines
+            description: Beaches, sand bars and spits are exposed to waves and tides on moderate-high energy coasts, and rely on drift seaweed and surf-zone phytoplankton for nutrients.
             url: https://global-ecosystems.org/explore/groups/MT1.3
           - code: MT1.4
             name: Boulder and cobble shores
+            description: Cobbled and boulder shores are exposed to wave action and tides, and are periodically restructured by high-energy storm events.
             url: https://global-ecosystems.org/explore/groups/MT1.4
       - code: MT2
-        name: Supralittoral coastal systems
+        name: Supralittoral coastal
+        description: Where marine environments transition into terrestrial ones, elevated above the direct influence of waves and tides.
         url: https://global-ecosystems.org/explore/biomes/MT2
         functional_groups:
           - code: MT2.1
             name: Coastal shrublands and grasslands
+            description: A low diversity of specialised plants and animals live in grasslands, shrublands, and low forests on coastlines above the high tide mark where they are exposed to harsh conditions of salt influx, desiccating winds and sunshine.
             url: https://global-ecosystems.org/explore/groups/MT2.1
           - code: MT2.2
             name: Large seabird and pinniped colonies
+            description: Large concentrations of roosting or nesting seabirds and semiaquatic mammals such as seals and walrus are found on relatively isolated islands and shores.
             url: https://global-ecosystems.org/explore/groups/MT2.2
       - code: MT3
         name: Anthropogenic shorelines
+        description: Marine interfaces built from rigid, smooth substances that adjoin, extend, or replace natural shorelines.
         url: https://global-ecosystems.org/explore/biomes/MT3
         functional_groups:
           - code: MT3.1
             name: Artificial shorelines
+            description: Constructed sea walls, breakwaters, piers, docks, tidal canals, islands and other coastal infrastructure create habitat for marine plants and animals around ports, harbours, and other intensively settled coastal areas.
             url: https://global-ecosystems.org/explore/groups/MT3.1
   - code: SF
     name: Subterranean-Freshwater
+    description: Transitional realm bridging subterranean and freshwater ecosystems.
     transitional: true
     url: https://global-ecosystems.org/explore/realms/SF
     biomes:
       - code: SF1
         name: Subterranean freshwaters
+        description: Streams, small lakes and aquifers beneath the earth's surface, potentially the largest volume of freshwater of all freshwater biomes.
         url: https://global-ecosystems.org/explore/biomes/SF1
         functional_groups:
           - code: SF1.1
             name: Underground streams and pools
+            description: These dark aquatic systems buried below ground have varied levels of connectivity to surface waters, which influence their traits and processes profoundly.
             url: https://global-ecosystems.org/explore/groups/SF1.1
           - code: SF1.2
             name: Groundwater ecosystems
+            description: Low productivity ecosystems occur within water-saturated permeable rock strata or layers of buried unconsolidated sediments.
             url: https://global-ecosystems.org/explore/groups/SF1.2
       - code: SF2
         name: Anthropogenic subterranean freshwaters
+        description: Aquatic systems in underground canals, drains, sewers, water pipes, and flooded mines constructed by humans.
         url: https://global-ecosystems.org/explore/biomes/SF2
         functional_groups:
           - code: SF2.1
             name: Water pipes and subterranean canals
+            description: Waters flowing rapidly through artificial conduits are typically bereft of their own primary producers in the absence of light and rely on imported algae and detritus as sources of energy.
             url: https://global-ecosystems.org/explore/groups/SF2.1
           - code: SF2.2
             name: Flooded mines and other voids
+            description: Disused subterranean mines and other voids may fill with static or slowly moving water from seepage.
             url: https://global-ecosystems.org/explore/groups/SF2.2
   - code: SM
     name: Subterranean-Marine
+    description: Transitional realm bridging subterranean and marine ecosystems.
     transitional: true
     url: https://global-ecosystems.org/explore/realms/SM
     biomes:
       - code: SM1
-        name: Subterranean tidal systems
+        name: Subterranean tidal
+        description: Coastal pools and subterranean voids with a partially or entirely submerged connection to marine waters.
         url: https://global-ecosystems.org/explore/biomes/SM1
         functional_groups:
           - code: SM1.1
             name: Anchialine caves
+            description: Anchialine caves contain water bodies that have a subterranean connection to the sea and no or little direct connection to the atmosphere.
             url: https://global-ecosystems.org/explore/groups/SM1.1
           - code: SM1.2
             name: Anchialine pools
+            description: Anchialine pools are brackish surface water bodies that have a subterranean connection to the sea.
             url: https://global-ecosystems.org/explore/groups/SM1.2
           - code: SM1.3
             name: Sea caves
+            description: Sea caves are formed by wave action on fissures in a wide range of rocky coastlines around the world.
             url: https://global-ecosystems.org/explore/groups/SM1.3
