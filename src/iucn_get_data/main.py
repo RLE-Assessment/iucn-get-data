@@ -27,21 +27,22 @@ def _load_yaml(file_path=None):
 
 def get_realms(file_path=None):
     """
-    Get a list of realms from the YAML file.
+    Get realms from the YAML file as a dictionary.
 
     Args:
         file_path: Path to a custom typology YAML file. If None, uses the bundled data file.
 
     Returns:
-        list: List of realm dictionaries containing code, name, transitional flag, url, and biomes
+        dict: Dictionary with realm codes as keys and realm data as values
     """
     data = _load_yaml(file_path)
-    return data.get('realms', [])
+    realms_list = data.get('realms', [])
+    return {r.get('code'): r for r in realms_list}
 
 
 def get_biomes(realm=None, file_path=None):
     """
-    Get a list of biomes from the YAML file, optionally filtered by realm.
+    Get biomes from the YAML file as a dictionary, optionally filtered by realm.
 
     Args:
         realm: Optional realm code to filter biomes (e.g., 'T', 'M', 'F', 'S', 'TF', etc.)
@@ -49,7 +50,7 @@ def get_biomes(realm=None, file_path=None):
         file_path: Path to a custom typology YAML file. If None, uses the bundled data file.
 
     Returns:
-        list: List of biome dictionaries containing code, name, url, and functional_groups
+        dict: Dictionary with biome codes as keys and biome data as values
 
     Examples:
         >>> # Get all biomes
@@ -61,25 +62,31 @@ def get_biomes(realm=None, file_path=None):
     """
     realms = get_realms(file_path)
 
+    all_biomes = {}
+
     if realm is None:
         # Return all biomes from all realms
-        all_biomes = []
-        for r in realms:
-            all_biomes.extend(r.get('biomes', []))
+        for realm_code, r in realms.items():
+            for b in r.get('biomes', []):
+                biome_with_context = {**b, 'realm_code': realm_code}
+                all_biomes[b.get('code')] = biome_with_context
         return all_biomes
 
     # Filter by specific realm
-    for r in realms:
-        if r.get('code') == realm:
-            return r.get('biomes', [])
+    if realm in realms:
+        r = realms[realm]
+        for b in r.get('biomes', []):
+            biome_with_context = {**b, 'realm_code': realm}
+            all_biomes[b.get('code')] = biome_with_context
+        return all_biomes
 
     # Realm not found
-    raise ValueError(f"Realm '{realm}' not found. Valid realms: {', '.join([r.get('code') for r in realms])}")
+    raise ValueError(f"Realm '{realm}' not found. Valid realms: {', '.join(realms.keys())}")
 
 
 def get_groups(realm=None, biome=None, file_path=None):
     """
-    Get a list of functional groups from the YAML file, optionally filtered by realm and/or biome.
+    Get functional groups from the YAML file as a dictionary, optionally filtered by realm and/or biome.
 
     Args:
         realm: Optional realm code to filter functional groups (e.g., 'T', 'M', 'F', 'S', 'TF', etc.)
@@ -89,7 +96,7 @@ def get_groups(realm=None, biome=None, file_path=None):
         file_path: Path to a custom typology YAML file. If None, uses the bundled data file.
 
     Returns:
-        list: List of functional group dictionaries containing code, name, and url
+        dict: Dictionary with functional group codes as keys and group data as values
 
     Raises:
         ValueError: If realm or biome code is not found
@@ -118,21 +125,26 @@ def get_groups(realm=None, biome=None, file_path=None):
 
     # Filter realms if specified
     if realm is not None:
-        realms = [r for r in realms if r.get('code') == realm]
-        if not realms:
-            all_realm_codes = [r.get('code') for r in get_realms(file_path)]
-            raise ValueError(f"Realm '{realm}' not found. Valid realms: {', '.join(all_realm_codes)}")
+        if realm not in realms:
+            raise ValueError(f"Realm '{realm}' not found. Valid realms: {', '.join(realms.keys())}")
+        realms = {realm: realms[realm]}
 
     # Collect functional groups
-    all_groups = []
+    all_groups = {}
 
-    for r in realms:
+    for realm_code, r in realms.items():
         for b in r.get('biomes', []):
             # Filter by biome if specified
             if biome is not None and b.get('code') != biome:
                 continue
 
-            all_groups.extend(b.get('functional_groups', []))
+            for group in b.get('functional_groups', []):
+                group_with_context = {
+                    **group,
+                    'realm_code': realm_code,
+                    'biome_code': b.get('code'),
+                }
+                all_groups[group.get('code')] = group_with_context
 
     # If biome was specified but no groups found, raise error
     if biome is not None and not all_groups:
@@ -167,10 +179,10 @@ def main():
     # Example usage - get_realms
     realms = get_realms()
     print(f"\nLoaded {len(realms)} realms:")
-    for realm in realms:
+    for code, realm in realms.items():
         realm_type = "Transitional" if realm.get('transitional', False) else "Core"
         num_biomes = len(realm.get('biomes', []))
-        print(f"  - {realm['code']}: {realm['name']} ({realm_type}) - {num_biomes} biome(s)")
+        print(f"  - {code}: {realm['name']} ({realm_type}) - {num_biomes} biome(s)")
 
     # Example usage - get_biomes
     print("\nExample: Get all biomes")
@@ -180,14 +192,14 @@ def main():
     print("\nExample: Get Terrestrial biomes")
     terrestrial_biomes = get_biomes(realm='T')
     print(f"Terrestrial biomes: {len(terrestrial_biomes)}")
-    for biome in terrestrial_biomes:
-        print(f"  - {biome['code']}: {biome['name']}")
+    for code, biome in terrestrial_biomes.items():
+        print(f"  - {code}: {biome['name']}")
 
     print("\nExample: Get Marine-Terrestrial biomes")
     mt_biomes = get_biomes(realm='MT')
     print(f"Marine-Terrestrial biomes: {len(mt_biomes)}")
-    for biome in mt_biomes:
-        print(f"  - {biome['code']}: {biome['name']}")
+    for code, biome in mt_biomes.items():
+        print(f"  - {code}: {biome['name']}")
 
     # Example usage - get_groups
     print("\nExample: Get all functional groups")
@@ -201,8 +213,8 @@ def main():
     print("\nExample: Get functional groups from biome T1")
     t1_groups = get_groups(biome='T1')
     print(f"T1 functional groups: {len(t1_groups)}")
-    for group in t1_groups:
-        print(f"  - {group['code']}: {group['name']}")
+    for code, group in t1_groups.items():
+        print(f"  - {code}: {group['name']}")
 
     print("\nExample: Get functional groups from biome M1")
     m1_groups = get_groups(biome='M1')
