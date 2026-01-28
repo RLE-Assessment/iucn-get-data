@@ -1,0 +1,622 @@
+realms:
+  - code: T
+    name: Terrestre
+    description: La division terrestre incluye todos los terrenos secos, la capa de vegetacion que los recubre, la atmosfera cercana y sus sustratos (suelos, rocas) hasta la profundidad de arraigo de las plantas, animales y microbios asociados.
+    transitional: false
+    url: https://global-ecosystems.org/explore/realms/T
+    biomes:
+      - code: T1
+        name: Bioma de bosques tropicales y subtropicales
+        description: Ecosistemas con productividad moderada a alta y doseles cerrados ubicados en latitudes bajas cerca del ecuador, con alta radiacion solar, temperaturas calidas y variaciones estacionales relativamente estables.
+        url: https://global-ecosystems.org/explore/biomes/T1
+        functional_groups:
+          - code: T1.1
+            name: Bosques lluviosos tropicales y subtropicales de tierras bajas
+            description: Una enorme diversidad de especies ocupa nichos dentro de una estructura compleja de formas vegetales en capas verticales. La alta productividad es impulsada por plantas de rapido crecimiento, entre ellas arboles con contrafuertes, bambues, epifitas, lianas y helechos.
+            url: https://global-ecosystems.org/explore/groups/T1.1
+          - code: T1.2
+            name: Bosques y matorrales secos tropicales/subtropicales
+            description: Los bosques y matorrales secos tropicales-subtropicales se caracterizan por sustratos fertiles y condiciones estacionalmente secas (~1800 mm por ano, con un periodo de 3 a 6 meses recibiendo menos de 100 mm por mes) que promueven patrones marcadamente estacionales de productividad.
+            url: https://global-ecosystems.org/explore/groups/T1.2
+          - code: T1.3
+            name: Bosques lluviosos montanos tropicales/subtropicales
+            description: Estos bosques lluviosos montanos se caracterizan por un dosel arboreo de una sola capa, con helechos epifitos, briofitas, liquenes, orquideas y bromelias que cubren las ramas de los arboles.
+            url: https://global-ecosystems.org/explore/groups/T1.3
+          - code: T1.4
+            name: Bosques tropicales esclerofilos sobre arenas blancas
+            description: Estos bosques estructuralmente unicos estan restringidos a suelos menos fertiles sobre sustratos arenosos acidos mejor conocidos en la Amazonia y el sudeste asiatico.
+            url: https://global-ecosystems.org/explore/groups/T1.4
+      - code: T2
+        name: Bioma de bosques templados y boreales
+        description: Sistemas dominados por arboles que abarcan desde latitudes templadas calidas hasta boreales, con menor biodiversidad que los bosques tropicales pero mayor variabilidad temporal y espacial en productividad, biomasa, fenologia y caracteristicas foliares.
+        url: https://global-ecosystems.org/explore/biomes/T2
+        functional_groups:
+          - code: T2.1
+            name: Bosques boreales y de altas montanas templadas
+            description: En climas boreales y montanosos frios, con nevadas estacionales, los suelos acidos sustentan bosques estructuralmente simples compuestos por arboles de coniferas de hojas aciculares, a veces con arboles caducifolios de hojas anchas.
+            url: https://global-ecosystems.org/explore/groups/T2.1
+          - code: T2.2
+            name: Bosques templados caducifolios
+            description: En las latitudes templadas frias del hemisferio norte, los suelos fertiles y las altas precipitaciones sustentan bosques dominados por arboles caducifolios de hoja ancha, aunque las coniferas siempreverdes pueden representar hasta un tercio del dosel.
+            url: https://global-ecosystems.org/explore/groups/T2.2
+          - code: T2.3
+            name: Bosques lluviosos templados con influencia oceanica
+            description: Los bosques lluviosos templados con influencia oceanica tienen arboles de hojas pequenas, siempreverdes o semicaducifolios, con coniferas en algunas regiones.
+            url: https://global-ecosystems.org/explore/groups/T2.3
+          - code: T2.4
+            name: Bosques laurofilos templados calidos
+            description: Con una distribucion discontinua en zonas templadas calidas, los bosques laurofilos son extensos en algunas regiones, pero mas tipicamente ocupan refugios topograficos en una matriz de ecosistemas mas secos y mas propensos a incendios.
+            url: https://global-ecosystems.org/explore/groups/T2.4
+          - code: T2.5
+            name: Bosques templados pirofilos humedos
+            description: Los bosques con los arboles con flores mas altos de la Tierra tienen una estructura compleja, con un dosel abierto de arboles esclerofilos de 40 a 90 m de altura que permite que la luz se filtre a traves de multiples capas del sotobosque y una flora terrestre de helechos, pastos y musgos.
+            url: https://global-ecosystems.org/explore/groups/T2.5
+          - code: T2.6
+            name: Bosques templados pirofilos esclerofilos
+            description: En las regiones templadas propensas a incendios, los bosques templados pirofilos esclerofilos se caracterizan por un dosel abierto de arboles de hojas duras con una capa de arbustos debajo, a veces con pastos y hierbas.
+            url: https://global-ecosystems.org/explore/groups/T2.6
+      - code: T3
+        name: Bioma de arbustales y matorrales
+        description: Sistemas oligotroficos que se encuentran en suelos acidos y arenosos que a menudo son poco profundos, dispersos en los continentes fuera de las regiones polares, tipicamente cerca de los margenes continentales.
+        url: https://global-ecosystems.org/explore/biomes/T3
+        functional_groups:
+          - code: T3.1
+            name: Matorrales tropicales estacionalmente secos
+            description: Estos matorrales y bosques bajos propensos a incendios, que se encuentran en suelos deficientes en nutrientes de regiones tropicales, estan asociados con inviernos tropicales secos.
+            url: https://global-ecosystems.org/explore/groups/T3.1
+          - code: T3.2
+            name: Brezales y matorrales templados estacionalmente secos
+            description: Estos ecosistemas templados estan dominados por arbustos esclerofilos con hojas pequenas o ericoides. Puede haber o no una cubierta arborea baja y rala.
+            url: https://global-ecosystems.org/explore/groups/T3.2
+          - code: T3.3
+            name: Brezales templados frios
+            description: En ambientes maritimos, humedos y templados frios, una densa cubierta de arbustos bajos con hojas pequenas y duras se intercala con pastos y helechos.
+            url: https://global-ecosystems.org/explore/groups/T3.3
+          - code: T3.4
+            name: Pavimentos rocosos recientes, flujos de lava y pedregales
+            description: Con una distribucion dispersa a nivel mundial, estos ecosistemas rocosos jovenes estan expuestos a temperaturas extremas, meteorizacion y perturbaciones, y tienen una capacidad limitada para retener agua y nutrientes.
+            url: https://global-ecosystems.org/explore/groups/T3.4
+      - code: T4
+        name: Bioma de sabanas y pastizales
+        description: Las funciones ecologicas estan estrechamente vinculadas a una capa de suelo mayormente continua de pastos que sustentan una productividad primaria moderada a muy alta, con ciclos que siguen patrones estacionales de agua.
+        url: https://global-ecosystems.org/explore/biomes/T4
+        functional_groups:
+          - code: T4.1
+            name: Sabanas troficas
+            description: Una abundancia y diversidad sin paralelo de grandes herbivoros mantienen la estructura abierta de estos ecosistemas de arboles y pastos en los tropicos estacionales de Africa y el sur de Asia.
+            url: https://global-ecosystems.org/explore/groups/T4.1
+          - code: T4.2
+            name: Sabanas de pastos piricos
+            description: En las sabanas piricas, el fuego recurrente es el principal agente que limita el dominio de los arboles y mantiene la coexistencia entre arboles y pastos.
+            url: https://global-ecosystems.org/explore/groups/T4.2
+          - code: T4.3
+            name: Sabanas de monticulos
+            description: Las sabanas de monticulos, que solo se encuentran en el norte de Australia, se distinguen por una capa vegetal baja formada por pastos en forma de cupula de crecimiento lento intercalados con suelo desnudo y algunos arboles y arbustos.
+            url: https://global-ecosystems.org/explore/groups/T4.3
+          - code: T4.4
+            name: Bosques abiertos templados
+            description: Los bosques abiertos templados son estructuralmente simples, con arboles muy espaciados y una capa inferior de pastos con arbustos dispersos. Estan distribuidos globalmente en climas templados con sequias en estaciones calidas.
+            url: https://global-ecosystems.org/explore/groups/T4.4
+          - code: T4.5
+            name: Pastizales templados subhumedos
+            description: Los pastizales templados subhumedos tienen una estructura simple, compuestos de gramineas perennes de tipo tussok con hierbas dispersas, con pocos arboles y arbustos aislados.
+            url: https://global-ecosystems.org/explore/groups/T4.5
+      - code: T5
+        name: Bioma de desiertos y semidesiertos
+        description: Ecosistemas con biomasa baja a muy baja en climas aridos o semiaridos, vinculados principalmente a zonas de alta presion subtropical y grandes areas continentales a sotavento.
+        url: https://global-ecosystems.org/explore/biomes/T5
+        functional_groups:
+          - code: T5.1
+            name: Estepa semidesértica
+            description: Las estepas semidesérticas de todos los continentes estan dominadas por arbustos perennes, a menudo con follaje semicarnoso o aterciopelado, y pastos perennes de tipo tussok intercalados con suelo desnudo.
+            url: https://global-ecosystems.org/explore/groups/T5.1
+          - code: T5.2
+            name: Desiertos y semidesiertos suculentos o espinosos
+            description: Los desiertos y semidesiertos suculentos o espinosos tienen una distribucion restringida a partes de America, Africa, Madagascar y el sur de Asia.
+            url: https://global-ecosystems.org/explore/groups/T5.2
+          - code: T5.3
+            name: Desiertos y semidesiertos calidos esclerofilos
+            description: Los desiertos y semidesiertos esclerofilos se encuentran en el centro y oeste de Australia sobre suelos arenosos. Las condiciones secas y con muy pocos nutrientes favorecen el predominio de arbustos de hojas duras de larga vida y pastos con forma de monticulos.
+            url: https://global-ecosystems.org/explore/groups/T5.3
+          - code: T5.4
+            name: Desiertos y semidesiertos frios
+            description: Los desiertos y semidesiertos frios se encuentran en llanuras y mesetas templadas frias en Eurasia central y partes templadas de las Americas desde el nivel del mar hasta los 4000 m.
+            url: https://global-ecosystems.org/explore/groups/T5.4
+          - code: T5.5
+            name: Desiertos hiperaridos
+            description: Los desiertos hiperaridos, los mas extremos de todos los ecosistemas deserticos, estan limitados por condiciones muy secas y a menudo ventosas con altas temperaturas y suelos arenosos o pedregosos.
+            url: https://global-ecosystems.org/explore/groups/T5.5
+      - code: T6
+        name: Bioma polar/alpino (criogenico)
+        description: Abarca las extensas regiones del Artico y la Antartida, asi como las areas de alta montana en todos los continentes. La productividad primaria es baja o muy baja, estrictamente estacional.
+        url: https://global-ecosystems.org/explore/biomes/T6
+        functional_groups:
+          - code: T6.1
+            name: Capas de hielo, glaciares y campos de nieve perennes
+            description: Estos ecosistemas, ubicados en regiones polares y altas montanas, representan alrededor del 10% de la superficie de la Tierra y presentan una productividad y biodiversidad extremadamente bajas.
+            url: https://global-ecosystems.org/explore/groups/T6.1
+          - code: T6.2
+            name: Acantilados, pedregales, afloramientos y flujos de lava polares/alpinos
+            description: Los afloramientos rocosos polares-alpinos se producen en areas permanentemente libres de hielo de regiones polares y altas montanas.
+            url: https://global-ecosystems.org/explore/groups/T6.2
+          - code: T6.3
+            name: Tundra y desiertos polares
+            description: La tundra polar y los desiertos tienen una cubierta continua a escasa de musgos, hepaticas, liquenes, pastos, arbustos bajos y otras plantas con flores tolerantes al frio.
+            url: https://global-ecosystems.org/explore/groups/T6.3
+          - code: T6.4
+            name: Pastizales y matorrales alpinos templados
+            description: Los pastizales y matorrales alpinos templados se encuentran por encima de la linea de arboles, en montanas templadas y boreales de todo el mundo.
+            url: https://global-ecosystems.org/explore/groups/T6.4
+          - code: T6.5
+            name: Pastizales y herbazales de altas montanas tropicales
+            description: Los pastizales y herbazales de altas montanas tropicales se limitan a unas pocas areas montanosas de gran altura en Africa, el sudeste asiatico, Centro America y una gran porcion de los Andes.
+            url: https://global-ecosystems.org/explore/groups/T6.5
+      - code: T7
+        name: Bioma de uso intensivo de la tierra
+        description: Principales actividades antropogenicas de cultivo, pastoreo, agricultura de plantacion y urbanizacion donde la intervencion humana es una influencia dominante.
+        url: https://global-ecosystems.org/explore/biomes/T7
+        functional_groups:
+          - code: T7.1
+            name: Cultivos anuales
+            description: Los cultivos son ecosistemas agricolas gestionados intensivamente que se mantienen mediante la suplementacion de nutrientes y agua, la siembra y la cosecha, el cultivo del suelo y el control de plantas y animales no deseados.
+            url: https://global-ecosystems.org/explore/groups/T7.1
+          - code: T7.2
+            name: Pastos y praderas sembradas
+            description: En estos sistemas agricolas de manejo intensivo, se siembran y cultivan pastos y leguminosas, con aportes regulares de nutrientes y (a veces) agua, principalmente para la produccion predominantemente comercial de ganado o alimentos (heno) para el ganado.
+            url: https://global-ecosystems.org/explore/groups/T7.2
+          - code: T7.3
+            name: Plantaciones
+            description: Las plantaciones son generalmente cultivos lenosos perennes de rotacion larga establecidos y mantenidos para una variedad de alimentos y materiales.
+            url: https://global-ecosystems.org/explore/groups/T7.3
+          - code: T7.4
+            name: Ecosistemas urbanos e industriales
+            description: Las ciudades, los asentamientos mas pequenos y las areas industriales son ecosistemas estructuralmente complejos y se caracterizan por su estructura espacial altamente dinamica.
+            url: https://global-ecosystems.org/explore/groups/T7.4
+          - code: T7.5
+            name: Campos seminaturales, modificados y abandonados
+            description: Estos ecosistemas gestionados se derivan de otros ecosistemas mediante la eliminacion o modificacion de componentes de plantas lenosas. Se utilizan principalmente para el pastoreo de ganado.
+            url: https://global-ecosystems.org/explore/groups/T7.5
+  - code: M
+    name: Marina
+    description: La division marina incluye todas las aguas salinas con conexiones oceanicas salinas y caracterizadas por olas, mareas y corrientes.
+    transitional: false
+    url: https://global-ecosystems.org/explore/realms/M
+    biomes:
+      - code: M1
+        name: Bioma de plataforma marina
+        description: Se extiende globalmente desde la costa hasta las regiones del fondo marino profundo, caracterizado por productividad bentica en sustratos biogenicos y minerogenicos.
+        url: https://global-ecosystems.org/explore/biomes/M1
+        functional_groups:
+          - code: M1.1
+            name: Praderas marinas
+            description: Estos sistemas submareales poco profundos son los unicos ecosistemas marinos con una abundancia de plantas con flores. Por lo general, se encuentran principalmente en sustratos blandos, arenosos o fangosos alrededor de costas relativamente protegidas.
+            url: https://global-ecosystems.org/explore/groups/M1.1
+          - code: M1.2
+            name: Bosques de algas marinas
+            description: Las algas marinas (macroalgas grandes y marrones de hasta 30 m de longitud) forman la base de estos sistemas altamente productivos que se encuentran en arrecifes rocosos submareales poco profundos alrededor de costas templadas frias y polares.
+            url: https://global-ecosystems.org/explore/groups/M1.2
+          - code: M1.3
+            name: Arrecifes de coral foticos
+            description: Estas estructuras biogenicas de crecimiento lento estan formadas por los esqueletos de carbonato de calcio de ciertas especies de coral que dependen de relaciones simbioticas con algas.
+            url: https://global-ecosystems.org/explore/groups/M1.3
+          - code: M1.4
+            name: Lechos y arrecifes de mariscos
+            description: Estos productivos ecosistemas biogenicos intermareales o submareales estan formados y dominados por moluscos sesiles como mejillones u ostras, alrededor de costas templadas o tropicales y estuarios a nivel mundial.
+            url: https://global-ecosystems.org/explore/groups/M1.4
+          - code: M1.5
+            name: Arrecifes de animales marinos en el umbral fotico
+            description: Estos ecosistemas biogenicos submareales, formados por una sola especie o una comunidad de filtradores sesiles como esponjas, ascidias o corales afoticos, se encuentran principalmente en sustratos duros.
+            url: https://global-ecosystems.org/explore/groups/M1.5
+          - code: M1.6
+            name: Arrecifes rocosos submareales
+            description: Estos ecosistemas submareales rocosos estan ampliamente distribuidos globalmente en las plataformas oceanicas. Se distinguen de los bosques de algas marinas por su falta de un dosel denso de macroalgas.
+            url: https://global-ecosystems.org/explore/groups/M1.6
+          - code: M1.7
+            name: Lechos de arena submareales
+            description: Estos ecosistemas de plataforma relativamente inestables en aguas turbulentas sustentan comunidades moderadamente diversas compuestas en gran parte por consumidores, como detritivoros invertebrados y filtradores, incluidos poliquetos excavadores, crustaceos, equinodermos y moluscos.
+            url: https://global-ecosystems.org/explore/groups/M1.7
+          - code: M1.8
+            name: Llanuras de lodo submareales
+            description: Estos ecosistemas fangosos y de baja energia de la plataforma oceanica son moderadamente productivos y tipicamente dominados por productores primarios de microalgas y bacterias, descomponedores microbianos y detritivoros mas grandes como gusanos poliquetos excavadores y moluscos.
+            url: https://global-ecosystems.org/explore/groups/M1.8
+          - code: M1.9
+            name: Zonas de surgencia
+            description: Estas regiones productivas a menudo se asocian con sistemas de corrientes del limite oriental en la transicion entre las plataformas marinas y el oceano abierto, que se forman donde la divergencia del agua superficial causa la surgencia o afloramiento de agua fria y rica en nutrientes.
+            url: https://global-ecosystems.org/explore/groups/M1.9
+          - code: M1.10
+            name: Lechos de rodolitos/maerl
+            description: Estas estructuras biogenicas de crecimiento lento estan formadas por algas coralinas de larga vida que absorben un amplio espectro de luz, proporcionan energia al sistema y contribuyen a los ciclos de nutrientes.
+            url: https://global-ecosystems.org/explore/groups/M1.10
+      - code: M2
+        name: Bioma de aguas oceanicas pelagicas
+        description: El bioma mas grande de la Tierra, que abarca la columna de agua del oceano abierto en todas las latitudes.
+        url: https://global-ecosystems.org/explore/biomes/M2
+        functional_groups:
+          - code: M2.1
+            name: Aguas oceanicas epipelagicas
+            description: Esta capa superior del oceano (de 0 a 200 m de profundidad) es la mas influenciada por la atmosfera y esta definida y estructurada por la disponibilidad de luz.
+            url: https://global-ecosystems.org/explore/groups/M2.1
+          - code: M2.2
+            name: Aguas oceanicas mesopelagicas
+            description: Esta zona crepuscular con muy poca luz (~200-1000 m de profundidad) divide las aguas epipelagicas superficiales del oceano profundo. La luz del sol es demasiado tenue para la fotosintesis.
+            url: https://global-ecosystems.org/explore/groups/M2.2
+          - code: M2.3
+            name: Aguas oceanicas batipelagicas
+            description: Estos ecosistemas de aguas oceanicas profundas (~1000-3000 m de profundidad) no reciben luz solar y dependen de los detritos de las capas superiores para obtener nutrientes.
+            url: https://global-ecosystems.org/explore/groups/M2.3
+          - code: M2.4
+            name: Aguas oceanicas abisopelagicas
+            description: Estos ecosistemas de oceano abierto muy profundos (~3000-6000 m de profundidad) no reciben luz y dependen totalmente de la materia organica de las capas superiores para obtener nutrientes.
+            url: https://global-ecosystems.org/explore/groups/M2.4
+          - code: M2.5
+            name: Hielo marino
+            description: Estas aguas superficiales congeladas estacionalmente en los oceanos polares son uno de los ecosistemas mas dinamicos de la Tierra.
+            url: https://global-ecosystems.org/explore/groups/M2.5
+      - code: M3
+        name: Bioma de los fondos marinos profundos
+        description: El fondo del oceano por debajo de aproximadamente 250 metros, donde la luz insuficiente impide la productividad fotosintetica.
+        url: https://global-ecosystems.org/explore/biomes/M3
+        functional_groups:
+          - code: M3.1
+            name: Taludes continentales e insulares
+            description: Estas laderas de arena, barro y salientes rocosos sin luz descienden desde la ruptura de la plataforma mas superficial hasta las cuencas abisales muy profundas.
+            url: https://global-ecosystems.org/explore/groups/M3.1
+          - code: M3.2
+            name: Canones submarinos
+            description: Los canones submarinos albergan algunos de los ecosistemas de aguas profundas mas productivos y diversos. Pueden alterar las corrientes locales y canalizar nutrientes desde las plataformas continentales hacia las cuencas oceanicas.
+            url: https://global-ecosystems.org/explore/groups/M3.2
+          - code: M3.3
+            name: Llanuras abisales
+            description: Estos ecosistemas en los fondos marinos muy profundos (3000-6000m) de todos los oceanos sustentan una baja biomasa pero una alta diversidad de pequenos invertebrados y microbios, junto con crustaceos mas grandes, peces demersales y equinodermos como las estrellas de mar.
+            url: https://global-ecosystems.org/explore/groups/M3.3
+          - code: M3.4
+            name: Montes, crestas y mesetas submarinas
+            description: Estos ecosistemas profundos y sin luz se centran en los principales accidentes geomorfologicos de los fondos oceanicos profundos. Estas estructuras elevadas interrumpen las corrientes oceanicas laterales y generan surgencia de nutrientes.
+            url: https://global-ecosystems.org/explore/groups/M3.4
+          - code: M3.5
+            name: Lechos biogenicos de aguas profundas
+            description: Las estructuras tridimensionales relativamente complejas estan formadas por organismos filtradores de crecimiento lento, como esponjas, corales y bivalvos.
+            url: https://global-ecosystems.org/explore/groups/M3.5
+          - code: M3.6
+            name: Fosas y depresiones hadales
+            description: Las fosas oceanicas mas profundas, de hasta 11 km bajo la superficie, son los ecosistemas marinos menos explorados de la Tierra.
+            url: https://global-ecosystems.org/explore/groups/M3.6
+          - code: M3.7
+            name: Ecosistemas basados en quimiosintesis (CBE)
+            description: En estos ecosistemas muy profundos y de alta presion, la productividad primaria es sustentada por compuestos quimicos como fuentes de energia en lugar de luz (quimioautotrofia).
+            url: https://global-ecosystems.org/explore/groups/M3.7
+      - code: M4
+        name: Bioma marino antropogenico
+        description: Estructuras artificiales en los oceanos que contienen vida marina gestionada o atraen organismos a areas que de otro modo serian inhabitables.
+        url: https://global-ecosystems.org/explore/biomes/M4
+        functional_groups:
+          - code: M4.1
+            name: Estructuras artificiales sumergidas
+            description: Las estructuras sumergidas, que incluyen pilas de escombros, naufragios, infraestructura de petroleo y gas y arrecifes artificiales, proporcionan sustratos duros orientados verticalmente para los organismos marinos en las aguas costeras de todo el mundo.
+            url: https://global-ecosystems.org/explore/groups/M4.1
+          - code: M4.2
+            name: Acuicultura marina
+            description: Las acuiculturas marinas o mariculturas de alta productividad son areas cerradas para la cria, crianza y recoleccion de plantas y animales marinos, incluidos peces como el salmon, moluscos, crustaceos y algas.
+            url: https://global-ecosystems.org/explore/groups/M4.2
+  - code: F
+    name: Agua dulce
+    description: La division de agua dulce incluye todas las masas de agua dulce permanentes y temporales, asi como las masas de agua salina que no estan directamente conectadas con los oceanos.
+    transitional: false
+    url: https://global-ecosystems.org/explore/realms/F
+    biomes:
+      - code: F1
+        name: Bioma de rios y arroyos
+        description: Ecosistemas loticos que fluyen desde tierras altas elevadas o manantiales subterraneos hacia deltas, estuarios y lagos.
+        url: https://global-ecosystems.org/explore/biomes/F1
+        functional_groups:
+          - code: F1.1
+            name: Rios permanentes de tierras altas
+            description: Estos pequenos rios o arroyos en areas montanosas o accidentadas se caracterizan por pendientes pronunciadas y flujo rapido.
+            url: https://global-ecosystems.org/explore/groups/F1.1
+          - code: F1.2
+            name: Rios permanentes de tierras bajas
+            description: Los rios de tierras bajas con flujos lentos y continuos de hasta 10 000 m3/s son comunes en elevaciones bajas en las partes tropicales y templadas del mundo.
+            url: https://global-ecosystems.org/explore/groups/F1.2
+          - code: F1.3
+            name: Rios y arroyos estacionalmente congelados
+            description: En climas frios en latitudes o altitudes altas, las superficies de arroyos pequenos y grandes rios se congelan en invierno.
+            url: https://global-ecosystems.org/explore/groups/F1.3
+          - code: F1.4
+            name: Rios y arroyos estacionales de tierras altas
+            description: Los patrones de lluvia estacional en grandes partes de los tropicos y regiones templadas generan flujos que son enormemente variables en arroyos de tierras altas estrechos y empinados.
+            url: https://global-ecosystems.org/explore/groups/F1.4
+          - code: F1.5
+            name: Rios estacionales de tierras bajas
+            description: Estos rios medianos a grandes en tierras bajas tropicales, subtropicales y templadas tienen flujos marcadamente estacionales debido al suministro estacional de agua en las cuencas.
+            url: https://global-ecosystems.org/explore/groups/F1.5
+          - code: F1.6
+            name: Arroyos aridos episodicos
+            description: Estos rios deserticos se encuentran principalmente en areas planas de latitudes medias aridas y semiaridas. Los canales suelen ser anchos, planos y a menudo ramificados, con sedimentos arenosos suaves.
+            url: https://global-ecosystems.org/explore/groups/F1.6
+          - code: F1.7
+            name: Grandes rios de tierras bajas
+            description: Estos rios muy grandes transportan volumenes masivos de agua dulce (>10,000m3/s) a traves de tierras bajas planas, principalmente en regiones tropicales o subtropicales.
+            url: https://global-ecosystems.org/explore/groups/F1.7
+      - code: F2
+        name: Bioma de lagos
+        description: Ecosistemas lenticos definidos por sus aguas quietas, que varian en area, profundidad, regimen hidrico y conectividad.
+        url: https://global-ecosystems.org/explore/biomes/F2
+        functional_groups:
+          - code: F2.1
+            name: Grandes lagos de agua dulce permanentes
+            description: Los grandes volumenes de agua permanente en estos lagos amortiguan las temperaturas del agua y los efectos del aporte de nutrientes en la calidad del agua.
+            url: https://global-ecosystems.org/explore/groups/F2.1
+          - code: F2.2
+            name: Pequenos lagos de agua dulce permanentes
+            description: Con una superficie de hasta 100 km2, la diversidad de pequenos lagos, estanques y pozas permanentes depende de su tamano, profundidad y conectividad.
+            url: https://global-ecosystems.org/explore/groups/F2.2
+          - code: F2.3
+            name: Lagos de agua dulce estacionales
+            description: Los pequenos lagos estacionales, charcas y depresiones rocosas anegadas tienen plantas y animales especializados a sobrevivir en condiciones humedas y secas que cambian estacionalmente en regiones tropicales templadas y humedas-secas.
+            url: https://global-ecosystems.org/explore/groups/F2.3
+          - code: F2.4
+            name: Lagos de agua dulce estacionalmente congelados
+            description: Muchas plantas y animales sobreviven a la congelacion de la superficie de los lagos de agua dulce, en estadios latentes, reduciendo la actividad debajo del hielo o moviendose a otros habitats.
+            url: https://global-ecosystems.org/explore/groups/F2.4
+          - code: F2.5
+            name: Lagos efimeros de agua dulce
+            description: Se trata de lagos poco profundos que en su mayoria estan secos y luego se llenan durante semanas o meses, antes de secarse nuevamente.
+            url: https://global-ecosystems.org/explore/groups/F2.5
+          - code: F2.6
+            name: Lagos salinos o alcalinos permanentes
+            description: Estos lagos suelen ser grandes y poco profundos en regiones semiaridas, con altas concentraciones de sales, mediadas por entradas de agua.
+            url: https://global-ecosystems.org/explore/groups/F2.6
+          - code: F2.7
+            name: Lagos salinos efimeros
+            description: Los lagos salados efimeros en regiones aridas y semiaridas son poco profundos, con una variacion extrema en la salinidad durante los ciclos de humedad y sequia que limita la vida a una baja diversidad de especies especializadas tolerantes a la sal.
+            url: https://global-ecosystems.org/explore/groups/F2.7
+          - code: F2.8
+            name: Manantiales artesianos y oasis
+            description: Los cuerpos de agua superficiales alimentados por aguas subterraneas que suben a la superficie estan dispersos en paisajes secos de Africa, Medio Oriente, Eurasia, America del Norte y Australia.
+            url: https://global-ecosystems.org/explore/groups/F2.8
+          - code: F2.9
+            name: Aguas y humedales geotermales
+            description: Las aguas geotermales y sus humedales asociados se alimentan de aguas subterraneas que circulan profundamente y se mezclan con magma y rocas calientes en regiones volcanicamente activas.
+            url: https://global-ecosystems.org/explore/groups/F2.9
+          - code: F2.10
+            name: Lagos subglaciares
+            description: Estos lagos ocultos existen debajo de capas de hielo permanentes principalmente en la Antartida y Groenlandia, a veces ubicados a decenas de miles de metros por debajo de la superficie.
+            url: https://global-ecosystems.org/explore/groups/F2.10
+      - code: F3
+        name: Bioma de humedales artificiales
+        description: Estructuras construidas que retienen o transfieren agua para uso humano, tratamiento o eliminacion.
+        url: https://global-ecosystems.org/explore/biomes/F3
+        functional_groups:
+          - code: F3.1
+            name: Grandes embalses
+            description: Los grandes embalses y represas se encuentran en areas humedas y pobladas del mundo. Su productividad biologica y diversidad son tipicamente limitadas debido a la profundidad y las fluctuaciones significativas del nivel del agua.
+            url: https://global-ecosystems.org/explore/groups/F3.1
+          - code: F3.2
+            name: Humedales lacustres artificiales
+            description: Las pequenas represas agricolas, los estanques de aguas residuales y los pozos mineros generalmente forman entornos similares a lagos, son comunes en climas humedos y semiaridos en todo el mundo.
+            url: https://global-ecosystems.org/explore/groups/F3.2
+          - code: F3.3
+            name: Arrozales
+            description: Los arrozales cubren mas de un millon de kilometros cuadrados, principalmente en climas tropicales a templados calidos, especialmente el sudeste asiatico.
+            url: https://global-ecosystems.org/explore/groups/F3.3
+          - code: F3.4
+            name: Acuicultura de agua dulce
+            description: Las acuiculturas de agua dulce son estanques construidos a partir de movimientos de tierra o jaulas ensambladas o colocadas dentro de lagos, rios y embalses de agua dulce.
+            url: https://global-ecosystems.org/explore/groups/F3.4
+          - code: F3.5
+            name: Canales, zanjas y desagues
+            description: Los canales, zanjas y desagues estan asociados con la agricultura y las ciudades en todo el mundo. Llevan agua dulce hacia y desde areas urbanas y rurales, particularmente en regiones templadas y subtropicales.
+            url: https://global-ecosystems.org/explore/groups/F3.5
+  - code: S
+    name: Subterranea
+    description: La division subterranea incluye la corteza terrestre y vacios subsuperficiales caracterizados por una ausencia o muy baja intensidad de luz solar.
+    transitional: false
+    url: https://global-ecosystems.org/explore/realms/S
+    biomes:
+      - code: S1
+        name: Bioma litico subterraneo
+        description: Sistemas liticos no acuaticos debajo de la superficie terrestre, sin luz solar y con humedad suministrada principalmente a traves de la filtracion del sustrato.
+        url: https://global-ecosystems.org/explore/biomes/S1
+        functional_groups:
+          - code: S1.1
+            name: Cuevas aerobicas
+            description: Estos espacios llenos de aire debajo del suelo son ecosistemas simples de baja productividad limitados por la ausencia de energia solar, excepto alrededor de sus aberturas a la superficie.
+            url: https://global-ecosystems.org/explore/groups/S1.1
+      - code: S2
+        name: Bioma de espacios subterraneos antropogenicos
+        description: Ecosistemas creados mediante excavacion humana, incluidas minas subterraneas, tuneles de transporte, tumbas y otras infraestructuras.
+        url: https://global-ecosystems.org/explore/biomes/S2
+        functional_groups:
+          - code: S2.1
+            name: Espacios subterraneos antropogenicos
+            description: Las excavaciones industriales crean huecos artificiales que se asemejan a cuevas. Al igual que las cuevas, carecen de aportes de energia solar y no hay plantas ni herbivoros, excepto en sus aberturas o alrededor de la iluminacion artificial.
+            url: https://global-ecosystems.org/explore/groups/S2.1
+  - code: TF
+    name: Terrestre-Agua dulce
+    description: Las divisiones de transicion cubren la variacion continua entre las divisiones centrales. La interfaz entre las divisiones terrestre y dulce acuicola esta ocupada por humedales palustres, algunos de los cuales acumulan turba bajo un sustrato anegado.
+    transitional: true
+    url: https://global-ecosystems.org/explore/realms/TF
+    biomes:
+      - code: TF1
+        name: Bioma de humedales palustres
+        description: En la interfaz de los reinos terrestres y de agua dulce, el bioma de humedales palustres incluye llanuras de inundacion con vegetacion, manantiales y emanaciones de agua subterranea y turberas con agua superficial permanente o intermitente.
+        url: https://global-ecosystems.org/explore/biomes/TF1
+        functional_groups:
+          - code: TF1.1
+            name: Bosques tropicales inundados y bosques de turba
+            description: Estos pantanos tropicales tienen cubiertas forestales cerradas y experimentan altas precipitaciones y temperaturas constantes durante todo el ano. En algunos, la turba se acumula en condiciones anaerobicas de aguas negras, mientras que otros son sistemas de aguas blancas altamente productivos.
+            url: https://global-ecosystems.org/explore/groups/TF1.1
+          - code: TF1.2
+            name: Humedales forestales subtropicales/templados
+            description: Los humedales forestales en climas templados y subtropicales sufren inundaciones periodicas. Una o dos especies de arboles dominan el dosel.
+            url: https://global-ecosystems.org/explore/groups/TF1.2
+          - code: TF1.3
+            name: Pantanos permanentes
+            description: Los pantanos permanentes se encuentran en todas las regiones tropicales y templadas del mundo en areas planas con niveles de agua estables cerca de la superficie.
+            url: https://global-ecosystems.org/explore/groups/TF1.3
+          - code: TF1.4
+            name: Cienagas estacionales de llanuras de inundacion
+            description: Los regimenes de inundacion y sequia estacionales caracterizan a las cienagas de llanuras inundables de alta productividad en las regiones tropicales estacionales y templadas subhumedas.
+            url: https://global-ecosystems.org/explore/groups/TF1.4
+          - code: TF1.5
+            name: Llanuras de inundacion aridas episodicas
+            description: Las llanuras de inundacion aridas episodicas rara vez se inundan y son predominantemente secas, a veces durante anos, abastecidas por rios temporales en regiones semiaridas y aridas de todos los continentes.
+            url: https://global-ecosystems.org/explore/groups/TF1.5
+          - code: TF1.6
+            name: Turberas boreales, templadas y montanosas
+            description: Las turberas de las zonas boreales-subarticas y templadas del mundo representan hasta el 40% del carbono del suelo del mundo. Son esponjas paisajisticas, con una vida vegetal altamente especializada que incluye arbustos, juncos y musgos.
+            url: https://global-ecosystems.org/explore/groups/TF1.6
+          - code: TF1.7
+            name: Cienagas boreales y templadas
+            description: Estos humedales estan ampliamente distribuidos en las regiones boreales-subarticas y templadas frias, con suelos organicos anegados ricos en minerales y nutrientes y tipicamente pH neutro a alcalino.
+            url: https://global-ecosystems.org/explore/groups/TF1.7
+  - code: FM
+    name: Agua dulce-Marina
+    description: Las divisiones de transicion cubren la variacion continua entre las divisiones centrales. La transicion entre las divisiones dulce acuicola y marina esta ocupada por ecosistemas acuaticos salobres en costas marinas.
+    transitional: true
+    url: https://global-ecosystems.org/explore/realms/FM
+    biomes:
+      - code: FM1
+        name: Bioma de aguas de transicion semiconfinadas
+        description: El bioma de aguas de transicion incluye ensenadas costeras que estan influenciadas por los aportes de agua dulce y marina de las cuencas terrestres y las mareas, olas y corrientes oceanicas.
+        url: https://global-ecosystems.org/explore/biomes/FM1
+        functional_groups:
+          - code: FM1.1
+            name: Ensenadas costeras de aguas profundas
+            description: Los ecosistemas en estas ensenadas profundas y estrechas se formaron principalmente por glaciares y posteriormente se inundaron (por ejemplo, fiordos).
+            url: https://global-ecosystems.org/explore/groups/FM1.1
+          - code: FM1.2
+            name: Estuarios fluviales y bahias permanentemente conectados
+            description: Estos ecosistemas costeros son mosaicos dinamicos de diferentes habitats, dependiendo de la forma de la costa local y la proporcion de afluencia de agua dulce y agua de mar.
+            url: https://global-ecosystems.org/explore/groups/FM1.2
+          - code: FM1.3
+            name: Lagos, albuferas y lagunas costeras con conexion intermitente
+            description: Los organismos oportunistas de vida corta viven en estos ecosistemas, donde las condiciones cambian rapidamente a medida que las entradas de la laguna al oceano abierto se abren o cierran.
+            url: https://global-ecosystems.org/explore/groups/FM1.3
+  - code: MFT
+    name: Marina-Agua dulce-Terrestre
+    description: Las divisiones de transicion cubren la variacion continua entre las divisiones centrales. La interfaz de los ecosistemas marinos y terrestres a veces se ve influida por la filtracion o salida de agua dulce, lo que favorece los humedales intermareales y los sistemas deltaicos.
+    transitional: true
+    url: https://global-ecosystems.org/explore/realms/MFT
+    biomes:
+      - code: MFT1
+        name: Bioma de mareas salobres
+        description: El bioma de sistemas de mareas salobres esta asociado con costas deposicionales progradantes en la interfaz de los reinos terrestres, de agua dulce y marinos.
+        url: https://global-ecosystems.org/explore/biomes/MFT1
+        functional_groups:
+          - code: MFT1.1
+            name: Deltas fluviales costeros
+            description: En la convergencia de las divisiones terrestre, de agua dulce y marina, los deltas de los rios costeros estan formados por las afluencias de los rios que depositan sedimentos y las mareas y corrientes oceanicas que los dispersan.
+            url: https://global-ecosystems.org/explore/groups/MFT1.1
+          - code: MFT1.2
+            name: Bosques y matorrales intermareales
+            description: Los manglares crean ecosistemas estructuralmente complejos y productivos en la zona intermareal de las costas deposicionales, alrededor de las regiones tropicales y templadas calidas.
+            url: https://global-ecosystems.org/explore/groups/MFT1.2
+          - code: MFT1.3
+            name: Marismas costeras y canaverales
+            description: Las marismas costeras y los canaverales son mosaicos de pastos tolerantes a la sal y arbustos bajos, tipicamente suculentos, estructurados por fuertes gradientes de salinidad e influencia de las mareas.
+            url: https://global-ecosystems.org/explore/groups/MFT1.3
+  - code: MT
+    name: Marina-Terrestre
+    description: Las divisiones de transicion cubren la variacion continua entre las divisiones centrales. La transicion marino-terrestre se caracteriza por fuertes gradientes ambientales de desecacion, temperatura, salinidad y perturbacion por olas y mareas, ocupados por ecosistemas costeros contrastantes.
+    transitional: true
+    url: https://global-ecosystems.org/explore/realms/MT
+    biomes:
+      - code: MT1
+        name: Bioma de las costas
+        description: Habitats abioticos intermareales formados naturalmente, situados en la interfaz entre la tierra y el mar.
+        url: https://global-ecosystems.org/explore/biomes/MT1
+        functional_groups:
+          - code: MT1.1
+            name: Litorales rocosos
+            description: Las olas, las mareas y un gradiente de exposicion promueven la estructura y funcion de estos productivos ecosistemas intermareales que se encuentran principalmente en costas de alta energia.
+            url: https://global-ecosystems.org/explore/groups/MT1.1
+          - code: MT1.2
+            name: Litorales fangosos
+            description: Los lodazales costeros se producen en litorales de baja energia. El lodo y el limo, a menudo de los rios cercanos, protegen a los organismos excavadores que viven en estos ecosistemas.
+            url: https://global-ecosystems.org/explore/groups/MT1.2
+          - code: MT1.3
+            name: Litorales arenosos
+            description: Las playas, los bancos de arena y las lenguas de arena estan expuestos a olas y mareas en costas de energia moderada a alta, y dependen de las algas a la deriva y el fitoplancton de la zona de rompientes para obtener nutrientes.
+            url: https://global-ecosystems.org/explore/groups/MT1.3
+          - code: MT1.4
+            name: Litorales de cantos rodados y guijarros
+            description: Las costas de cantos rodados y guijarros estan expuestas a la accion de las olas y las mareas, y se reestructuran periodicamente por tormentas de alta energia.
+            url: https://global-ecosystems.org/explore/groups/MT1.4
+      - code: MT2
+        name: Bioma costero supralitoral
+        description: Donde los ambientes marinos hacen la transicion a los terrestres, elevados por encima de la influencia directa de las olas y las mareas.
+        url: https://global-ecosystems.org/explore/biomes/MT2
+        functional_groups:
+          - code: MT2.1
+            name: Matorrales y pastizales costeros
+            description: Una baja diversidad de plantas y animales especializados vive en pastizales, matorrales y bosques bajos en las costas por encima de la marca de marea alta, donde estan expuestos a duras condiciones de exposicion al rocio marino, vientos y luz solar desecantes.
+            url: https://global-ecosystems.org/explore/groups/MT2.1
+          - code: MT2.2
+            name: Grandes colonias de aves marinas y pinnipedos
+            description: Grandes concentraciones de aves marinas que anidan o descansan y mamiferos semiacuaticos como focas y morsas se encuentran en islas y costas relativamente aisladas.
+            url: https://global-ecosystems.org/explore/groups/MT2.2
+      - code: MT3
+        name: Bioma de costas antropogenicas
+        description: Interfaces marinas construidas con materiales rigidos y lisos que colindan, extienden o reemplazan las costas naturales.
+        url: https://global-ecosystems.org/explore/biomes/MT3
+        functional_groups:
+          - code: MT3.1
+            name: Litorales artificiales
+            description: Los muros marinos construidos, rompeolas, muelles, diques, canales de marea, islas y otras infraestructuras costeras crean habitat para plantas y animales marinos alrededor de puertos y areas costeras densamente pobladas.
+            url: https://global-ecosystems.org/explore/groups/MT3.1
+  - code: SF
+    name: Subterranea-Agua dulce
+    description: Las divisiones de transicion cubren la variacion continua entre las divisiones centrales. Existen ecosistemas unicos en aquellas regiones en las que la division subterranea se encuentra con la division dulceacuicola.
+    transitional: true
+    url: https://global-ecosystems.org/explore/realms/SF
+    biomes:
+      - code: SF1
+        name: Bioma de aguas dulces subterraneas
+        description: Arroyos subterraneos, pequenos lagos y acuiferos debajo de la superficie terrestre, potencialmente el mayor volumen de agua dulce de todos los biomas de agua dulce.
+        url: https://global-ecosystems.org/explore/biomes/SF1
+        functional_groups:
+          - code: SF1.1
+            name: Arroyos y charcas subterraneas
+            description: Estos sistemas acuaticos oscuros enterrados bajo tierra tienen niveles variados de conectividad con las aguas superficiales, lo que influye profundamente en sus caracteristicas y procesos.
+            url: https://global-ecosystems.org/explore/groups/SF1.1
+          - code: SF1.2
+            name: Ecosistemas de aguas subterraneas
+            description: Ecosistemas de baja productividad que se encuentran dentro de estratos de roca permeable saturados de agua o capas de sedimentos enterrados no consolidados.
+            url: https://global-ecosystems.org/explore/groups/SF1.2
+      - code: SF2
+        name: Bioma de aguas dulces subterraneas antropogenicas
+        description: Sistemas acuaticos en canales subterraneos, desagues, alcantarillas, tuberias de agua y minas inundadas construidas por humanos.
+        url: https://global-ecosystems.org/explore/biomes/SF2
+        functional_groups:
+          - code: SF2.1
+            name: Conductos de agua y canales subterraneos
+            description: Las aguas que fluyen rapidamente a traves de conductos artificiales generalmente carecen de sus propios productores primarios en ausencia de luz y dependen de algas y detritos importados como fuentes de energia.
+            url: https://global-ecosystems.org/explore/groups/SF2.1
+          - code: SF2.2
+            name: Minas y otros espacios inundados
+            description: Las minas subterraneas abandonadas y otros espacios subterraneos pueden llenarse de agua estatica o de movimiento lento a traves de filtraciones.
+            url: https://global-ecosystems.org/explore/groups/SF2.2
+  - code: SM
+    name: Subterranea-Marina
+    description: Las divisiones de transicion cubren la variacion continua entre las divisiones centrales. Existen ecosistemas unicos en aquellas regiones en las que la division subterranea se encuentra con la division marina.
+    transitional: true
+    url: https://global-ecosystems.org/explore/realms/SM
+    biomes:
+      - code: SM1
+        name: Bioma subterraneo mareal
+        description: El bioma subterraneo mareal incluye charcas costeras y espacios subterraneos totalmente sumergidos o con una conexion parcial a aguas marinas.
+        url: https://global-ecosystems.org/explore/biomes/SM1
+        functional_groups:
+          - code: SM1.1
+            name: Cuevas anquialinas
+            description: Las cuevas anquialinas contienen cuerpos de agua que tienen una conexion subterranea con el mar y poca o ninguna conexion directa con la atmosfera. Estos ecosistemas estan estructurados por fuertes gradientes de salinidad.
+            url: https://global-ecosystems.org/explore/groups/SM1.1
+          - code: SM1.2
+            name: Estanques anquialinos
+            description: Las charcas o estanques anquialinos son cuerpos de agua superficial salobre que tienen una conexion subterranea con el mar.
+            url: https://global-ecosystems.org/explore/groups/SM1.2
+          - code: SM1.3
+            name: Cuevas marinas
+            description: Las cuevas marinas se forman por la accion de las olas sobre las fisuras en una amplia gama de costas rocosas alrededor del mundo. A diferencia de las cuevas anquialinas, los gradientes de salinidad son debiles y se mantiene una fuerte influencia marina en toda su extension.
+            url: https://global-ecosystems.org/explore/groups/SM1.3
