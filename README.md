@@ -11,18 +11,17 @@ pip install iucn-get-data
 ## Usage
 
 ```python
-from iucn_get_data import get_realms, get_biomes, get_groups, get_typology
+from iucn_get_data import Typology, get_realms, get_biomes, get_groups
 
-# Get complete typology as a dictionary
-typology = get_typology()
-print(typology.keys())  # dict_keys(['realms'])
-print(len(typology['realms']))  # 10
+# Create a Typology instance
+typology = Typology()
+print(len(typology.realms))  # 10
 
-# Access the raw structure
-for realm in typology['realms']:
-    print(f"{realm['code']}: {realm['name']}")
-    for biome in realm['biomes']:
-        print(f"  - {biome['code']}: {biome['name']}")
+# Navigate the hierarchy
+for code, realm in typology.realms.items():
+    print(f"{code}: {realm.name}")
+    for biome_code, biome in realm.biomes.items():
+        print(f"  - {biome_code}: {biome.name}")
 
 # Get all realms (10 total: 4 core + 6 transitional)
 realms = get_realms()
@@ -46,6 +45,25 @@ m1_groups = get_groups(biome='M1')          # 10 groups
 
 # Combined filters
 t1_groups = get_groups(realm='T', biome='T1')
+```
+
+## Language Support
+
+The package includes data in English (default) and Spanish:
+
+```python
+from iucn_get_data import Typology
+
+# English (default)
+typology_en = Typology()
+print(typology_en.realms['T'].name)  # "Terrestrial"
+
+# Spanish
+typology_es = Typology(language="spanish")
+print(typology_es.realms['T'].name)  # "Terrestre"
+
+# Helper functions also support language parameter
+realms_es = get_realms(language="spanish")
 ```
 
 ## Data Structure
@@ -76,12 +94,14 @@ pytest
 
 ```
 iucn-get-data/
-├── data/
-│   └── typology.yaml         # IUCN GET data
 ├── src/
-│   └── iucn_get_data/        # Package source
+│   └── iucn_get_data/
 │       ├── __init__.py
-│       └── main.py
+│       ├── main.py
+│       ├── examples.py
+│       └── data/
+│           ├── english.yaml
+│           └── spanish.yaml
 ├── tests/
 │   ├── __init__.py
 │   └── test_main.py
