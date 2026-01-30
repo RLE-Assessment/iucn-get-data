@@ -1,6 +1,5 @@
 import pytest
-from pathlib import Path
-from iucn_get_data.main import get_realms, get_biomes, get_groups, get_typology
+from iucn_get_data.main import get_realms, get_biomes, get_groups
 from iucn_get_data.main import Typology, Realm, Biome, FunctionalGroup
 
 
@@ -114,12 +113,6 @@ def test_get_realms_url_format():
                 assert fg.url.startswith(f"{base_url}/groups/")
 
 
-def test_get_realms_file_not_found():
-    """Test that FileNotFoundError is raised for non-existent file."""
-    with pytest.raises(FileNotFoundError):
-        get_realms("nonexistent/path/to/file.yaml")
-
-
 def test_get_realms_specific_realm_data():
     """Test specific data for Terrestrial realm."""
     realms = get_realms()
@@ -155,34 +148,28 @@ def test_get_realms_marine_m1_has_10_groups():
     assert 'M1.10' in fg_codes
 
 
-def test_get_typology_returns_typology():
-    """Test that get_typology returns a Typology instance."""
-    typology = get_typology()
+def test_typology_returns_typology():
+    """Test that Typology() returns a Typology instance."""
+    typology = Typology()
     assert isinstance(typology, Typology)
 
 
-def test_get_typology_has_realms():
-    """Test that get_typology returns a Typology with realms dict."""
-    typology = get_typology()
+def test_typology_has_realms():
+    """Test that Typology() returns a Typology with realms dict."""
+    typology = Typology()
     assert hasattr(typology, 'realms')
     assert isinstance(typology.realms, dict)
 
 
-def test_get_typology_realms_count():
-    """Test that get_typology returns 10 realms."""
-    typology = get_typology()
+def test_typology_realms_count():
+    """Test that Typology() returns 10 realms."""
+    typology = Typology()
     assert len(typology.realms) == 10
 
 
-def test_get_typology_file_not_found():
-    """Test that get_typology raises FileNotFoundError for non-existent file."""
-    with pytest.raises(FileNotFoundError):
-        get_typology("nonexistent/path.yaml")
-
-
-def test_get_typology_complete_structure():
-    """Test that get_typology returns complete hierarchical structure."""
-    typology = get_typology()
+def test_typology_complete_structure():
+    """Test that Typology() returns complete hierarchical structure."""
+    typology = Typology()
 
     # Verify structure exists
     assert len(typology.realms) > 0
@@ -266,7 +253,7 @@ def test_get_groups_invalid_biome():
 
 def test_typology_class_navigation():
     """Test navigating the typology via class hierarchy."""
-    typology = get_typology()
+    typology = Typology()
 
     # Navigate to a specific functional group
     realm = typology.realms['T']
@@ -285,7 +272,7 @@ def test_typology_class_navigation():
 
 def test_typology_get_biomes_method():
     """Test the Typology.get_biomes() method."""
-    typology = get_typology()
+    typology = Typology()
 
     # Get all biomes
     all_biomes = typology.get_biomes()
@@ -298,7 +285,7 @@ def test_typology_get_biomes_method():
 
 def test_typology_get_groups_method():
     """Test the Typology.get_groups() method."""
-    typology = get_typology()
+    typology = Typology()
 
     # Get all groups
     all_groups = typology.get_groups()

@@ -1,7 +1,6 @@
 import re
 import yaml
 from dataclasses import dataclass, field
-from pathlib import Path
 from importlib import resources
 
 
@@ -112,9 +111,21 @@ class Typology:
     See: https://global-ecosystems.org/
 
     Attributes:
+        language: Language for typology data (default: "english").
         realms: Dictionary of realms keyed by their code.
+
+    Example:
+        >>> typology = Typology()  # Uses English
+        >>> typology = Typology(language="spanish")  # Uses Spanish
     """
+    language: str = "english"
     realms: dict[str, Realm] = field(default_factory=dict)
+
+    def __post_init__(self):
+        """Load typology data if realms not provided."""
+        if not self.realms:
+            data = _load_yaml(language=self.language)
+            self.realms = _build_realms(data)
 
     def get_biomes(self, realm: str = None) -> dict[str, Biome]:
         """
@@ -185,25 +196,16 @@ def _get_default_typology_path(language="english"):
     return resources.files("iucn_get_data").joinpath(f"data/{language}.yaml")
 
 
-def _load_yaml(file_path=None):
-    """Load YAML data from the specified path or the default bundled file."""
-    if file_path is None:
-        # Use bundled data file
-        typology_file = _get_default_typology_path()
-        with resources.as_file(typology_file) as path:
-            with open(path, 'r') as f:
-                return yaml.safe_load(f)
-    else:
-        # Use user-specified path
-        yaml_path = Path(file_path)
-        if not yaml_path.exists():
-            raise FileNotFoundError(f"Typology file not found: {file_path}")
-        with open(yaml_path, 'r') as f:
+def _load_yaml(language="english"):
+    """Load YAML data from the bundled file for the specified language."""
+    typology_file = _get_default_typology_path(language)
+    with resources.as_file(typology_file) as path:
+        with open(path, 'r') as f:
             return yaml.safe_load(f)
 
 
-def _build_typology(data: dict) -> Typology:
-    """Build a Typology instance from raw YAML data."""
+def _build_realms(data: dict) -> dict[str, Realm]:
+    """Build realms dictionary from raw YAML data."""
     realms = {}
 
     for realm_data in data.get('realms', []):
@@ -243,34 +245,10 @@ def _build_typology(data: dict) -> Typology:
             biomes=biomes,
         )
 
-    return Typology(realms=realms)
+    return realms
 
 
-def get_typology(file_path=None) -> Typology:
-    """
-    Load the IUCN Global Ecosystem Typology (GET) 2.0.
-
-    Returns a hierarchical data structure containing all realms, biomes, and
-    ecosystem functional groups from the typology. Navigate the hierarchy via
-    class attributes (e.g., typology.realms['T'].biomes['T1'].functional_groups).
-
-    Args:
-        file_path: Path to a custom typology YAML file. If None, uses the bundled data file.
-
-    Returns:
-        Typology: Complete typology with 10 realms, 25 biomes, and 109 functional groups.
-
-    Example:
-        >>> typology = get_typology()
-        >>> realm = typology.realms['T']  # Terrestrial
-        >>> biome = realm.biomes['T1']    # Tropical-subtropical forests
-        >>> fg = biome.functional_groups['T1.1']  # Lowland rainforests
-    """
-    data = _load_yaml(file_path)
-    return _build_typology(data)
-
-
-def get_realms(file_path=None) -> dict[str, Realm]:
+def get_realms(language="english") -> dict[str, Realm]:
     """
     Get all realms from the IUCN Global Ecosystem Typology.
 
@@ -279,7 +257,7 @@ def get_realms(file_path=None) -> dict[str, Realm]:
     M=Marine, F=Freshwater, S=Subterranean) and 6 transitional realms.
 
     Args:
-        file_path: Path to a custom typology YAML file. If None, uses the bundled data file.
+        language: Language for typology data (default: "english").
 
     Returns:
         dict: Dictionary with realm codes as keys and Realm instances as values.
@@ -289,11 +267,10 @@ def get_realms(file_path=None) -> dict[str, Realm]:
         >>> realms['T'].name
         'Terrestrial'
     """
-    typology = get_typology(file_path)
-    return typology.realms
+    return Typology(language=language).realms
 
 
-def get_biomes(realm: str = None, file_path=None) -> dict[str, Biome]:
+def get_biomes(realm: str = None, language="english") -> dict[str, Biome]:
     """
     Get biomes from the IUCN Global Ecosystem Typology.
 
@@ -304,7 +281,7 @@ def get_biomes(realm: str = None, file_path=None) -> dict[str, Biome]:
     Args:
         realm: Optional realm code to filter biomes (e.g., 'T', 'M', 'F', 'S', 'TF', etc.)
                If None, returns all 25 biomes from all realms.
-        file_path: Path to a custom typology YAML file. If None, uses the bundled data file.
+        language: Language for typology data (default: "english").
 
     Returns:
         dict: Dictionary with biome codes as keys and Biome instances as values.
@@ -317,11 +294,10 @@ def get_biomes(realm: str = None, file_path=None) -> dict[str, Biome]:
         >>> t_biomes = get_biomes(realm='T')    # 7 Terrestrial biomes (T1-T7)
         >>> mt_biomes = get_biomes(realm='MT')  # 3 Marine-Terrestrial biomes
     """
-    typology = get_typology(file_path)
-    return typology.get_biomes(realm)
+    return Typology(language=language).get_biomes(realm)
 
 
-def get_groups(realm: str = None, biome: str = None, file_path=None) -> dict[str, FunctionalGroup]:
+def get_groups(realm: str = None, biome: str = None, language="english") -> dict[str, FunctionalGroup]:
     """
     Get Ecosystem Functional Groups from the IUCN Global Ecosystem Typology.
 
@@ -334,7 +310,7 @@ def get_groups(realm: str = None, biome: str = None, file_path=None) -> dict[str
                If None, searches all realms.
         biome: Optional biome code to filter (e.g., 'T1', 'M2', 'MT1', etc.)
                If None, returns all functional groups from the specified realm(s).
-        file_path: Path to a custom typology YAML file. If None, uses the bundled data file.
+        language: Language for typology data (default: "english").
 
     Returns:
         dict: Dictionary with EFG codes as keys and FunctionalGroup instances as values.
@@ -347,8 +323,7 @@ def get_groups(realm: str = None, biome: str = None, file_path=None) -> dict[str
         >>> t_groups = get_groups(realm='T')       # 34 Terrestrial EFGs
         >>> t1_groups = get_groups(biome='T1')     # 4 Tropical forest EFGs
     """
-    typology = get_typology(file_path)
-    return typology.get_groups(realm, biome)
+    return Typology(language=language).get_groups(realm, biome)
 
 
 def main():
@@ -396,9 +371,9 @@ def main():
     m1_groups = get_groups(biome='M1')
     print(f"M1 functional groups: {len(m1_groups)}")
 
-    # Example usage - get_typology
+    # Example usage - Typology class
     print("\nExample: Get complete typology data")
-    typology = get_typology()
+    typology = Typology()
     print(f"Total realms in typology: {len(typology.realms)}")
 
     # Example: Access via class hierarchy
@@ -409,6 +384,16 @@ def main():
     print(f"  Realm: {realm.name}")
     print(f"  Biome: {biome.name}")
     print(f"  Functional Group: {fg.name}")
+
+    # Example: Using Spanish language
+    print("\nExample: Using Spanish language")
+    typology_es = Typology(language="spanish")
+    realm_es = typology_es.realms['T']
+    biome_es = realm_es.biomes['T1']
+    fg_es = biome_es.functional_groups['T1.1']
+    print(f"  Realm: {realm_es.name}")
+    print(f"  Biome: {biome_es.name}")
+    print(f"  Functional Group: {fg_es.name}")
 
 
 if __name__ == "__main__":
