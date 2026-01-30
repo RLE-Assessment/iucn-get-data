@@ -1,0 +1,622 @@
+realms:
+  - code: T
+    name: Terrestre
+    description: Le domaine terrestre comprend toutes les terres seches, leur couverture vegetale, l'atmosphere proche et le substrat jusqu'a la profondeur d'enracinement des plantes, ainsi que les animaux et les microbes qui y sont associes.
+    transitional: false
+    url: https://global-ecosystems.org/explore/realms/T
+    biomes:
+      - code: T1
+        name: Biome des forets tropicales-subtropicales
+        description: Ecosystemes a productivite moderee a elevee avec des canopees fermees, situes aux basses latitudes au nord et au sud de l'equateur.
+        url: https://global-ecosystems.org/explore/biomes/T1
+        functional_groups:
+          - code: T1.1
+            name: Forets tropicales/subtropicales humides de basse altitude
+            description: Une enorme diversite d'especes occupe des niches au sein d'une structure complexe de formes vegetales en couches verticales. La forte productivite est alimentee par des plantes a croissance rapide, notamment des arbres a contreforts, des bambous, des epiphytes, des lianes et des fougeres.
+            url: https://global-ecosystems.org/explore/groups/T1.1
+          - code: T1.2
+            name: Forets seches et fourres tropicaux/subtropicaux
+            description: Les forets et fourres secs tropicaux-subtropicaux se caracterisent par des substrats fertiles et des conditions saisonnierement seches qui entrainent des variations saisonnieres marquees de la productivite.
+            url: https://global-ecosystems.org/explore/groups/T1.2
+          - code: T1.3
+            name: Forets humides montagnardes tropicales/subtropicales
+            description: Ces forets tropicales de montagne se caracterisent par une canopee arboree a une seule couche, avec des fougeres epiphytes, des bryophytes, des lichens, des orchidees et des bromeliacees sur les branches des arbres.
+            url: https://global-ecosystems.org/explore/groups/T1.3
+          - code: T1.4
+            name: Forets de bruyeres tropicales
+            description: Ces forets structurellement uniques sont limitees aux sols moins fertiles sur des substrats sableux acides, surtout en Amazonie et en Asie du Sud-Est.
+            url: https://global-ecosystems.org/explore/groups/T1.4
+      - code: T2
+        name: Biome des forets et des bois boreaux temperes
+        description: Systemes domines par les arbres avec une productivite moderee a elevee, distribues des latitudes temperees chaudes aux latitudes boreales.
+        url: https://global-ecosystems.org/explore/biomes/T2
+        functional_groups:
+          - code: T2.1
+            name: Forets et bois boreaux et temperes de haute montagne
+            description: Dans les climats boreaux et montagneux froids et saisonnierment enneiges, les sols acides supportent des forets structurellement simples composees de coniferes a feuilles en aiguilles, parfois avec des arbres caducifolies a feuilles larges.
+            url: https://global-ecosystems.org/explore/groups/T2.1
+          - code: T2.2
+            name: Forets temperees a feuilles caduques
+            description: Aux latitudes temperees fraiches de l'hemisphere nord, les sols fertiles et les fortes precipitations soutiennent des forets dominees par des arbres caducifolies a feuilles larges.
+            url: https://global-ecosystems.org/explore/groups/T2.2
+          - code: T2.3
+            name: Forets pluviales temperees fraiches oceaniques
+            description: Les forets pluviales temperees oceaniques presentent des arbres persistants ou semi-caducifolies a petites feuilles avec quelques coniferes.
+            url: https://global-ecosystems.org/explore/groups/T2.3
+          - code: T2.4
+            name: Forets laurophylles temperees chaudes
+            description: Avec une distribution discontinue en zone temperee chaude, les forets laurophylles sont etendues dans certaines regions, mais occupent plus typiquement des refuges topographiques dans une matrice d'ecosystemes plus secs.
+            url: https://global-ecosystems.org/explore/groups/T2.4
+          - code: T2.5
+            name: Forets pyriques humides temperees
+            description: Les forets abritant les plus grands arbres a fleurs du monde ont une structure complexe, avec une canopee ouverte d'arbres sclerophylles de 40 a 90 m de haut.
+            url: https://global-ecosystems.org/explore/groups/T2.5
+          - code: T2.6
+            name: Forets et bois sclerophylles pyriques temperes
+            description: Dans les regions temperees sujettes aux incendies, les forets sclerophylles pyriques temperees se caracterisent par une canopee ouverte d'arbres a feuilles dures avec une strate arbustive en dessous.
+            url: https://global-ecosystems.org/explore/groups/T2.6
+      - code: T3
+        name: Biome des arbustes et des forets arbustives
+        description: Systemes oligotrophes presents sur des sols acides et sableux, souvent peu profonds ou squelettiques.
+        url: https://global-ecosystems.org/explore/biomes/T3
+        functional_groups:
+          - code: T3.1
+            name: Arbustes tropicaux saisonnieremen secs
+            description: Ces arbustes et forets basses sujets aux incendies sont presents sur les sols pauvres en nutriments des regions tropicales, associes aux hivers tropicaux secs.
+            url: https://global-ecosystems.org/explore/groups/T3.1
+          - code: T3.2
+            name: Lande et arbustes temperes saisonnieremen secs
+            description: Ces ecosystemes temperes sont domines par des arbustes sclerophylles a feuilles petites ou ericoides.
+            url: https://global-ecosystems.org/explore/groups/T3.2
+          - code: T3.3
+            name: Landes temperees froides
+            description: Dans les environnements temperes frais, humides et maritimes, une couverture dense d'arbustes bas a petites feuilles coriaces est entrecoupee de graminees et de fougeres.
+            url: https://global-ecosystems.org/explore/groups/T3.3
+          - code: T3.4
+            name: Jeunes pavements rocheux, coulees de lave et eboulis
+            description: Avec une distribution dispersee a l'echelle mondiale, ces jeunes ecosystemes rocheux sont exposes a des temperatures extremes, a l'alteration et aux perturbations.
+            url: https://global-ecosystems.org/explore/groups/T3.4
+      - code: T4
+        name: Biome des savanes et des prairies
+        description: Les fonctions ecologiques dependent d'une couche herbacee principalement continue qui contribue a une productivite primaire moderee a tres elevee.
+        url: https://global-ecosystems.org/explore/biomes/T4
+        functional_groups:
+          - code: T4.1
+            name: Savanes trophiques
+            description: Une abondance et une diversite inegalees de grands herbivores maintiennent une structure ouverte de ces ecosystemes arbre-herbe dans les tropiques saisonniers d'Afrique et d'Asie du Sud.
+            url: https://global-ecosystems.org/explore/groups/T4.1
+          - code: T4.2
+            name: Savanes a touffes pyriques
+            description: Dans les savanes pyriques, les feux recurrents sont le principal agent qui limite la dominance des arbres et maintient la coexistence arbre-herbe.
+            url: https://global-ecosystems.org/explore/groups/T4.2
+          - code: T4.3
+            name: Savanes a hummocks
+            description: Trouvees uniquement dans le nord de l'Australie, les savanes a hummocks se distinguent par une strate herbacee de graminees en domes a croissance lente entrecoupee de sol nu et de quelques arbres et arbustes.
+            url: https://global-ecosystems.org/explore/groups/T4.3
+          - code: T4.4
+            name: Forets temperees
+            description: Les forets temperees sont structurellement simples, avec des arbres largement espaces et une strate herbacee de graminees avec des arbustes disperses.
+            url: https://global-ecosystems.org/explore/groups/T4.4
+          - code: T4.5
+            name: Prairies temperees subhumides
+            description: Les prairies temperees subhumides sont simples en structure, composees de graminees en touffes avec des plantes herbacees dispersees, avec peu d'arbres et d'arbustes isoles.
+            url: https://global-ecosystems.org/explore/groups/T4.5
+      - code: T5
+        name: Biome des deserts et semi-deserts
+        description: Ecosystemes avec une productivite primaire tres faible a faible limitee par la disponibilite en eau dans les regions arides.
+        url: https://global-ecosystems.org/explore/biomes/T5
+        functional_groups:
+          - code: T5.1
+            name: Steppe semi-desertique
+            description: Les steppes semi-desertiques de tous les continents sont dominées par des arbustes perennes, souvent a feuillage semi-charnu ou veloute, et des graminees en touffes entrecoupees de sol nu.
+            url: https://global-ecosystems.org/explore/groups/T5.1
+          - code: T5.2
+            name: Deserts et semi-deserts succulents ou epineux
+            description: Les deserts et semi-deserts succulents ou epineux sont limites a certaines parties des Ameriques, de l'Afrique, de Madagascar et de l'Asie du Sud.
+            url: https://global-ecosystems.org/explore/groups/T5.2
+          - code: T5.3
+            name: Deserts chauds et semi-deserts sclerophylles
+            description: Les deserts chauds et semi-deserts sclerophylles se trouvent dans le centre et l'ouest de l'Australie sur des sols sableux.
+            url: https://global-ecosystems.org/explore/groups/T5.3
+          - code: T5.4
+            name: Deserts et semi-deserts frais
+            description: Les deserts et semi-deserts frais se trouvent sur les plaines et plateaux temperes frais en Eurasie centrale et dans les parties temperees des Ameriques.
+            url: https://global-ecosystems.org/explore/groups/T5.4
+          - code: T5.5
+            name: Deserts hyper-arides
+            description: Les deserts hyper-arides sont les ecosystemes desertiques les plus extremes, limites par des conditions tres seches et souvent venteuses avec des temperatures elevees.
+            url: https://global-ecosystems.org/explore/groups/T5.5
+      - code: T6
+        name: Biome polaire/alpin (cryogenique)
+        description: Englobe les vastes regions arctiques et antarctiques ainsi que les zones montagneuses elevees de tous les continents.
+        url: https://global-ecosystems.org/explore/biomes/T6
+        functional_groups:
+          - code: T6.1
+            name: Nappes glaciaires, glaciers et champs de neige perennes
+            description: Presentes dans les regions polaires et sur les hautes montagnes, les nappes glaciaires, glaciers et champs de neige perennes couvrent environ 10% de la surface terrestre.
+            url: https://global-ecosystems.org/explore/groups/T6.1
+          - code: T6.2
+            name: Falaises, eboulis, affleurements et coulees de lave polaires/alpins
+            description: Les affleurements rocheux polaires-alpins se trouvent dans les zones definitivement libres de glace des regions polaires et des hautes montagnes.
+            url: https://global-ecosystems.org/explore/groups/T6.2
+          - code: T6.3
+            name: Toundra et deserts polaires
+            description: La toundra et les deserts polaires ont une couverture continue a clairsemee de mousses, hepatiques, lichens, graminees, arbustes bas et autres plantes a fleurs tolerantes au froid.
+            url: https://global-ecosystems.org/explore/groups/T6.3
+          - code: T6.4
+            name: Prairies et arbustes alpins temperes
+            description: Les prairies et arbustes alpins temperes se trouvent au-dessus de la limite des arbres, sur les montagnes temperees et boreales du monde entier.
+            url: https://global-ecosystems.org/explore/groups/T6.4
+          - code: T6.5
+            name: Prairies alpines tropicales et champs d'herbes
+            description: Les prairies alpines tropicales et champs d'herbes sont limites a quelques zones montagneuses d'Afrique, des Ameriques et d'Asie du Sud-Est.
+            url: https://global-ecosystems.org/explore/groups/T6.5
+      - code: T7
+        name: Biome d'utilisation intensive des terres
+        description: Grandes entreprises anthropiques de culture, d'elevage, de plantation et d'urbanisation ou l'activite humaine est le principal moteur ecologique.
+        url: https://global-ecosystems.org/explore/biomes/T7
+        functional_groups:
+          - code: T7.1
+            name: Terres cultivees annuelles
+            description: Les terres cultivees sont des ecosystemes agricoles geres intensivement maintenus par l'apport de nutriments et d'eau, le semis et la recolte, la culture du sol et le controle des plantes et animaux non cibles.
+            url: https://global-ecosystems.org/explore/groups/T7.1
+          - code: T7.2
+            name: Paturages et champs ensemences
+            description: Dans ces systemes agricoles geres intensivement, les graminees et les legumineuses sont semees et cultivees pour la production de betail ou de fourrage.
+            url: https://global-ecosystems.org/explore/groups/T7.2
+          - code: T7.3
+            name: Plantations
+            description: Les plantations sont generalement des cultures ligneuses perennes a longue rotation etablies et entretenues pour diverses productions alimentaires et de materiaux.
+            url: https://global-ecosystems.org/explore/groups/T7.3
+          - code: T7.4
+            name: Ecosystemes urbains et industriels
+            description: Les villes, les petites agglomerations et les zones industrielles sont des ecosystemes structurellement complexes caracterises par leur structure spatiale tres dynamique.
+            url: https://global-ecosystems.org/explore/groups/T7.4
+          - code: T7.5
+            name: Paturages semi-naturels derives et anciens champs
+            description: Ces ecosystemes geres sont derives d'une gamme d'autres ecosystemes par la suppression ou la modification des composantes vegetales ligneuses.
+            url: https://global-ecosystems.org/explore/groups/T7.5
+  - code: M
+    name: Marin
+    description: Le domaine marin comprend toutes les eaux oceaniques salines connectees, caracterisees par des vagues, des marees et des courants.
+    transitional: false
+    url: https://global-ecosystems.org/explore/realms/M
+    biomes:
+      - code: M1
+        name: Biome du plateau marin
+        description: S'etend globalement du littoral aux regions profondes des fonds marins, caracterise par la productivite benthique sur des substrats biogeniques et minerogeniques.
+        url: https://global-ecosystems.org/explore/biomes/M1
+        functional_groups:
+          - code: M1.1
+            name: Prairies marines
+            description: Ces systemes subtidaux peu profonds sont les seuls ecosystemes marins avec une abondance de plantes a fleurs.
+            url: https://global-ecosystems.org/explore/groups/M1.1
+          - code: M1.2
+            name: Forets de varech
+            description: Les varechs (grandes macroalgues brunes jusqu'a 30 m de long) forment la base de ces systemes tres productifs sur les recifs rocheux subtidaux peu profonds des cotes temperees froides et polaires.
+            url: https://global-ecosystems.org/explore/groups/M1.2
+          - code: M1.3
+            name: Recifs coralliens photiques
+            description: Ces structures biogeniques a croissance lente sont formees par les squelettes de carbonate de calcium de certaines especes de coraux qui dependent de relations symbiotiques avec les algues.
+            url: https://global-ecosystems.org/explore/groups/M1.3
+          - code: M1.4
+            name: Bancs et recifs de coquillages
+            description: Ces ecosystemes biogeniques intertidaux ou subtidaux productifs sont formes et domines par des mollusques sessiles comme les moules ou les huitres.
+            url: https://global-ecosystems.org/explore/groups/M1.4
+          - code: M1.5
+            name: Forets d'animaux marins limitees par la photo
+            description: Ces ecosystemes biogeniques subtidaux, formes par une seule espece ou une communaute de filtreurs sessiles tels que les eponges, les ascidies ou les coraux aphotiques, se trouvent principalement sur des substrats durs.
+            url: https://global-ecosystems.org/explore/groups/M1.5
+          - code: M1.6
+            name: Recifs rocheux subtidaux
+            description: Ces ecosystemes rocheux subtidaux sont largement repandus dans le monde sur les plateaux oceaniques.
+            url: https://global-ecosystems.org/explore/groups/M1.6
+          - code: M1.7
+            name: Bancs de sable subtidaux
+            description: Ces ecosystemes de plateau relativement instables dans des eaux turbulentes supportent des communautes moderement diversifiees composees principalement de consommateurs.
+            url: https://global-ecosystems.org/explore/groups/M1.7
+          - code: M1.8
+            name: Plaines de boue subtidales
+            description: Ces ecosystemes de plateau oceaniques boueux a faible energie sont moderement productifs et typiquement domines par les microalgues et les producteurs primaires bacteriens.
+            url: https://global-ecosystems.org/explore/groups/M1.8
+          - code: M1.9
+            name: Zones de remontee d'eau
+            description: Ces regions productives sont souvent associees aux systemes de courants de bordure orientale a la transition entre les plateaux marins et l'ocean ouvert.
+            url: https://global-ecosystems.org/explore/groups/M1.9
+          - code: M1.10
+            name: Lits de Rhodolithes/Maerl
+            description: Ces structures biogeniques a croissance lente sont formees par des algues corallines a longue duree de vie qui absorbent un large spectre de lumiere.
+            url: https://global-ecosystems.org/explore/groups/M1.10
+      - code: M2
+        name: Biome des eaux oceaniques pelagiques
+        description: Le plus grand biome de la Terre, comprenant la colonne d'eau de l'ocean ouvert a toutes les latitudes.
+        url: https://global-ecosystems.org/explore/biomes/M2
+        functional_groups:
+          - code: M2.1
+            name: Eaux oceaniques epipelagiques
+            description: Cette couche superieure de l'ocean (0-200 m de profondeur) est la plus influencee par l'atmosphere et est definie et structuree par la disponibilite de la lumiere.
+            url: https://global-ecosystems.org/explore/groups/M2.1
+          - code: M2.2
+            name: Eau oceanique mesopelagique
+            description: La zone mesopelagique est une zone crepusculaire a tres faible lumiere s'etendant d'environ 200 a 1000 metres de profondeur.
+            url: https://global-ecosystems.org/explore/groups/M2.2
+          - code: M2.3
+            name: Eaux oceaniques bathypelagiques
+            description: Ces ecosystemes de haute mer profonds (~1000-3000 m de profondeur) ne recoivent pas de lumiere solaire et dependent des detritus des couches superieures pour les nutriments.
+            url: https://global-ecosystems.org/explore/groups/M2.3
+          - code: M2.4
+            name: Eaux oceaniques abyssopelagiques
+            description: A des profondeurs plus importantes (~3000-6000 m) que les systemes bathypelagiques, ces ecosystemes de haute mer tres profonds ne recoivent pas de lumiere.
+            url: https://global-ecosystems.org/explore/groups/M2.4
+          - code: M2.5
+            name: Glace de mer
+            description: Ces eaux de surface saisonnierment gelees dans les oceans polaires sont l'un des ecosystemes les plus dynamiques de la Terre.
+            url: https://global-ecosystems.org/explore/groups/M2.5
+      - code: M3
+        name: Biome des fonds marins
+        description: Le fond de l'ocean en dessous d'environ 250 metres, ou une lumiere insuffisante empeche la productivite photosynthetique.
+        url: https://global-ecosystems.org/explore/biomes/M3
+        functional_groups:
+          - code: M3.1
+            name: Pentes continentales et insulaires
+            description: Ces pentes obscures de sable, de boue et d'affleurements rocheux descendent du rebord du plateau peu profond vers les bassins abyssaux tres profonds.
+            url: https://global-ecosystems.org/explore/groups/M3.1
+          - code: M3.2
+            name: Canyons sous-marins
+            description: Les canyons sous-marins abritent certains des ecosystemes de haute mer les plus productifs et les plus diversifies.
+            url: https://global-ecosystems.org/explore/groups/M3.2
+          - code: M3.3
+            name: Plaines abyssales
+            description: Ces ecosystemes sur les fonds marins tres profonds (3000-6000 m) de tous les oceans supportent une faible biomasse mais une grande diversite de petits invertebres et microbes.
+            url: https://global-ecosystems.org/explore/groups/M3.3
+          - code: M3.4
+            name: Monts sous-marins, cretes et plateaux
+            description: Ces ecosystemes profonds et obscurs sont centres sur les principales caracteristiques geomorphologiques des fonds oceaniques profonds.
+            url: https://global-ecosystems.org/explore/groups/M3.4
+          - code: M3.5
+            name: Lits biogenes en eaux profondes
+            description: Des structures tridimensionnelles relativement complexes sont formees par des filtreurs a croissance lente comme les eponges, les coraux et les bivalves.
+            url: https://global-ecosystems.org/explore/groups/M3.5
+          - code: M3.6
+            name: Tranchees et cuvettes hadales
+            description: Les tranchees oceaniques les plus profondes, jusqu'a 11 km sous la surface, sont les ecosystemes marins les moins explores.
+            url: https://global-ecosystems.org/explore/groups/M3.6
+          - code: M3.7
+            name: Ecosystemes bases sur la chimiosynthese (CBE)
+            description: Dans ces ecosystemes tres profonds a haute pression, la productivite primaire est alimentee par des composes chimiques comme sources d'energie au lieu de la lumiere.
+            url: https://global-ecosystems.org/explore/groups/M3.7
+      - code: M4
+        name: Biome marin anthropique
+        description: Structures artificielles dans les oceans qui contiennent de la vie marine geree ou attirent des organismes vers des zones autrement inhabitables.
+        url: https://global-ecosystems.org/explore/biomes/M4
+        functional_groups:
+          - code: M4.1
+            name: Structures artificielles immergees
+            description: Les structures immergees, y compris les tas de decombres, les epaves de navires, les infrastructures petrolieres et gazieres et les recifs artificiels, fournissent des substrats durs orientes verticalement pour les organismes marins.
+            url: https://global-ecosystems.org/explore/groups/M4.1
+          - code: M4.2
+            name: Fermes aquacoles marines
+            description: Les fermes aquacoles marines a haute productivite sont des zones fermees pour l'elevage et la recolte de plantes et d'animaux marins.
+            url: https://global-ecosystems.org/explore/groups/M4.2
+  - code: F
+    name: Eau douce
+    description: Le domaine de l'eau douce comprend toutes les masses d'eau douce permanentes et temporaires ainsi que les masses d'eau saline qui ne sont pas directement reliees aux oceans.
+    transitional: false
+    url: https://global-ecosystems.org/explore/realms/F
+    biomes:
+      - code: F1
+        name: Biome des rivieres et des ruisseaux
+        description: Ecosystemes lotiques s'ecoulant des hautes terres ou des sources souterraines vers les deltas, estuaires et lacs.
+        url: https://global-ecosystems.org/explore/biomes/F1
+        functional_groups:
+          - code: F1.1
+            name: Cours d'eau permanents des hautes terres
+            description: Ces petites rivieres ou ruisseaux dans les zones montagneuses ou vallonnees se caracterisent par des pentes abruptes et un ecoulement rapide.
+            url: https://global-ecosystems.org/explore/groups/F1.1
+          - code: F1.2
+            name: Rivieres permanentes de plaine
+            description: Les rivieres de plaine avec des ecoulements continus lents jusqu'a 10 000 m³/s sont communes aux basses altitudes dans les regions tropicales et temperees du monde.
+            url: https://global-ecosystems.org/explore/groups/F1.2
+          - code: F1.3
+            name: Fleuves et rivieres soumis au gel et au degel
+            description: Dans les climats froids a hautes latitudes ou altitudes, les surfaces des petits ruisseaux et des grandes rivieres gelent en hiver.
+            url: https://global-ecosystems.org/explore/groups/F1.3
+          - code: F1.4
+            name: Cours d'eau saisonniers de montagne
+            description: Les regimes de precipitations saisonnieres dans de grandes parties des tropiques et des regions temperees generent des ecoulements tres variables dans les ruisseaux etroits et escarpes des hautes terres.
+            url: https://global-ecosystems.org/explore/groups/F1.4
+          - code: F1.5
+            name: Rivieres saisonnieres de plaine
+            description: Ces rivieres moyennes a grandes dans les plaines tropicales, subtropicales et temperees ont des ecoulements nettement saisonniers.
+            url: https://global-ecosystems.org/explore/groups/F1.5
+          - code: F1.6
+            name: Rivieres arides episodiques
+            description: Ces rivieres du desert se trouvent principalement dans les zones plates des latitudes moyennes arides et semi-arides.
+            url: https://global-ecosystems.org/explore/groups/F1.6
+          - code: F1.7
+            name: Grandes rivieres de plaine
+            description: Ces tres grandes rivieres transportent des volumes massifs d'eau douce (>10 000 m³/s) a travers les plaines basses, principalement dans les regions tropicales ou subtropicales.
+            url: https://global-ecosystems.org/explore/groups/F1.7
+      - code: F2
+        name: Biome lacustre
+        description: Ecosystemes lentiques definis par leurs eaux calmes, variant en superficie, profondeur, regime hydrique et connectivite.
+        url: https://global-ecosystems.org/explore/biomes/F2
+        functional_groups:
+          - code: F2.1
+            name: Grands lacs d'eau douce permanents
+            description: Les grands volumes d'eau permanente dans ces lacs tamponnent les temperatures de l'eau et les effets des apports de nutriments sur la qualite de l'eau.
+            url: https://global-ecosystems.org/explore/groups/F2.1
+          - code: F2.2
+            name: Petits lacs d'eau douce permanents
+            description: Avec une superficie allant jusqu'a 100 km², la diversite des petits lacs, etangs et mares permanents depend de leur taille, profondeur et connectivite.
+            url: https://global-ecosystems.org/explore/groups/F2.2
+          - code: F2.3
+            name: Lacs d'eau douce saisonniers
+            description: Les petits lacs, mares et cavites rocheuses saisonniers ont des plantes et des animaux specialises aux conditions de secheresse et d'humidite changeantes saisonnierement.
+            url: https://global-ecosystems.org/explore/groups/F2.3
+          - code: F2.4
+            name: Gel-degel des lacs d'eau douce
+            description: De nombreuses plantes et animaux survivent au gel de surface des lacs d'eau douce, a des stades de vie dormants, en reduisant leur activite sous la glace ou en se deplacant.
+            url: https://global-ecosystems.org/explore/groups/F2.4
+          - code: F2.5
+            name: Lacs d'eau douce ephemeres
+            description: Ce sont des lacs peu profonds qui sont principalement secs, puis se remplissent pendant des semaines ou des mois, avant de s'assecher a nouveau.
+            url: https://global-ecosystems.org/explore/groups/F2.5
+          - code: F2.6
+            name: Lacs sales et sodes permanents
+            description: Ces lacs sont generalement grands et peu profonds dans les regions semi-arides, avec de fortes concentrations de sels.
+            url: https://global-ecosystems.org/explore/groups/F2.6
+          - code: F2.7
+            name: Lacs sales ephemeres
+            description: Les lacs sales ephemeres dans les regions semi-arides et arides sont peu profonds, avec une variation extreme de la salinite pendant les cycles humides-secs.
+            url: https://global-ecosystems.org/explore/groups/F2.7
+          - code: F2.8
+            name: Sources artesiennes et oasis
+            description: Les masses d'eau de surface alimentees par des eaux souterraines remontant a la surface sont dispersees dans les paysages arides d'Afrique, du Moyen-Orient, d'Eurasie, d'Amerique du Nord et d'Australie.
+            url: https://global-ecosystems.org/explore/groups/F2.8
+          - code: F2.9
+            name: Piscines geothermiques et zones humides
+            description: Les piscines geothermiques et les zones humides associees sont alimentees par des eaux souterraines circulant profondement qui se melangent au magma et aux roches chaudes dans les regions volcaniquement actives.
+            url: https://global-ecosystems.org/explore/groups/F2.9
+          - code: F2.10
+            name: Lacs sous-glaciaires
+            description: Ces lacs caches existent sous les calottes glaciaires permanentes, parfois a des dizaines ou des milliers de metres en dessous, principalement en Antarctique et au Groenland.
+            url: https://global-ecosystems.org/explore/groups/F2.10
+      - code: F3
+        name: Biome des zones humides artificielles
+        description: Structures construites qui retiennent ou transferent l'eau pour l'usage humain, le traitement ou l'elimination.
+        url: https://global-ecosystems.org/explore/biomes/F3
+        functional_groups:
+          - code: F3.1
+            name: Grands reservoirs
+            description: Les grands barrages ou reservoirs se trouvent dans les zones humides et peuplees du monde.
+            url: https://global-ecosystems.org/explore/groups/F3.1
+          - code: F3.2
+            name: Zones humides lacustres construites
+            description: Les petits barrages agricoles, les bassins d'eaux usees et les fosses de mines forment generalement des environnements de type lacustre, communs dans les climats humides et semi-arides du monde entier.
+            url: https://global-ecosystems.org/explore/groups/F3.2
+          - code: F3.3
+            name: Rizieres
+            description: Les rizieres couvrent plus d'un million de kilometres carres principalement dans les climats tropicaux a temperes chauds, en particulier en Asie du Sud-Est.
+            url: https://global-ecosystems.org/explore/groups/F3.3
+          - code: F3.4
+            name: Fermes aquacoles d'eau douce
+            description: Les fermes aquacoles d'eau douce sont des bassins construits a partir de terrassements ou des cages construites dans des lacs, des rivieres et des reservoirs d'eau douce.
+            url: https://global-ecosystems.org/explore/groups/F3.4
+          - code: F3.5
+            name: Canaux, fosses et drains
+            description: Les canaux, fosses et drains sont associes a l'agriculture et aux villes du monde entier.
+            url: https://global-ecosystems.org/explore/groups/F3.5
+  - code: S
+    name: Souterrain
+    description: Le domaine souterrain comprend la croute terrestre et les vides souterrains caracterises par l'absence ou la tres faible intensite de la lumiere du soleil.
+    transitional: false
+    url: https://global-ecosystems.org/explore/realms/S
+    biomes:
+      - code: S1
+        name: Biome lithique souterrain
+        description: Systemes lithiques non aquatiques sous la surface de la Terre.
+        url: https://global-ecosystems.org/explore/biomes/S1
+        functional_groups:
+          - code: S1.1
+            name: Grottes aerobies
+            description: Ces espaces souterrains remplis d'air fonctionnent comme des ecosystemes basiques a faible productivite, contraints par le manque de lumiere solaire, a l'exception des zones proches des ouvertures de surface.
+            url: https://global-ecosystems.org/explore/groups/S1.1
+      - code: S2
+        name: Biome des vides souterrains anthropogeniques
+        description: Ecosystemes crees par l'excavation humaine, y compris les mines souterraines, les tunnels de transport, les tombes et autres infrastructures.
+        url: https://global-ecosystems.org/explore/biomes/S2
+        functional_groups:
+          - code: S2.1
+            name: Vides souterrains anthropogeniques
+            description: Les excavations industrielles creent des vides artificiels qui ressemblent a des grottes.
+            url: https://global-ecosystems.org/explore/groups/S2.1
+  - code: TF
+    name: Terrestre-Eau douce
+    description: Les zones de transition permettent une variation continue entre les unites centrales. L'interface entre les domaines terrestre et dulcaquicole est occupee par des zones humides palustres.
+    transitional: true
+    url: https://global-ecosystems.org/explore/realms/TF
+    biomes:
+      - code: TF1
+        name: Biome des zones humides palustres
+        description: A l'interface des domaines terrestre et d'eau douce, comprend les plaines d'inondation vegetalisees, les suintements d'eau souterraine et les tourbieres avec des eaux de surface permanentes ou intermittentes.
+        url: https://global-ecosystems.org/explore/biomes/TF1
+        functional_groups:
+          - code: TF1.1
+            name: Forets tropicales inondees et forets tourbeuses
+            description: Ces marecages tropicaux ont des canopees forestieres fermees et connaissent des precipitations elevees et des temperatures constantes toute l'annee.
+            url: https://global-ecosystems.org/explore/groups/TF1.1
+          - code: TF1.2
+            name: Zones humides forestieres subtropicales/temperees
+            description: Les zones humides forestieres dans les climats temperes et subtropicaux subissent des inondations periodiques.
+            url: https://global-ecosystems.org/explore/groups/TF1.2
+          - code: TF1.3
+            name: Marais permanents
+            description: Les marais permanents se trouvent dans les regions tropicales et temperees du monde dans les zones plates avec des niveaux d'eau stables proches de la surface.
+            url: https://global-ecosystems.org/explore/groups/TF1.3
+          - code: TF1.4
+            name: Marais inondables saisonniers
+            description: Les regimes d'inondation et d'assechement saisonniers caracterisent les marais inondables a haute productivite dans les tropiques saisonniers et les regions temperees subhumides.
+            url: https://global-ecosystems.org/explore/groups/TF1.4
+          - code: TF1.5
+            name: Plaines d'inondation arides episodiques
+            description: Les plaines d'inondation arides episodiques s'inondent rarement et sont predominamment seches, parfois pendant des annees.
+            url: https://global-ecosystems.org/explore/groups/TF1.5
+          - code: TF1.6
+            name: Tourbieres boreales, temperees et montagnardes
+            description: Les tourbieres des zones boreales-subarctiques et temperees representent jusqu'a 40% du carbone du sol mondial.
+            url: https://global-ecosystems.org/explore/groups/TF1.6
+          - code: TF1.7
+            name: Tourbieres boreales et temperees
+            description: Les tourbieres se trouvent largement dans les regions boreales-subarctiques et temperees fraiches.
+            url: https://global-ecosystems.org/explore/groups/TF1.7
+  - code: FM
+    name: Eau douce-Marin
+    description: Les zones de transition permettent une variation continue entre les unites centrales. Le domaine de transition eau douce-marine est occupe par des ecosystemes aquatiques saumatres sur les cotes marines.
+    transitional: true
+    url: https://global-ecosystems.org/explore/realms/FM
+    biomes:
+      - code: FM1
+        name: Biome des eaux de transition semi-confinees
+        description: Criques cotieres influencees par les apports d'eau douce et marine des bassins versants terrestres et des marees, vagues et courants oceaniques.
+        url: https://global-ecosystems.org/explore/biomes/FM1
+        functional_groups:
+          - code: FM1.1
+            name: Bras de mer cotiers en eau profonde
+            description: Les ecosystemes de ces criques profondes et etroites ont ete principalement formes par les glaciers et ensuite inondes (par exemple les fjords).
+            url: https://global-ecosystems.org/explore/groups/FM1.1
+          - code: FM1.2
+            name: Estuaires et baies fluviales ouverts en permanence
+            description: Ces ecosystemes cotiers sont des mosaiques changeantes de differents habitats, selon la forme de la cote locale et les apports proportionnels d'eau douce et d'eau de mer.
+            url: https://global-ecosystems.org/explore/groups/FM1.2
+          - code: FM1.3
+            name: Lacs et lagunes fermes et ouverts par intermittence
+            description: Des organismes opportunistes a courte duree de vie vivent dans ces ecosystemes, ou les conditions changent rapidement a mesure que les entrees des lagunes vers l'ocean ouvert s'ouvrent ou se ferment.
+            url: https://global-ecosystems.org/explore/groups/FM1.3
+  - code: MFT
+    name: Marin-Eau douce-Terrestre
+    description: Les zones de transition entre ecosystemes marins et terrestres, influencees par l'eau douce, favorisent les zones humides intertidales et les systemes deltaiques.
+    transitional: true
+    url: https://global-ecosystems.org/explore/realms/MFT
+    biomes:
+      - code: MFT1
+        name: Biome de maree saumatre
+        description: Occupe l'interface des domaines terrestre, d'eau douce et marin, avec des ecosystemes allant des deltas fluviaux aux forets intertidales et aux marais sales cotiers.
+        url: https://global-ecosystems.org/explore/biomes/MFT1
+        functional_groups:
+          - code: MFT1.1
+            name: Delta fluviaux cotiers
+            description: A la convergence des domaines terrestre, d'eau douce et marin, les deltas fluviaux cotiers sont faconnes par les apports des rivieres qui deposent des sediments et les marees et courants oceaniques qui les dispersent.
+            url: https://global-ecosystems.org/explore/groups/MFT1.1
+          - code: MFT1.2
+            name: Forets et arbustes intertidaux
+            description: Les mangroves creent des ecosystemes structurellement complexes et productifs dans la zone intertidale des cotes depositionelles, autour des regions tropicales et temperees chaudes.
+            url: https://global-ecosystems.org/explore/groups/MFT1.2
+          - code: MFT1.3
+            name: Marais sales cotiers et roselieres
+            description: Les marais sales cotiers et les roselieres sont des mosaiques de graminees tolerantes au sel et d'arbustes bas, typiquement succulents.
+            url: https://global-ecosystems.org/explore/groups/MFT1.3
+  - code: MT
+    name: Marin-Terrestre
+    description: Zone de transition avec des gradients environnementaux abruptes en dessiccation, salinite et perturbation par les vagues et les marees.
+    transitional: true
+    url: https://global-ecosystems.org/explore/realms/MT
+    biomes:
+      - code: MT1
+        name: Biome des rivages
+        description: Habitats abiogeniques intertidaux naturellement formes situes a l'interface entre la terre et la mer.
+        url: https://global-ecosystems.org/explore/biomes/MT1
+        functional_groups:
+          - code: MT1.1
+            name: Rivages rocheux
+            description: Les vagues, les marees et un gradient d'exposition determinent la structure et la fonction de ces ecosystemes intertidaux productifs que l'on trouve principalement sur les cotes a haute energie.
+            url: https://global-ecosystems.org/explore/groups/MT1.1
+          - code: MT1.2
+            name: Rivages boueux
+            description: Les vastieres se trouvent sur les cotes a faible energie.
+            url: https://global-ecosystems.org/explore/groups/MT1.2
+          - code: MT1.3
+            name: Rivages sablonneux
+            description: Les plages, les barres de sable et les fleches sont exposees aux vagues et aux marees sur les cotes a energie moderee a elevee.
+            url: https://global-ecosystems.org/explore/groups/MT1.3
+          - code: MT1.4
+            name: Rivages de blocs et de galets
+            description: Les rivages de galets et de blocs sont exposes a l'action des vagues et des marees, et sont periodiquement restructures par les evenements de tempete a haute energie.
+            url: https://global-ecosystems.org/explore/groups/MT1.4
+      - code: MT2
+        name: Biome cotier supralittoral
+        description: Ou les environnements marins passent aux environnements terrestres, eleves au-dessus de l'influence directe des vagues et des marees.
+        url: https://global-ecosystems.org/explore/biomes/MT2
+        functional_groups:
+          - code: MT2.1
+            name: Arbustes et prairies cotieres
+            description: Une faible diversite de plantes et d'animaux specialises vivent dans les prairies, les arbustes et les forets basses sur les cotes au-dessus de la ligne de haute mer ou ils sont exposes a des conditions difficiles.
+            url: https://global-ecosystems.org/explore/groups/MT2.1
+          - code: MT2.2
+            name: Grandes colonies d'oiseaux de mer et de pinnipedes
+            description: De grandes concentrations d'oiseaux de mer nicheurs ou perches et de mammiferes semi-aquatiques tels que les phoques et les morses se trouvent sur des iles et des rivages relativement isoles.
+            url: https://global-ecosystems.org/explore/groups/MT2.2
+      - code: MT3
+        name: Biome des rivages anthropiques
+        description: Interfaces marines construites a partir de substances rigides et lisses qui jouxtent, etendent ou remplacent les rivages naturels.
+        url: https://global-ecosystems.org/explore/biomes/MT3
+        functional_groups:
+          - code: MT3.1
+            name: Rivages artificiels
+            description: Les digues, brise-lames, quais, docks, canaux de maree, iles et autres infrastructures cotieres construits creent des habitats pour les plantes et les animaux marins autour des ports et autres zones cotieres intensement amenagees.
+            url: https://global-ecosystems.org/explore/groups/MT3.1
+  - code: SF
+    name: Souterrain-Eau douce
+    description: Domaine de transition reliant les ecosystemes souterrains et d'eau douce.
+    transitional: true
+    url: https://global-ecosystems.org/explore/realms/SF
+    biomes:
+      - code: SF1
+        name: Biome des eaux douces souterraines
+        description: Ruisseaux, petits lacs et aquiferes sous la surface de la Terre, potentiellement le plus grand volume d'eau douce de tous les biomes d'eau douce.
+        url: https://global-ecosystems.org/explore/biomes/SF1
+        functional_groups:
+          - code: SF1.1
+            name: Ruisseaux et mares souterraines
+            description: Ces systemes aquatiques sombres enfouis sous terre ont des niveaux varies de connectivite avec les eaux de surface, ce qui influence profondement leurs traits et processus.
+            url: https://global-ecosystems.org/explore/groups/SF1.1
+          - code: SF1.2
+            name: Ecosystemes des eaux souterraines
+            description: Des ecosystemes a faible productivite se trouvent dans les strates de roche permeable saturee d'eau ou les couches de sediments non consolides enfouis.
+            url: https://global-ecosystems.org/explore/groups/SF1.2
+      - code: SF2
+        name: Biome anthropique des eaux douces souterraines
+        description: Systemes aquatiques dans les canaux souterrains, drains, egouts, conduites d'eau et mines inondees construits par l'homme.
+        url: https://global-ecosystems.org/explore/biomes/SF2
+        functional_groups:
+          - code: SF2.1
+            name: Conduites d'eau et canaux souterrains
+            description: Les eaux s'ecoulant rapidement dans des conduits artificiels sont generalement depourvues de leurs propres producteurs primaires en l'absence de lumiere.
+            url: https://global-ecosystems.org/explore/groups/SF2.1
+          - code: SF2.2
+            name: Mines et autres vides inondes
+            description: Les mines souterraines desaffectees et autres vides peuvent se remplir d'eau statique ou lentement en mouvement par suintement.
+            url: https://global-ecosystems.org/explore/groups/SF2.2
+  - code: SM
+    name: Souterrain-Marin
+    description: Domaine de transition reliant les ecosystemes souterrains et marins.
+    transitional: true
+    url: https://global-ecosystems.org/explore/realms/SM
+    biomes:
+      - code: SM1
+        name: Biome tidal souterrain
+        description: Piscines cotieres et vides souterrains avec une connexion partiellement ou entierement submergee aux eaux marines.
+        url: https://global-ecosystems.org/explore/biomes/SM1
+        functional_groups:
+          - code: SM1.1
+            name: Grottes d'Anchialine
+            description: Les grottes d'anchialine contiennent des masses d'eau qui ont une connexion souterraine a la mer et peu ou pas de connexion directe a l'atmosphere.
+            url: https://global-ecosystems.org/explore/groups/SM1.1
+          - code: SM1.2
+            name: Bassins d'anchialine
+            description: Les bassins d'anchialine sont des masses d'eau de surface saumatre qui ont une connexion souterraine a la mer.
+            url: https://global-ecosystems.org/explore/groups/SM1.2
+          - code: SM1.3
+            name: Grottes marines
+            description: Les grottes marines sont formees par l'action des vagues sur les fissures dans une grande variete de cotes rocheuses du monde entier.
+            url: https://global-ecosystems.org/explore/groups/SM1.3
