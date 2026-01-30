@@ -1,12 +1,20 @@
 import pytest
 from pathlib import Path
-from iucn_get_data.main import get_realms
+from iucn_get_data.main import get_realms, get_biomes, get_groups, get_typology
+from iucn_get_data.main import Typology, Realm, Biome, FunctionalGroup
 
 
-def test_get_realms_returns_list():
-    """Test that get_realms returns a list."""
+def test_get_realms_returns_dict():
+    """Test that get_realms returns a dictionary."""
     realms = get_realms()
-    assert isinstance(realms, list)
+    assert isinstance(realms, dict)
+
+
+def test_get_realms_values_are_realm_instances():
+    """Test that get_realms returns Realm instances."""
+    realms = get_realms()
+    for realm in realms.values():
+        assert isinstance(realm, Realm)
 
 
 def test_get_realms_count():
@@ -16,32 +24,34 @@ def test_get_realms_count():
 
 
 def test_get_realms_structure():
-    """Test that each realm has the required fields."""
+    """Test that each realm has the required attributes."""
     realms = get_realms()
-    required_fields = ['code', 'name', 'transitional', 'url', 'biomes']
 
-    for realm in realms:
-        for field in required_fields:
-            assert field in realm, f"Realm {realm.get('code', 'unknown')} missing field: {field}"
+    for realm in realms.values():
+        assert hasattr(realm, 'code')
+        assert hasattr(realm, 'name')
+        assert hasattr(realm, 'transitional')
+        assert hasattr(realm, 'url')
+        assert hasattr(realm, 'biomes')
 
 
 def test_get_realms_core_realms():
     """Test that there are 4 core realms (T, M, F, S)."""
     realms = get_realms()
-    core_realms = [r for r in realms if not r.get('transitional', True)]
+    core_realms = [r for r in realms.values() if not r.transitional]
 
     assert len(core_realms) == 4
-    core_codes = {r['code'] for r in core_realms}
+    core_codes = {r.code for r in core_realms}
     assert core_codes == {'T', 'M', 'F', 'S'}
 
 
 def test_get_realms_transitional_realms():
     """Test that there are 6 transitional realms."""
     realms = get_realms()
-    transitional_realms = [r for r in realms if r.get('transitional', False)]
+    transitional_realms = [r for r in realms.values() if r.transitional]
 
     assert len(transitional_realms) == 6
-    transitional_codes = {r['code'] for r in transitional_realms}
+    transitional_codes = {r.code for r in transitional_realms}
     assert transitional_codes == {'TF', 'FM', 'MFT', 'MT', 'SF', 'SM'}
 
 
@@ -49,32 +59,32 @@ def test_get_realms_biomes_structure():
     """Test that each realm has biomes with proper structure."""
     realms = get_realms()
 
-    for realm in realms:
-        biomes = realm.get('biomes', [])
-        assert isinstance(biomes, list)
-        assert len(biomes) > 0, f"Realm {realm['code']} has no biomes"
+    for realm in realms.values():
+        assert isinstance(realm.biomes, dict)
+        assert len(realm.biomes) > 0, f"Realm {realm.code} has no biomes"
 
-        for biome in biomes:
-            assert 'code' in biome
-            assert 'name' in biome
-            assert 'url' in biome
-            assert 'functional_groups' in biome
+        for biome in realm.biomes.values():
+            assert isinstance(biome, Biome)
+            assert hasattr(biome, 'code')
+            assert hasattr(biome, 'name')
+            assert hasattr(biome, 'url')
+            assert hasattr(biome, 'functional_groups')
 
 
 def test_get_realms_functional_groups_structure():
     """Test that functional groups have proper structure."""
     realms = get_realms()
 
-    for realm in realms:
-        for biome in realm.get('biomes', []):
-            functional_groups = biome.get('functional_groups', [])
-            assert isinstance(functional_groups, list)
-            assert len(functional_groups) > 0, f"Biome {biome['code']} has no functional groups"
+    for realm in realms.values():
+        for biome in realm.biomes.values():
+            assert isinstance(biome.functional_groups, dict)
+            assert len(biome.functional_groups) > 0, f"Biome {biome.code} has no functional groups"
 
-            for fg in functional_groups:
-                assert 'code' in fg
-                assert 'name' in fg
-                assert 'url' in fg
+            for fg in biome.functional_groups.values():
+                assert isinstance(fg, FunctionalGroup)
+                assert hasattr(fg, 'code')
+                assert hasattr(fg, 'name')
+                assert hasattr(fg, 'url')
 
 
 def test_get_realms_total_functional_groups():
@@ -82,9 +92,9 @@ def test_get_realms_total_functional_groups():
     realms = get_realms()
     total_fgs = 0
 
-    for realm in realms:
-        for biome in realm.get('biomes', []):
-            total_fgs += len(biome.get('functional_groups', []))
+    for realm in realms.values():
+        for biome in realm.biomes.values():
+            total_fgs += len(biome.functional_groups)
 
     assert total_fgs == 109
 
@@ -94,14 +104,14 @@ def test_get_realms_url_format():
     realms = get_realms()
     base_url = "https://global-ecosystems.org/explore"
 
-    for realm in realms:
-        assert realm['url'].startswith(f"{base_url}/realms/")
+    for realm in realms.values():
+        assert realm.url.startswith(f"{base_url}/realms/")
 
-        for biome in realm.get('biomes', []):
-            assert biome['url'].startswith(f"{base_url}/biomes/")
+        for biome in realm.biomes.values():
+            assert biome.url.startswith(f"{base_url}/biomes/")
 
-            for fg in biome.get('functional_groups', []):
-                assert fg['url'].startswith(f"{base_url}/groups/")
+            for fg in biome.functional_groups.values():
+                assert fg.url.startswith(f"{base_url}/groups/")
 
 
 def test_get_realms_file_not_found():
@@ -113,79 +123,191 @@ def test_get_realms_file_not_found():
 def test_get_realms_specific_realm_data():
     """Test specific data for Terrestrial realm."""
     realms = get_realms()
-    terrestrial = next((r for r in realms if r['code'] == 'T'), None)
+    terrestrial = realms.get('T')
 
     assert terrestrial is not None
-    assert terrestrial['name'] == 'Terrestrial'
-    assert terrestrial['transitional'] is False
-    assert len(terrestrial['biomes']) == 7  # T1-T7
-    assert terrestrial['url'] == 'https://global-ecosystems.org/explore/realms/T'
+    assert terrestrial.name == 'Terrestrial'
+    assert terrestrial.transitional is False
+    assert len(terrestrial.biomes) == 7  # T1-T7
+    assert terrestrial.url == 'https://global-ecosystems.org/explore/realms/T'
 
 
 def test_get_realms_terrestrial_functional_groups():
     """Test that Terrestrial realm has 34 functional groups."""
     realms = get_realms()
-    terrestrial = next((r for r in realms if r['code'] == 'T'), None)
+    terrestrial = realms.get('T')
 
-    total_fgs = sum(len(biome.get('functional_groups', [])) for biome in terrestrial['biomes'])
+    total_fgs = sum(len(biome.functional_groups) for biome in terrestrial.biomes.values())
     assert total_fgs == 34
 
 
 def test_get_realms_marine_m1_has_10_groups():
     """Test that Marine M1 biome has 10 functional groups (including M1.10)."""
     realms = get_realms()
-    marine = next((r for r in realms if r['code'] == 'M'), None)
-    m1_biome = next((b for b in marine['biomes'] if b['code'] == 'M1'), None)
+    marine = realms.get('M')
+    m1_biome = marine.biomes.get('M1')
 
     assert m1_biome is not None
-    assert len(m1_biome['functional_groups']) == 10
+    assert len(m1_biome.functional_groups) == 10
 
     # Check that M1.10 exists
-    fg_codes = {fg['code'] for fg in m1_biome['functional_groups']}
+    fg_codes = set(m1_biome.functional_groups.keys())
     assert 'M1.10' in fg_codes
 
 
-def test_get_typology_returns_dict():
-    """Test that get_typology returns a dictionary."""
-    from iucn_get_data.main import get_typology
+def test_get_typology_returns_typology():
+    """Test that get_typology returns a Typology instance."""
     typology = get_typology()
-    assert isinstance(typology, dict)
+    assert isinstance(typology, Typology)
 
 
-def test_get_typology_has_realms_key():
-    """Test that get_typology returns a dict with 'realms' key."""
-    from iucn_get_data.main import get_typology
+def test_get_typology_has_realms():
+    """Test that get_typology returns a Typology with realms dict."""
     typology = get_typology()
-    assert 'realms' in typology
-    assert isinstance(typology['realms'], list)
+    assert hasattr(typology, 'realms')
+    assert isinstance(typology.realms, dict)
 
 
 def test_get_typology_realms_count():
     """Test that get_typology returns 10 realms."""
-    from iucn_get_data.main import get_typology
     typology = get_typology()
-    assert len(typology['realms']) == 10
+    assert len(typology.realms) == 10
 
 
 def test_get_typology_file_not_found():
     """Test that get_typology raises FileNotFoundError for non-existent file."""
-    from iucn_get_data.main import get_typology
     with pytest.raises(FileNotFoundError):
         get_typology("nonexistent/path.yaml")
 
 
 def test_get_typology_complete_structure():
     """Test that get_typology returns complete hierarchical structure."""
-    from iucn_get_data.main import get_typology
     typology = get_typology()
 
     # Verify structure exists
-    assert len(typology['realms']) > 0
-    first_realm = typology['realms'][0]
-    assert 'code' in first_realm
-    assert 'name' in first_realm
-    assert 'biomes' in first_realm
-    assert len(first_realm['biomes']) > 0
+    assert len(typology.realms) > 0
+    first_realm = next(iter(typology.realms.values()))
+    assert hasattr(first_realm, 'code')
+    assert hasattr(first_realm, 'name')
+    assert hasattr(first_realm, 'biomes')
+    assert len(first_realm.biomes) > 0
 
-    first_biome = first_realm['biomes'][0]
-    assert 'functional_groups' in first_biome
+    first_biome = next(iter(first_realm.biomes.values()))
+    assert hasattr(first_biome, 'functional_groups')
+
+
+def test_get_biomes_returns_dict():
+    """Test that get_biomes returns a dictionary."""
+    biomes = get_biomes()
+    assert isinstance(biomes, dict)
+
+
+def test_get_biomes_values_are_biome_instances():
+    """Test that get_biomes returns Biome instances."""
+    biomes = get_biomes()
+    for biome in biomes.values():
+        assert isinstance(biome, Biome)
+
+
+def test_get_biomes_filtered_by_realm():
+    """Test that get_biomes can filter by realm."""
+    terrestrial_biomes = get_biomes(realm='T')
+    assert len(terrestrial_biomes) == 7
+    for code in terrestrial_biomes.keys():
+        assert code.startswith('T')
+
+
+def test_get_biomes_invalid_realm():
+    """Test that get_biomes raises ValueError for invalid realm."""
+    with pytest.raises(ValueError):
+        get_biomes(realm='INVALID')
+
+
+def test_get_groups_returns_dict():
+    """Test that get_groups returns a dictionary."""
+    groups = get_groups()
+    assert isinstance(groups, dict)
+
+
+def test_get_groups_values_are_functional_group_instances():
+    """Test that get_groups returns FunctionalGroup instances."""
+    groups = get_groups()
+    for group in groups.values():
+        assert isinstance(group, FunctionalGroup)
+
+
+def test_get_groups_filtered_by_realm():
+    """Test that get_groups can filter by realm."""
+    terrestrial_groups = get_groups(realm='T')
+    assert len(terrestrial_groups) == 34
+    for group in terrestrial_groups.values():
+        assert group.realm_code == 'T'
+
+
+def test_get_groups_filtered_by_biome():
+    """Test that get_groups can filter by biome."""
+    t1_groups = get_groups(biome='T1')
+    assert len(t1_groups) == 4
+    for group in t1_groups.values():
+        assert group.biome_code == 'T1'
+
+
+def test_get_groups_invalid_realm():
+    """Test that get_groups raises ValueError for invalid realm."""
+    with pytest.raises(ValueError):
+        get_groups(realm='INVALID')
+
+
+def test_get_groups_invalid_biome():
+    """Test that get_groups raises ValueError for invalid biome."""
+    with pytest.raises(ValueError):
+        get_groups(biome='INVALID1')
+
+
+def test_typology_class_navigation():
+    """Test navigating the typology via class hierarchy."""
+    typology = get_typology()
+
+    # Navigate to a specific functional group
+    realm = typology.realms['T']
+    assert realm.code == 'T'
+    assert realm.name == 'Terrestrial'
+
+    biome = realm.biomes['T1']
+    assert biome.code == 'T1'
+    assert biome.realm_code == 'T'
+
+    fg = biome.functional_groups['T1.1']
+    assert fg.code == 'T1.1'
+    assert fg.biome_code == 'T1'
+    assert fg.realm_code == 'T'
+
+
+def test_typology_get_biomes_method():
+    """Test the Typology.get_biomes() method."""
+    typology = get_typology()
+
+    # Get all biomes
+    all_biomes = typology.get_biomes()
+    assert len(all_biomes) > 0
+
+    # Get biomes for a specific realm
+    t_biomes = typology.get_biomes(realm='T')
+    assert len(t_biomes) == 7
+
+
+def test_typology_get_groups_method():
+    """Test the Typology.get_groups() method."""
+    typology = get_typology()
+
+    # Get all groups
+    all_groups = typology.get_groups()
+    assert len(all_groups) == 109
+
+    # Get groups for a specific realm
+    t_groups = typology.get_groups(realm='T')
+    assert len(t_groups) == 34
+
+    # Get groups for a specific biome
+    t1_groups = typology.get_groups(biome='T1')
+    assert len(t1_groups) == 4
