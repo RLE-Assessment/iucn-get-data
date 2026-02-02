@@ -191,6 +191,38 @@ class Typology:
 
         return all_groups
 
+    @property
+    def dataframe(self):
+        """
+        Return typology as a pandas DataFrame with MultiIndex.
+
+        Returns a DataFrame with all functional groups, indexed by
+        (realm_code, biome_code, functional_group_code).
+
+        Returns:
+            pandas.DataFrame: DataFrame with columns for names, descriptions, and URLs.
+        """
+        import pandas as pd
+
+        rows = []
+        for realm in self.realms.values():
+            for biome in realm.biomes.values():
+                for fg in biome.functional_groups.values():
+                    rows.append({
+                        'realm_code': realm.code,
+                        'biome_code': biome.code,
+                        'functional_group_code': fg.code,
+                        'realm_name': realm.name,
+                        'biome_name': biome.name,
+                        'functional_group_name': fg.name,
+                        'description': fg.description,
+                        'url': fg.url,
+                    })
+
+        df = pd.DataFrame(rows)
+        df = df.set_index(['realm_code', 'biome_code', 'functional_group_code'])
+        return df
+
 
 def _get_default_typology_path(language="english"):
     """Get the path to the bundled YAML file."""
