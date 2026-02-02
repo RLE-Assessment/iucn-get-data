@@ -1,6 +1,6 @@
 import pytest
-from iucn_get_data.main import get_realms, get_biomes, get_groups
-from iucn_get_data.main import Typology, Realm, Biome, FunctionalGroup
+from iucn_get_data.core import get_realms, get_biomes, get_groups
+from iucn_get_data.core import Typology, Realm, Biome, FunctionalGroup
 
 
 def test_get_realms_returns_dict():

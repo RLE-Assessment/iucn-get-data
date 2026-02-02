@@ -2,7 +2,7 @@
 
 from importlib.metadata import version
 
-from .main import (
+from .core import (
     get_realms, get_biomes, get_groups,
     Typology, Realm, Biome, FunctionalGroup
 )

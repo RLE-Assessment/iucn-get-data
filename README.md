@@ -97,14 +97,15 @@ iucn-get-data/
 ├── src/
 │   └── iucn_get_data/
 │       ├── __init__.py
-│       ├── main.py
+│       ├── core.py
 │       ├── examples.py
 │       └── data/
 │           ├── english.yaml
+│           ├── french.yaml
 │           └── spanish.yaml
 ├── tests/
 │   ├── __init__.py
-│   └── test_main.py
+│   └── test_core.py
 └── pyproject.toml
 ```
 

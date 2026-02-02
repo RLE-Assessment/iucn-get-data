@@ -1,6 +1,6 @@
 """Example usage of the iucn_get_data package."""
 
-from .main import get_realms, get_biomes, get_groups, Typology
+from .core import get_realms, get_biomes, get_groups, Typology
 
 
 def main():
