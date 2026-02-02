@@ -265,14 +265,171 @@ class Typology:
 
         # Merge with ecosystems if added
         if self.ecosystems is not None:
+            # Reset ecosystems index to preserve it as columns in the merge
+            ecosystems_df = self.ecosystems.reset_index()
             df = df.reset_index().merge(
-                self.ecosystems,
+                ecosystems_df,
                 left_on='functional_group_code',
                 right_on=self.ecosystems_functional_group_column,
                 how='right'
             )
 
         return df
+
+    def as_html(
+        self,
+        ecosystem_columns: list[str] = None,
+        drop_columns: list[str] = None,
+        hide_empty: bool = True,
+        ecosystem_name_column: str = None,
+        ecosystem_id_column: str = None
+    ) -> str:
+        """
+        Return typology as an HTML table with hierarchical row-based structure.
+
+        The table displays realm → biome → functional group → ecosystem hierarchy
+        with each level on its own row spanning all columns.
+
+        Args:
+            ecosystem_columns: List of column names to display for ecosystems.
+                              If None and ecosystems are added, uses all non-typology columns.
+            drop_columns: List of column names to exclude from display.
+            hide_empty: If True (default), hide realm, biome, and functional group
+                       headings that don't contain any ecosystems.
+            ecosystem_name_column: Column containing ecosystem names (displayed first).
+            ecosystem_id_column: Column containing ecosystem IDs (displayed second).
+
+        Returns:
+            str: HTML string containing the hierarchical table.
+        """
+        # Define realm order
+        realm_order = ['T', 'M', 'F', 'S', 'MT', 'SF', 'FM', 'MFT', 'SM', 'TF']
+
+        # Determine ecosystem columns to display
+        eco_cols = []
+        drop_set = set(drop_columns) if drop_columns else set()
+        if self.ecosystems is not None:
+            df = self.dataframe
+            typology_cols = {'realm_code', 'biome_code', 'functional_group_code',
+                            'realm_name', 'biome_name', 'functional_group_name',
+                            'description', 'url', self.ecosystems_functional_group_column}
+            if ecosystem_columns is None:
+                available_cols = [col for col in df.columns if col not in typology_cols and col not in drop_set]
+                # Order columns: name first, then ID, then remaining
+                ordered_cols = []
+                if ecosystem_name_column and ecosystem_name_column in available_cols:
+                    ordered_cols.append(ecosystem_name_column)
+                    available_cols.remove(ecosystem_name_column)
+                if ecosystem_id_column and ecosystem_id_column in available_cols:
+                    ordered_cols.append(ecosystem_id_column)
+                    available_cols.remove(ecosystem_id_column)
+                eco_cols = ordered_cols + available_cols
+            else:
+                eco_cols = [col for col in ecosystem_columns if col not in drop_set]
+
+        # Calculate column count for spanning
+        num_cols = max(len(eco_cols), 1)
+
+        rows = []
+        rows.append('<table class="typology-table" style="border-collapse: collapse; width: 100%;">')
+
+        # Add header if ecosystems present
+        if eco_cols:
+            rows.append('<thead><tr>')
+            for col in eco_cols:
+                rows.append(f'<th style="border: 1px solid #ddd; padding: 8px; text-align: left;">{col}</th>')
+            rows.append('</tr></thead>')
+
+        rows.append('<tbody>')
+
+        # Build ecosystem lookup if ecosystems are added
+        ecosystem_lookup = {}
+        if self.ecosystems is not None and eco_cols:
+            df = self.dataframe
+            for _, row in df.iterrows():
+                fg_code = row['functional_group_code']
+                if fg_code not in ecosystem_lookup:
+                    ecosystem_lookup[fg_code] = []
+                ecosystem_lookup[fg_code].append({col: row[col] for col in eco_cols})
+
+        # Sort realms by defined order
+        sorted_realm_codes = sorted(
+            self.realms.keys(),
+            key=lambda x: realm_order.index(x) if x in realm_order else len(realm_order)
+        )
+
+        for realm_code in sorted_realm_codes:
+            realm = self.realms[realm_code]
+
+            # Check if realm has any ecosystems (for hide_empty)
+            if hide_empty:
+                realm_has_ecosystems = any(
+                    ecosystem_lookup.get(fg_code)
+                    for biome in realm.biomes.values()
+                    for fg_code in biome.functional_groups.keys()
+                )
+                if not realm_has_ecosystems:
+                    continue
+
+            # Realm row - grey background, spans all columns
+            rows.append('<tr>')
+            rows.append(f'<td colspan="{num_cols}" style="background-color: #e0e0e0; padding: 8px; font-weight: bold; text-align: left;">'
+                       f'REALM: {realm.name} ({realm_code})</td>')
+            rows.append('</tr>')
+
+            # Sort biomes by code
+            sorted_biome_codes = sorted(realm.biomes.keys())
+
+            for biome_code in sorted_biome_codes:
+                biome = realm.biomes[biome_code]
+
+                # Check if biome has any ecosystems (for hide_empty)
+                if hide_empty:
+                    biome_has_ecosystems = any(
+                        ecosystem_lookup.get(fg_code)
+                        for fg_code in biome.functional_groups.keys()
+                    )
+                    if not biome_has_ecosystems:
+                        continue
+
+                # Biome row - white background, spans all columns
+                rows.append('<tr>')
+                rows.append(f'<td colspan="{num_cols}" style="background-color: #ffffff; padding: 8px; font-weight: bold; text-align: left;">'
+                           f'{biome.name} ({biome_code})</td>')
+                rows.append('</tr>')
+
+                # Sort functional groups by code
+                sorted_fg_codes = sorted(biome.functional_groups.keys())
+
+                for fg_code in sorted_fg_codes:
+                    fg = biome.functional_groups[fg_code]
+
+                    # Get ecosystems for this functional group
+                    ecosystems_list = ecosystem_lookup.get(fg_code, [])
+
+                    # Skip if hide_empty and no ecosystems
+                    if hide_empty and not ecosystems_list:
+                        continue
+
+                    # Functional group row - white background, single indent
+                    rows.append('<tr>')
+                    rows.append(f'<td colspan="{num_cols}" style="background-color: #ffffff; padding: 8px 8px 8px 24px; text-align: left;">'
+                               f'{fg.name} ({fg_code})</td>')
+                    rows.append('</tr>')
+
+                    # Ecosystem rows - two level indent (48px = 2 × 24px), white background
+                    for eco in ecosystems_list:
+                        rows.append('<tr style="background-color: #ffffff !important;">')
+                        for i, col in enumerate(eco_cols):
+                            # First column gets two-level indent for hierarchy
+                            if i == 0:
+                                rows.append(f'<td style="background-color: #ffffff !important; border: 1px solid #ddd; padding: 8px 8px 8px 48px; text-align: left;">{eco.get(col, "")}</td>')
+                            else:
+                                rows.append(f'<td style="background-color: #ffffff !important; border: 1px solid #ddd; padding: 8px; text-align: left;">{eco.get(col, "")}</td>')
+                        rows.append('</tr>')
+
+        rows.append('</tbody></table>')
+        return '\n'.join(rows)
 
 
 def _get_default_typology_path(language="english"):
