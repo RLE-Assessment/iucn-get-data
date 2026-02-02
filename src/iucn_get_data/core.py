@@ -3,6 +3,10 @@ import yaml
 from dataclasses import dataclass, field
 from importlib import resources
 from importlib.metadata import version
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import pandas as pd
 
 
 @dataclass
@@ -114,19 +118,32 @@ class Typology:
     Attributes:
         language: Language for typology data (default: "english").
         realms: Dictionary of realms keyed by their code.
+        ecosystems: Optional DataFrame containing ecosystem records.
+        ecosystems_functional_group_column: Column name for functional group codes in ecosystems.
 
     Example:
         >>> typology = Typology()  # Uses English
         >>> typology = Typology(language="spanish")  # Uses Spanish
+        >>> typology = Typology(ecosystems=df, ecosystems_functional_group_column='efg_code')
     """
     language: str = "english"
     realms: dict[str, Realm] = field(default_factory=dict)
+    ecosystems: "pd.DataFrame" = None
+    ecosystems_functional_group_column: str = None
 
     def __post_init__(self):
         """Load typology data if realms not provided."""
         if not self.realms:
             data = _load_yaml(language=self.language)
             self.realms = _build_realms(data)
+
+        # Validate ecosystems column if provided
+        if self.ecosystems is not None and self.ecosystems_functional_group_column is None:
+            raise ValueError("ecosystems_functional_group_column required when ecosystems is provided")
+        if self.ecosystems is not None:
+            valid_names = list(self.ecosystems.columns) + list(self.ecosystems.index.names)
+            if self.ecosystems_functional_group_column not in valid_names:
+                raise ValueError(f"Column '{self.ecosystems_functional_group_column}' not found in ecosystems DataFrame columns or index")
 
     def get_biomes(self, realm: str = None) -> dict[str, Biome]:
         """
@@ -191,16 +208,40 @@ class Typology:
 
         return all_groups
 
+    def add_ecosystems(self, data: "pd.DataFrame", functional_group_column: str) -> None:
+        """
+        Add ecosystem data to be merged with typology.
+
+        Args:
+            data: DataFrame containing ecosystem records.
+            functional_group_column: Name of column or index level containing functional group codes.
+
+        Example:
+            >>> typology = Typology(language="spanish")
+            >>> typology.add_ecosystems(ecosystems_df, functional_group_column='efg_code')
+            >>> typology.dataframe  # Returns merged data
+        """
+        # Check both columns and index names
+        valid_names = list(data.columns) + list(data.index.names)
+        if functional_group_column not in valid_names:
+            raise ValueError(f"Column '{functional_group_column}' not found in DataFrame columns or index")
+
+        self.ecosystems = data
+        self.ecosystems_functional_group_column = functional_group_column
+
     @property
     def dataframe(self):
         """
-        Return typology as a pandas DataFrame with MultiIndex.
+        Return typology as a pandas DataFrame, merged with ecosystems if added.
 
-        Returns a DataFrame with all functional groups, indexed by
-        (realm_code, biome_code, functional_group_code).
+        When no ecosystems are added, returns a DataFrame with all functional groups,
+        indexed by (realm_code, biome_code, functional_group_code).
+
+        When ecosystems are added, returns a merged DataFrame with typology and
+        ecosystem data.
 
         Returns:
-            pandas.DataFrame: DataFrame with columns for names, descriptions, and URLs.
+            pandas.DataFrame: DataFrame with typology data, optionally merged with ecosystems.
         """
         import pandas as pd
 
@@ -221,6 +262,16 @@ class Typology:
 
         df = pd.DataFrame(rows)
         df = df.set_index(['realm_code', 'biome_code', 'functional_group_code'])
+
+        # Merge with ecosystems if added
+        if self.ecosystems is not None:
+            df = df.reset_index().merge(
+                self.ecosystems,
+                left_on='functional_group_code',
+                right_on=self.ecosystems_functional_group_column,
+                how='right'
+            )
+
         return df
 
 
