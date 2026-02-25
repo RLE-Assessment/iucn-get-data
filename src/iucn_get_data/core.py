@@ -229,6 +229,80 @@ class Typology:
         self.ecosystems = data
         self.ecosystems_functional_group_column = functional_group_column
 
+    def __str__(self):
+        """Return a tree-style text representation of the typology hierarchy."""
+        realm_order = ['T', 'M', 'F', 'S', 'MT', 'SF', 'FM', 'MFT', 'SM', 'TF']
+        sorted_realm_codes = sorted(
+            self.realms.keys(),
+            key=lambda x: realm_order.index(x) if x in realm_order else len(realm_order)
+        )
+
+        # Build ecosystem lookup if ecosystems are added
+        ecosystem_lookup = {}
+        if self.ecosystems is not None:
+            df = self.dataframe
+            typology_cols = {'realm_code', 'biome_code', 'functional_group_code',
+                            'realm_name', 'biome_name', 'functional_group_name',
+                            'description', 'url', 'index',
+                            self.ecosystems_functional_group_column}
+            # Find first non-typology column for display
+            eco_col = self.ecosystem_name_column if hasattr(self, 'ecosystem_name_column') and self.ecosystem_name_column else None
+            if eco_col is None:
+                for col in df.columns:
+                    if col not in typology_cols:
+                        eco_col = col
+                        break
+            if eco_col:
+                for _, row in df.iterrows():
+                    fg_code = row['functional_group_code']
+                    if fg_code not in ecosystem_lookup:
+                        ecosystem_lookup[fg_code] = []
+                    ecosystem_lookup[fg_code].append(row[eco_col])
+
+        lines = []
+        for realm_code in sorted_realm_codes:
+            realm = self.realms[realm_code]
+
+            if self.ecosystems is not None:
+                realm_has_ecosystems = any(
+                    ecosystem_lookup.get(fg_code)
+                    for biome in realm.biomes.values()
+                    for fg_code in biome.functional_groups.keys()
+                )
+                if not realm_has_ecosystems:
+                    continue
+
+            lines.append(f"{realm_code}: {realm.name}")
+
+            sorted_biome_codes = sorted(realm.biomes.keys())
+            for biome_code in sorted_biome_codes:
+                biome = realm.biomes[biome_code]
+
+                if self.ecosystems is not None:
+                    biome_has_ecosystems = any(
+                        ecosystem_lookup.get(fg_code)
+                        for fg_code in biome.functional_groups.keys()
+                    )
+                    if not biome_has_ecosystems:
+                        continue
+
+                lines.append(f"  └─ {biome_code}: {biome.name}")
+
+                sorted_fg_codes = sorted(biome.functional_groups.keys())
+                for fg_code in sorted_fg_codes:
+                    fg = biome.functional_groups[fg_code]
+                    ecosystems_list = ecosystem_lookup.get(fg_code, [])
+
+                    if self.ecosystems is not None and not ecosystems_list:
+                        continue
+
+                    lines.append(f"      └─ {fg_code}: {fg.name}")
+
+                    for eco in ecosystems_list:
+                        lines.append(f"          └─ {eco}")
+
+        return '\n'.join(lines)
+
     @property
     def dataframe(self):
         """
@@ -276,7 +350,7 @@ class Typology:
 
         return df
 
-    def as_html(
+    def _repr_html_(
         self,
         ecosystem_columns: list[str] = None,
         drop_columns: list[str] = None,
