@@ -12,13 +12,33 @@ dependencies = [
 dev = [
     "pytest>=7.0",
 ]
+ee = [
+    "earthengine-api>=1.6.14",
+    "pandas>=1.5.0",
+]
+cog = [
+    "rioxarray>=0.15.0",
+    "rasterio>=1.3.0",
+]
+gcs = [
+    "geopandas>=1.0.0",
+    "pyarrow>=14.0.0",
+    "gcsfs>=2024.0.0",
+    "pandas>=1.5.0",
+]
+
+[project.entry-points."iucn_get_data.ecosystem_backends"]
+parquet = "iucn_get_data.backends.parquet:ParquetBackend"
+cog = "iucn_get_data.backends.cog:CogBackend"
+ee_vector = "iucn_get_data.backends.ee_vector:EEVectorBackend"
+ee_raster = "iucn_get_data.backends.ee_raster:EERasterBackend"
 
 [build-system]
 requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["iucn_get_data"]
+packages = ["iucn_get_data", "iucn_get_data.backends"]
 package-dir = {"" = "src"}
 
 [tool.setuptools.package-data]

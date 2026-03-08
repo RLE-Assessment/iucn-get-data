@@ -64,3 +64,7 @@ Thumbs.db
 
 # Claude
 .claude/settings.json
+
+# Manual test data
+tests/test_data/colombia.parquet
+tests/test_data/colombian_ecoregions.parquet

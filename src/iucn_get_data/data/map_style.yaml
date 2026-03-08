@@ -1,0 +1,190 @@
+# Default map styling for IUCN Global Ecosystem Typology levels.
+# RGB color values [R, G, B] for each code at realm, biome, and
+# functional group levels.
+
+realms:
+  # Core realms
+  T: [34, 139, 34]       # forest green
+  M: [0, 105, 180]       # ocean blue
+  F: [70, 160, 220]      # sky blue
+  S: [139, 90, 43]       # saddle brown
+  # Transitional realms
+  MT: [0, 128, 128]      # teal
+  TF: [60, 150, 100]     # sea green
+  FM: [30, 130, 200]     # steel blue
+  MFT: [50, 140, 140]    # dark cyan
+  SF: [100, 120, 140]    # slate gray-blue
+  SM: [80, 100, 130]     # dark slate blue
+
+biomes:
+  # Terrestrial
+  T1: [0, 100, 0]        # dark green – tropical-subtropical forests
+  T2: [34, 139, 34]      # forest green – temperate-boreal forests
+  T3: [154, 170, 60]     # olive – shrublands
+  T4: [200, 190, 80]     # dark khaki – savannas & grasslands
+  T5: [210, 180, 140]    # tan – deserts
+  T6: [180, 200, 220]    # light steel blue – polar/alpine
+  T7: [160, 120, 80]     # peru – intensive land-use
+  # Marine
+  M1: [0, 80, 160]       # dark blue – marine shelf
+  M2: [30, 60, 140]      # medium blue – pelagic ocean
+  M3: [20, 40, 100]      # navy – deep sea floors
+  M4: [100, 130, 170]    # cadet blue – anthropogenic marine
+  # Freshwater
+  F1: [70, 130, 200]     # cornflower blue – rivers & streams
+  F2: [100, 180, 220]    # light sky blue – lakes
+  F3: [120, 160, 190]    # light blue-gray – artificial wetlands
+  # Subterranean
+  S1: [139, 90, 43]      # saddle brown – subterranean lithic
+  S2: [120, 100, 80]     # dark tan – anthropogenic subterranean
+  # Terrestrial-Freshwater
+  TF1: [60, 150, 100]    # medium sea green – palustrine wetlands
+  # Freshwater-Marine
+  FM1: [30, 130, 200]    # dodger blue – semi-confined transitional
+  # Marine-Freshwater-Terrestrial
+  MFT1: [50, 140, 140]   # dark cyan – brackish tidal
+  # Marine-Terrestrial
+  MT1: [0, 140, 140]     # dark cyan – shorelines
+  MT2: [60, 160, 120]    # medium aquamarine – supralittoral coastal
+  MT3: [100, 140, 140]   # gray-teal – anthropogenic shorelines
+  # Subterranean-Freshwater
+  SF1: [80, 120, 160]    # steel blue – subterranean freshwaters
+  SF2: [100, 120, 140]   # slate – anthropogenic subterranean freshwaters
+  # Subterranean-Marine
+  SM1: [80, 100, 130]    # dark slate – subterranean tidal
+
+functional_groups:
+  # T1 – Tropical-subtropical forests
+  T1.1: [0, 120, 0]
+  T1.2: [85, 130, 47]
+  T1.3: [0, 100, 50]
+  T1.4: [60, 110, 60]
+  # T2 – Temperate-boreal forests
+  T2.1: [20, 120, 20]
+  T2.2: [50, 150, 50]
+  T2.3: [30, 130, 60]
+  T2.4: [60, 140, 40]
+  T2.5: [40, 160, 30]
+  T2.6: [80, 140, 50]
+  # T3 – Shrublands
+  T3.1: [140, 160, 40]
+  T3.2: [160, 170, 60]
+  T3.3: [150, 180, 80]
+  T3.4: [170, 170, 100]
+  # T4 – Savannas & grasslands
+  T4.1: [190, 180, 60]
+  T4.2: [200, 190, 70]
+  T4.3: [210, 195, 80]
+  T4.4: [180, 175, 90]
+  T4.5: [195, 200, 100]
+  # T5 – Deserts
+  T5.1: [200, 170, 120]
+  T5.2: [210, 175, 130]
+  T5.3: [220, 185, 140]
+  T5.4: [190, 175, 150]
+  T5.5: [230, 200, 160]
+  # T6 – Polar/alpine
+  T6.1: [200, 220, 240]
+  T6.2: [180, 200, 220]
+  T6.3: [170, 195, 210]
+  T6.4: [160, 190, 200]
+  T6.5: [150, 185, 195]
+  # T7 – Intensive land-use
+  T7.1: [170, 130, 80]
+  T7.2: [160, 140, 90]
+  T7.3: [150, 120, 70]
+  T7.4: [140, 110, 80]
+  T7.5: [155, 135, 100]
+  # M1 – Marine shelf
+  M1.1: [0, 90, 140]
+  M1.2: [0, 80, 130]
+  M1.3: [0, 100, 170]
+  M1.4: [10, 85, 145]
+  M1.5: [0, 75, 125]
+  M1.6: [20, 90, 150]
+  M1.7: [10, 95, 160]
+  M1.8: [5, 70, 120]
+  M1.9: [0, 110, 180]
+  M1.10: [15, 85, 135]
+  # M2 – Pelagic ocean
+  M2.1: [40, 70, 150]
+  M2.2: [30, 60, 140]
+  M2.3: [25, 50, 130]
+  M2.4: [20, 45, 120]
+  M2.5: [60, 90, 170]
+  # M3 – Deep sea floors
+  M3.1: [25, 45, 105]
+  M3.2: [20, 40, 95]
+  M3.3: [15, 35, 90]
+  M3.4: [30, 50, 110]
+  M3.5: [20, 45, 100]
+  M3.6: [10, 30, 80]
+  M3.7: [35, 55, 115]
+  # M4 – Anthropogenic marine
+  M4.1: [90, 125, 165]
+  M4.2: [110, 135, 175]
+  # F1 – Rivers & streams
+  F1.1: [60, 120, 190]
+  F1.2: [70, 130, 200]
+  F1.3: [50, 110, 180]
+  F1.4: [65, 125, 195]
+  F1.5: [75, 135, 205]
+  F1.6: [80, 140, 190]
+  F1.7: [55, 115, 185]
+  # F2 – Lakes
+  F2.1: [90, 170, 210]
+  F2.2: [100, 175, 215]
+  F2.3: [110, 180, 220]
+  F2.4: [80, 165, 210]
+  F2.5: [120, 185, 215]
+  F2.6: [95, 170, 200]
+  F2.7: [105, 175, 205]
+  F2.8: [115, 180, 210]
+  F2.9: [85, 160, 195]
+  F2.10: [75, 155, 200]
+  # F3 – Artificial wetlands
+  F3.1: [110, 155, 185]
+  F3.2: [120, 160, 190]
+  F3.3: [125, 165, 195]
+  F3.4: [115, 155, 180]
+  F3.5: [130, 165, 185]
+  # S1 – Subterranean lithic
+  S1.1: [139, 90, 43]
+  # S2 – Anthropogenic subterranean
+  S2.1: [120, 100, 80]
+  # TF1 – Palustrine wetlands
+  TF1.1: [40, 140, 80]
+  TF1.2: [50, 145, 90]
+  TF1.3: [60, 150, 100]
+  TF1.4: [55, 155, 95]
+  TF1.5: [70, 145, 105]
+  TF1.6: [45, 140, 110]
+  TF1.7: [65, 155, 115]
+  # FM1 – Semi-confined transitional waters
+  FM1.1: [20, 120, 190]
+  FM1.2: [30, 130, 200]
+  FM1.3: [40, 135, 195]
+  # MFT1 – Brackish tidal
+  MFT1.1: [40, 130, 130]
+  MFT1.2: [50, 140, 140]
+  MFT1.3: [60, 145, 135]
+  # MT1 – Shorelines
+  MT1.1: [0, 130, 130]
+  MT1.2: [0, 140, 140]
+  MT1.3: [10, 145, 135]
+  MT1.4: [10, 135, 145]
+  # MT2 – Supralittoral coastal
+  MT2.1: [50, 155, 115]
+  MT2.2: [65, 165, 125]
+  # MT3 – Anthropogenic shorelines
+  MT3.1: [100, 140, 140]
+  # SF1 – Subterranean freshwaters
+  SF1.1: [70, 115, 155]
+  SF1.2: [85, 125, 165]
+  # SF2 – Anthropogenic subterranean freshwaters
+  SF2.1: [95, 115, 135]
+  SF2.2: [105, 120, 145]
+  # SM1 – Subterranean tidal
+  SM1.1: [70, 95, 125]
+  SM1.2: [80, 100, 130]
+  SM1.3: [90, 105, 135]
