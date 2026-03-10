@@ -5,6 +5,10 @@ description = "Tools for working with IUCN Global Ecosystem Typology data"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "earthengine-api>=1.7.16",
+    "ipykernel>=7.2.0",
+    "lonboard>=0.14.0",
+    "pandas>=3.0.1",
     "pyyaml>=6.0",
 ]
 
