@@ -1,7 +1,5 @@
 """Shared helpers for Earth Engine backends."""
 
-import functools
-
 
 def _require_ee():
     """Import and return the ee module, raising a clear error if not installed."""
@@ -27,18 +25,28 @@ def _is_file_path(data) -> bool:
     return False
 
 
-@functools.lru_cache(maxsize=64)
-def _get_cached_asset_type(asset_id: str) -> str | None:
-    """Look up an EE asset type, caching to avoid duplicate API calls.
+_asset_type_cache: dict[str, str] = {}
 
-    Returns the asset type string ('TABLE', 'IMAGE', etc.) or None on error.
+
+def _get_cached_asset_type(asset_id: str) -> str | None:
+    """Look up an EE asset type, caching successful results to avoid duplicate API calls.
+
+    Returns the asset type string ('TABLE', 'IMAGE', etc.), or None if the
+    ``earthengine-api`` package is not installed.
+
+    Raises EE API errors (e.g. asset not found, permission denied) so that
+    callers can surface them to the user.
     """
+    if asset_id in _asset_type_cache:
+        return _asset_type_cache[asset_id]
     try:
         ee = _require_ee()
-        asset_info = ee.data.getAsset(asset_id)
-        return asset_info['type']
-    except Exception:
+    except ImportError:
         return None
+    asset_info = ee.data.getAsset(asset_id)
+    asset_type = asset_info['type']
+    _asset_type_cache[asset_id] = asset_type
+    return asset_type
 
 
 def _resolve_data(data):
