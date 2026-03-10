@@ -115,7 +115,7 @@ class TestVectorMapGEE:
         mock_require_ee.return_value = mock_ee
         mock_ee.data.getAsset.return_value = {'type': 'TABLE'}
 
-        asset_id = 'projects/goog-rle-assessments/assets/columbia/GETCol'
+        asset_id = 'projects/goog-rle-assessments/assets/colombia/GETCol'
         eco = VectorMapGEE(asset_id, get_level3_column='EFG1', get_level456_column='COD')
         assert eco.asset_id == asset_id
 
