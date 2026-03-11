@@ -2,12 +2,42 @@
 
 from typing import TYPE_CHECKING
 
+from ipywidgets import Output, GridBox, Layout
+
 from . import EcosystemBackendEntrypoint
 from ._ee_common import _require_ee, _is_file_path, _get_cached_asset_type, _resolve_data
 from ..ecosystem_map import VectorMap
 
 if TYPE_CHECKING:
     import pandas as pd
+
+
+class ClickableMap(GridBox):
+    """A lonboard Map with an EE click-to-query overlay panel.
+
+    Attributes:
+        map: The underlying lonboard.Map widget.
+    """
+
+    def __init__(self, map_widget, output_widget):
+        map_widget.layout = Layout(grid_area="map", z_index="0")
+        output_widget.layout = Layout(
+            grid_area="map",
+            align_self="center",
+            max_height="50%",
+            max_width="400px",
+            overflow_y="auto",
+            z_index="9999",
+        )
+        super().__init__(
+            [map_widget, output_widget],
+            layout=Layout(
+                grid_template_areas='"map"',
+                grid_template_columns="1fr",
+                grid_template_rows="1fr",
+            ),
+        )
+        self.map = map_widget
 
 
 class VectorMapGEE(VectorMap):
@@ -189,6 +219,92 @@ class VectorMapGEE(VectorMap):
 
         return self.data.map(derive)
 
+    def _make_click_handler(self, output_widget):
+        """Return a click callback that queries EE and displays feature properties."""
+        ee = _require_ee()
+        fc = self.data
+
+        def _on_click(coord):
+            lon, lat = coord
+            output_widget.clear_output(wait=True)
+            with output_widget:
+                from IPython.display import display, HTML
+                display(HTML("<i>Querying...</i>"))
+
+            try:
+                point = ee.Geometry.Point([lon, lat])
+                info = fc.filterBounds(point).first().getInfo()
+            except Exception:
+                info = None
+
+            output_widget.clear_output(wait=True)
+            with output_widget:
+                from IPython.display import display, HTML
+                if info is None:
+                    display(HTML(
+                        f'<div style="background:white;border-radius:4px;'
+                        f'box-shadow:0 2px 8px rgba(0,0,0,0.3);padding:8px;margin:8px">'
+                        f'<i>No feature found at ({lon:.4f}, {lat:.4f})</i></div>'
+                    ))
+                    return
+                props = info.get('properties', {})
+                rows = ''.join(
+                    f'<tr><td style="padding:2px 8px;font-weight:bold">{k}</td>'
+                    f'<td style="padding:2px 8px">{v}</td></tr>'
+                    for k, v in props.items()
+                )
+                display(HTML(
+                    f'<div style="background:white;border-radius:4px;'
+                    f'box-shadow:0 2px 8px rgba(0,0,0,0.3);padding:8px;margin:8px">'
+                    f'<b>Feature at ({lon:.4f}, {lat:.4f})</b>'
+                    f'<table style="border-collapse:collapse;margin-top:4px">'
+                    f'{rows}</table></div>'
+                ))
+
+        return _on_click
+
+    def _attach_click_popup(self, map_widget):
+        """Attach an EE click-query popup to a lonboard Map.
+
+        Returns:
+            A ClickableMap (VBox) containing the Map and an output area.
+        """
+        output = Output()
+        map_widget.on_click(self._make_click_handler(output))
+        return ClickableMap(map_widget, output)
+
+    def to_map(self, alpha=180, stroked=True, get_line_width=2,
+               get_line_color=None, simplify_tolerance=None,
+               view_state=None, **layer_kwargs):
+        """Create a ClickableMap displaying this Earth Engine ecosystem map.
+
+        Clicking on the map queries Earth Engine for the feature at that
+        location and displays its properties below the map.
+
+        Args:
+            alpha: Alpha transparency (0-255) for fill colors.
+            stroked: Whether to draw polygon outlines.
+            get_line_width: Width of polygon outlines.
+            get_line_color: RGBA list for outline color.
+            simplify_tolerance: Ignored for EE backend.
+            view_state: Optional MapViewState to set the initial camera position.
+            **layer_kwargs: Additional keyword arguments.
+
+        Returns:
+            A ClickableMap. Access the lonboard.Map via .map attribute.
+        """
+        from lonboard import Map
+
+        layer = self.to_layer(
+            alpha=alpha, stroked=stroked,
+            get_line_width=get_line_width, get_line_color=get_line_color,
+            simplify_tolerance=simplify_tolerance, **layer_kwargs,
+        )
+        map_kwargs = {"layers": [layer]}
+        if view_state is not None:
+            map_kwargs["view_state"] = view_state
+        return self._attach_click_popup(Map(**map_kwargs))
+
     def to_biome_layer(self, cmap=None, alpha=180, stroked=True,
                        get_line_width=2, get_line_color=None,
                        simplify_tolerance=None, **kwargs):
@@ -210,7 +326,7 @@ class VectorMapGEE(VectorMap):
     def to_biome_map(self, cmap=None, alpha=180, stroked=True,
                      get_line_width=2, get_line_color=None,
                      simplify_tolerance=None, view_state=None, **kwargs):
-        """Create a Map with features colored by biome (GET Level 2)."""
+        """Create a ClickableMap with features colored by biome (GET Level 2)."""
         from lonboard import Map
 
         layer = self.to_biome_layer(
@@ -221,7 +337,7 @@ class VectorMapGEE(VectorMap):
         map_kwargs = {"layers": [layer]}
         if view_state is not None:
             map_kwargs["view_state"] = view_state
-        return Map(**map_kwargs)
+        return self._attach_click_popup(Map(**map_kwargs))
 
     def to_realm_layer(self, cmap=None, alpha=180, stroked=True,
                        get_line_width=2, get_line_color=None,
@@ -244,7 +360,7 @@ class VectorMapGEE(VectorMap):
     def to_realm_map(self, cmap=None, alpha=180, stroked=True,
                      get_line_width=2, get_line_color=None,
                      simplify_tolerance=None, view_state=None, **kwargs):
-        """Create a Map with features colored by realm (GET Level 1)."""
+        """Create a ClickableMap with features colored by realm (GET Level 1)."""
         from lonboard import Map
 
         layer = self.to_realm_layer(
@@ -255,7 +371,25 @@ class VectorMapGEE(VectorMap):
         map_kwargs = {"layers": [layer]}
         if view_state is not None:
             map_kwargs["view_state"] = view_state
-        return Map(**map_kwargs)
+        return self._attach_click_popup(Map(**map_kwargs))
+
+    def to_functional_group_map(self, cmap=None, alpha=180, stroked=True,
+                                get_line_width=2, get_line_color=None,
+                                simplify_tolerance=None, view_state=None,
+                                **kwargs):
+        """Create a ClickableMap with features colored by functional group (GET Level 3)."""
+        from lonboard import Map
+
+        self._ensure_level3_column()
+        layer = self.to_functional_group_layer(
+            cmap=cmap, alpha=alpha, stroked=stroked,
+            get_line_width=get_line_width, get_line_color=get_line_color,
+            simplify_tolerance=simplify_tolerance, **kwargs,
+        )
+        map_kwargs = {"layers": [layer]}
+        if view_state is not None:
+            map_kwargs["view_state"] = view_state
+        return self._attach_click_popup(Map(**map_kwargs))
 
     def functional_group_dataframe(self) -> "pd.DataFrame":
         """Return functional groups as a pandas DataFrame with MultiIndex.
