@@ -177,7 +177,8 @@ class VectorMap(EcosystemMap):
         )
 
     def to_map(self, alpha=180, stroked=True, get_line_width=2,
-               get_line_color=None, simplify_tolerance=None, **layer_kwargs):
+               get_line_color=None, simplify_tolerance=None,
+               view_state=None, **layer_kwargs):
         """Create a lonboard Map displaying this ecosystem map.
 
         Args:
@@ -187,6 +188,7 @@ class VectorMap(EcosystemMap):
             get_line_color: RGBA list for outline color. Defaults to [0, 0, 0, 150].
             simplify_tolerance: Optional geometry simplification tolerance in
                 degrees. Reduces vertex count for faster rendering.
+            view_state: Optional MapViewState to set the initial camera position.
             **layer_kwargs: Additional keyword arguments passed to PolygonLayer.from_geopandas.
 
         Returns:
@@ -202,7 +204,10 @@ class VectorMap(EcosystemMap):
             simplify_tolerance=simplify_tolerance,
             **layer_kwargs,
         )
-        return Map(layers=[layer])
+        map_kwargs = {"layers": [layer]}
+        if view_state is not None:
+            map_kwargs["view_state"] = view_state
+        return Map(**map_kwargs)
 
     @staticmethod
     def _parse_biome_code(efg_code):
@@ -261,7 +266,7 @@ class VectorMap(EcosystemMap):
 
     def _dissolved_map(self, group_column, style_key, cmap=None, alpha=180,
                        stroked=True, get_line_width=2, get_line_color=None,
-                       simplify_tolerance=None, **kwargs):
+                       simplify_tolerance=None, view_state=None, **kwargs):
         """Create a Map from geometries dissolved by group_column."""
         from lonboard import Map
 
@@ -271,7 +276,10 @@ class VectorMap(EcosystemMap):
             get_line_color=get_line_color,
             simplify_tolerance=simplify_tolerance, **kwargs,
         )
-        return Map(layers=[layer])
+        map_kwargs = {"layers": [layer]}
+        if view_state is not None:
+            map_kwargs["view_state"] = view_state
+        return Map(**map_kwargs)
 
     def _ensure_level3_column(self):
         """Raise if get_level3_column is not set."""
@@ -307,7 +315,8 @@ class VectorMap(EcosystemMap):
 
     def to_functional_group_map(self, cmap=None, alpha=180, stroked=True,
                                 get_line_width=2, get_line_color=None,
-                                simplify_tolerance=None, **kwargs):
+                                simplify_tolerance=None, view_state=None,
+                                **kwargs):
         """Create a Map with geometries dissolved by functional group (GET Level 3).
 
         Args:
@@ -317,6 +326,7 @@ class VectorMap(EcosystemMap):
             get_line_width: Width of polygon outlines.
             get_line_color: RGBA list for outline color. Defaults to [0, 0, 0, 150].
             simplify_tolerance: Optional geometry simplification tolerance in degrees.
+            view_state: Optional MapViewState to set the initial camera position.
             **kwargs: Additional keyword arguments passed to PolygonLayer.from_geopandas.
 
         Returns:
@@ -327,7 +337,7 @@ class VectorMap(EcosystemMap):
             self.get_level3_column, 'functional_groups', cmap=cmap, alpha=alpha,
             stroked=stroked, get_line_width=get_line_width,
             get_line_color=get_line_color,
-            simplify_tolerance=simplify_tolerance, **kwargs,
+            simplify_tolerance=simplify_tolerance, view_state=view_state, **kwargs,
         )
 
     def to_biome_layer(self, cmap=None, alpha=180, stroked=True,
@@ -361,7 +371,7 @@ class VectorMap(EcosystemMap):
 
     def to_biome_map(self, cmap=None, alpha=180, stroked=True,
                      get_line_width=2, get_line_color=None,
-                     simplify_tolerance=None, **kwargs):
+                     simplify_tolerance=None, view_state=None, **kwargs):
         """Create a Map with geometries dissolved by biome (GET Level 2).
 
         Args:
@@ -371,6 +381,7 @@ class VectorMap(EcosystemMap):
             get_line_width: Width of polygon outlines.
             get_line_color: RGBA list for outline color. Defaults to [0, 0, 0, 150].
             simplify_tolerance: Optional geometry simplification tolerance in degrees.
+            view_state: Optional MapViewState to set the initial camera position.
             **kwargs: Additional keyword arguments passed to PolygonLayer.from_geopandas.
 
         Returns:
@@ -383,7 +394,8 @@ class VectorMap(EcosystemMap):
                 '_biome', 'biomes', cmap=cmap, alpha=alpha,
                 stroked=stroked, get_line_width=get_line_width,
                 get_line_color=get_line_color,
-                simplify_tolerance=simplify_tolerance, **kwargs,
+                simplify_tolerance=simplify_tolerance, view_state=view_state,
+                **kwargs,
             )
         finally:
             self.data.drop(columns='_biome', inplace=True)
@@ -419,7 +431,7 @@ class VectorMap(EcosystemMap):
 
     def to_realm_map(self, cmap=None, alpha=180, stroked=True,
                      get_line_width=2, get_line_color=None,
-                     simplify_tolerance=None, **kwargs):
+                     simplify_tolerance=None, view_state=None, **kwargs):
         """Create a Map with geometries dissolved by realm (GET Level 1).
 
         Args:
@@ -429,6 +441,7 @@ class VectorMap(EcosystemMap):
             get_line_width: Width of polygon outlines.
             get_line_color: RGBA list for outline color. Defaults to [0, 0, 0, 150].
             simplify_tolerance: Optional geometry simplification tolerance in degrees.
+            view_state: Optional MapViewState to set the initial camera position.
             **kwargs: Additional keyword arguments passed to PolygonLayer.from_geopandas.
 
         Returns:
@@ -441,7 +454,8 @@ class VectorMap(EcosystemMap):
                 '_realm', 'realms', cmap=cmap, alpha=alpha,
                 stroked=stroked, get_line_width=get_line_width,
                 get_line_color=get_line_color,
-                simplify_tolerance=simplify_tolerance, **kwargs,
+                simplify_tolerance=simplify_tolerance, view_state=view_state,
+                **kwargs,
             )
         finally:
             self.data.drop(columns='_realm', inplace=True)

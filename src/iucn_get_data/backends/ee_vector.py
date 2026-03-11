@@ -42,6 +42,221 @@ class VectorMapGEE(VectorMap):
         rows = [f.get('properties', {}) for f in head_features]
         return props, rows
 
+    @staticmethod
+    def _ee_bitmap_tile_layer(tile_url):
+        """Create a BitmapTileLayer from an EE tile URL."""
+        from lonboard import BitmapTileLayer
+
+        return BitmapTileLayer(
+            data=tile_url,
+            tile_size=256,
+            max_requests=-1,
+            min_zoom=0,
+            max_zoom=19,
+        )
+
+    def to_layer(self, alpha=180, stroked=True, get_line_width=2,
+                 get_line_color=None, simplify_tolerance=None, **kwargs):
+        """Create a lonboard BitmapTileLayer from this Earth Engine ecosystem map.
+
+        Paints the FeatureCollection into an ee.Image and renders via EE
+        tile URLs, avoiding client-side geometry download.
+
+        Args:
+            alpha: Alpha transparency (0-255) for fill colors.
+            stroked: Whether to draw polygon outlines.
+            **kwargs: Ignored (kept for signature compatibility).
+
+        Returns:
+            A lonboard BitmapTileLayer.
+        """
+        ee = _require_ee()
+        fc = self.data
+        opacity = alpha / 255.0
+
+        if self.cmap is not None and self.get_level456_column is not None:
+            # Colored by category using cmap
+            codes = sorted(self.cmap.keys())
+            ids = list(range(1, len(codes) + 1))
+            palette = [
+                '#{:02x}{:02x}{:02x}'.format(*self.cmap[code])
+                for code in codes
+            ]
+            fc_remapped = fc.remap(codes, ids, self.get_level456_column)
+            image = (
+                ee.Image().byte()
+                .paint(featureCollection=fc_remapped, color=self.get_level456_column)
+                .selfMask()
+            )
+            tile_url = image.getMapId(vis_params={
+                'min': 1,
+                'max': len(codes),
+                'palette': palette,
+                'opacity': opacity,
+            })['tile_fetcher'].url_format
+        else:
+            # Grey fill + black outline
+            fc_fill = ee.Image().byte().paint(featureCollection=fc, color=1)
+            fc_outline = ee.Image().byte().paint(
+                featureCollection=fc, color=1, width=get_line_width if stroked else 0,
+            )
+            fill_styled = fc_fill.selfMask().visualize(
+                palette=['808080'], opacity=opacity,
+            )
+            outline_styled = fc_outline.selfMask().visualize(
+                palette=['000000'], opacity=1.0,
+            )
+            styled_image = ee.ImageCollection(
+                [fill_styled, outline_styled]
+            ).mosaic()
+            tile_url = styled_image.getMapId()['tile_fetcher'].url_format
+
+        return self._ee_bitmap_tile_layer(tile_url)
+
+    def _dissolved_layer(self, group_column, style_key, cmap=None, alpha=180,
+                         stroked=True, get_line_width=2, get_line_color=None,
+                         simplify_tolerance=None, **kwargs):
+        """Create a BitmapTileLayer from EE features colored by group_column.
+
+        Uses server-side remap + paint to color features by category,
+        with palette from map_style.yaml or the provided cmap.
+
+        Returns:
+            A lonboard BitmapTileLayer.
+        """
+        ee = _require_ee()
+        from ..ecosystem_map import _load_map_style
+
+        fc = self.data
+        opacity = alpha / 255.0
+
+        # Get unique values for the group column
+        codes = sorted(
+            fc.aggregate_array(group_column).distinct().getInfo()
+        )
+        ids = list(range(1, len(codes) + 1))
+
+        # Build palette
+        if cmap is None:
+            cmap = _load_map_style().get(style_key, {})
+        palette = [
+            '#{:02x}{:02x}{:02x}'.format(*cmap.get(code, [128, 128, 128]))
+            for code in codes
+        ]
+
+        fc_remapped = fc.remap(codes, ids, group_column)
+        image = (
+            ee.Image().byte()
+            .paint(featureCollection=fc_remapped, color=group_column)
+            .selfMask()
+        )
+        tile_url = image.getMapId(vis_params={
+            'min': 1,
+            'max': len(codes),
+            'palette': palette,
+            'opacity': opacity,
+        })['tile_fetcher'].url_format
+
+        return self._ee_bitmap_tile_layer(tile_url)
+
+    def _add_derived_column(self, derived_name, parser_func):
+        """Add a server-side derived column to the FeatureCollection.
+
+        Args:
+            derived_name: Name for the new property (e.g., '_biome', '_realm').
+            parser_func: A static method like _parse_biome_code or _parse_realm_code.
+
+        Returns:
+            An ee.FeatureCollection with the derived column added.
+        """
+        ee = _require_ee()
+        col = self.get_level3_column
+
+        if parser_func == self._parse_biome_code:
+            # Extract biome code: everything before the first '.'
+            def derive(feature):
+                val = ee.String(ee.Feature(feature).get(col))
+                return ee.Feature(feature).set(
+                    derived_name, val.split('\\.').get(0)
+                )
+        else:
+            # Extract realm code: leading uppercase letters
+            def derive(feature):
+                val = ee.String(ee.Feature(feature).get(col))
+                return ee.Feature(feature).set(
+                    derived_name, val.match('^[A-Z]+').get(0)
+                )
+
+        return self.data.map(derive)
+
+    def to_biome_layer(self, cmap=None, alpha=180, stroked=True,
+                       get_line_width=2, get_line_color=None,
+                       simplify_tolerance=None, **kwargs):
+        """Create a BitmapTileLayer with features colored by biome (GET Level 2)."""
+        self._ensure_level3_column()
+        fc_with_biome = self._add_derived_column('_biome', self._parse_biome_code)
+        original_data = self.data
+        self.data = fc_with_biome
+        try:
+            return self._dissolved_layer(
+                '_biome', 'biomes', cmap=cmap, alpha=alpha,
+                stroked=stroked, get_line_width=get_line_width,
+                get_line_color=get_line_color,
+                simplify_tolerance=simplify_tolerance, **kwargs,
+            )
+        finally:
+            self.data = original_data
+
+    def to_biome_map(self, cmap=None, alpha=180, stroked=True,
+                     get_line_width=2, get_line_color=None,
+                     simplify_tolerance=None, view_state=None, **kwargs):
+        """Create a Map with features colored by biome (GET Level 2)."""
+        from lonboard import Map
+
+        layer = self.to_biome_layer(
+            cmap=cmap, alpha=alpha, stroked=stroked,
+            get_line_width=get_line_width, get_line_color=get_line_color,
+            simplify_tolerance=simplify_tolerance, **kwargs,
+        )
+        map_kwargs = {"layers": [layer]}
+        if view_state is not None:
+            map_kwargs["view_state"] = view_state
+        return Map(**map_kwargs)
+
+    def to_realm_layer(self, cmap=None, alpha=180, stroked=True,
+                       get_line_width=2, get_line_color=None,
+                       simplify_tolerance=None, **kwargs):
+        """Create a BitmapTileLayer with features colored by realm (GET Level 1)."""
+        self._ensure_level3_column()
+        fc_with_realm = self._add_derived_column('_realm', self._parse_realm_code)
+        original_data = self.data
+        self.data = fc_with_realm
+        try:
+            return self._dissolved_layer(
+                '_realm', 'realms', cmap=cmap, alpha=alpha,
+                stroked=stroked, get_line_width=get_line_width,
+                get_line_color=get_line_color,
+                simplify_tolerance=simplify_tolerance, **kwargs,
+            )
+        finally:
+            self.data = original_data
+
+    def to_realm_map(self, cmap=None, alpha=180, stroked=True,
+                     get_line_width=2, get_line_color=None,
+                     simplify_tolerance=None, view_state=None, **kwargs):
+        """Create a Map with features colored by realm (GET Level 1)."""
+        from lonboard import Map
+
+        layer = self.to_realm_layer(
+            cmap=cmap, alpha=alpha, stroked=stroked,
+            get_line_width=get_line_width, get_line_color=get_line_color,
+            simplify_tolerance=simplify_tolerance, **kwargs,
+        )
+        map_kwargs = {"layers": [layer]}
+        if view_state is not None:
+            map_kwargs["view_state"] = view_state
+        return Map(**map_kwargs)
+
     def functional_group_dataframe(self) -> "pd.DataFrame":
         """Return functional groups as a pandas DataFrame with MultiIndex.
 
