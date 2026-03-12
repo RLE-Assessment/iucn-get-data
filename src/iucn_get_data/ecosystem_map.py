@@ -30,6 +30,71 @@ def _load_map_style() -> dict:
     return yaml.safe_load(style_file.read_text(encoding='utf-8'))
 
 
+@lru_cache(maxsize=1)
+def _load_language_data() -> dict:
+    """Load and cache the English language data from english.yaml."""
+    lang_file = resources.files('iucn_get_data') / 'data' / 'english.yaml'
+    return yaml.safe_load(lang_file.read_text(encoding='utf-8'))
+
+
+@lru_cache(maxsize=1)
+def _build_code_name_lookup() -> dict[str, str]:
+    """Build a flat {code: name} lookup from the nested language YAML."""
+    data = _load_language_data()
+    lookup = {}
+    for realm in data.get('realms', []):
+        lookup[realm['code']] = realm['name']
+        for biome in realm.get('biomes', []):
+            lookup[biome['code']] = biome['name']
+            for fg in biome.get('functional_groups', []):
+                lookup[fg['code']] = fg['name']
+    return lookup
+
+
+_STYLE_KEY_TITLES = {
+    'realms': 'Realm',
+    'biomes': 'Biome',
+    'functional_groups': 'Functional Group',
+}
+
+
+def _build_legend_widget(style_key, codes):
+    """Build an ipywidgets.HTML legend for the given style key and codes.
+
+    Args:
+        style_key: Key in map_style.yaml ('realms', 'biomes', or 'functional_groups').
+        codes: Iterable of category codes to include in the legend.
+
+    Returns:
+        An ipywidgets.HTML widget with colored swatches and labels.
+    """
+    from ipywidgets import HTML, Layout
+
+    title = _STYLE_KEY_TITLES.get(style_key, style_key)
+    style = _load_map_style().get(style_key, {})
+    names = _build_code_name_lookup()
+    items = []
+    for code in sorted(codes):
+        rgb = style.get(code, [128, 128, 128])
+        name = names.get(code, code)
+        color = f'rgb({rgb[0]},{rgb[1]},{rgb[2]})'
+        items.append(
+            f'<div style="display:flex;align-items:flex-start;margin:1px 0;'
+            f'line-height:1.2">'
+            f'<span style="display:inline-block;width:14px;height:14px;'
+            f'background:{color};border:1px solid #999;margin-right:6px;'
+            f'flex-shrink:0;margin-top:2px"></span>'
+            f'<span style="font-size:13px;min-width:50px;flex-shrink:0">{code}</span>'
+            f'<span style="font-size:13px;flex:1;min-width:0;'
+            f'padding-left:1em;text-indent:-1em">{name}</span></div>'
+        )
+    header = f'<div style="font-weight:bold;margin-bottom:4px">{title}</div>'
+    html = '<div style="padding:8px">' + header + ''.join(items) + '</div>'
+    return HTML(html, layout=Layout(
+        width='250px', overflow_y='auto', flex='0 0 250px',
+    ))
+
+
 class EcosystemMap(ABC):
     """Base class for all ecosystem map datasets.
 
@@ -268,6 +333,7 @@ class VectorMap(EcosystemMap):
                        stroked=True, get_line_width=2, get_line_color=None,
                        simplify_tolerance=None, view_state=None, **kwargs):
         """Create a Map from geometries dissolved by group_column."""
+        from ipywidgets import HBox, Layout
         from lonboard import Map
 
         layer = self._dissolved_layer(
@@ -279,7 +345,12 @@ class VectorMap(EcosystemMap):
         map_kwargs = {"layers": [layer]}
         if view_state is not None:
             map_kwargs["view_state"] = view_state
-        return Map(**map_kwargs)
+        m = Map(**map_kwargs)
+        m.layout.width = None
+        m.layout.flex = '1 1 0px'
+        codes = sorted(self.data[group_column].unique())
+        legend = _build_legend_widget(style_key, codes)
+        return HBox([m, legend], layout=Layout(width='100%'))
 
     def _ensure_level3_column(self):
         """Raise if get_level3_column is not set."""

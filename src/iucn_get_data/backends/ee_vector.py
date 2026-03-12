@@ -20,7 +20,9 @@ class ClickableMap(GridBox):
     """
 
     def __init__(self, map_widget, output_widget):
-        map_widget.layout = Layout(grid_area="map", z_index="0")
+        map_widget.layout = Layout(
+            grid_area="map", width="100%", height="100%", z_index="0",
+        )
         output_widget.layout = Layout(
             grid_area="map",
             align_self="center",
@@ -32,6 +34,8 @@ class ClickableMap(GridBox):
         super().__init__(
             [map_widget, output_widget],
             layout=Layout(
+                width="100%",
+                height="500px",
                 grid_template_areas='"map"',
                 grid_template_columns="1fr",
                 grid_template_rows="1fr",
@@ -152,7 +156,7 @@ class VectorMapGEE(VectorMap):
         with palette from map_style.yaml or the provided cmap.
 
         Returns:
-            A lonboard BitmapTileLayer.
+            A tuple of (lonboard BitmapTileLayer, list of category codes).
         """
         ee = _require_ee()
         from ..ecosystem_map import _load_map_style
@@ -187,7 +191,7 @@ class VectorMapGEE(VectorMap):
             'opacity': opacity,
         })['tile_fetcher'].url_format
 
-        return self._ee_bitmap_tile_layer(tile_url)
+        return self._ee_bitmap_tile_layer(tile_url), codes
 
     def _add_derived_column(self, derived_name, parser_func):
         """Add a server-side derived column to the FeatureCollection.
@@ -308,7 +312,11 @@ class VectorMapGEE(VectorMap):
     def to_biome_layer(self, cmap=None, alpha=180, stroked=True,
                        get_line_width=2, get_line_color=None,
                        simplify_tolerance=None, **kwargs):
-        """Create a BitmapTileLayer with features colored by biome (GET Level 2)."""
+        """Create a BitmapTileLayer with features colored by biome (GET Level 2).
+
+        Returns:
+            A tuple of (lonboard BitmapTileLayer, list of biome codes).
+        """
         self._ensure_level3_column()
         fc_with_biome = self._add_derived_column('_biome', self._parse_biome_code)
         original_data = self.data
@@ -327,9 +335,11 @@ class VectorMapGEE(VectorMap):
                      get_line_width=2, get_line_color=None,
                      simplify_tolerance=None, view_state=None, **kwargs):
         """Create a ClickableMap with features colored by biome (GET Level 2)."""
+        from ipywidgets import HBox, Layout
         from lonboard import Map
+        from ..ecosystem_map import _build_legend_widget
 
-        layer = self.to_biome_layer(
+        layer, codes = self.to_biome_layer(
             cmap=cmap, alpha=alpha, stroked=stroked,
             get_line_width=get_line_width, get_line_color=get_line_color,
             simplify_tolerance=simplify_tolerance, **kwargs,
@@ -337,12 +347,20 @@ class VectorMapGEE(VectorMap):
         map_kwargs = {"layers": [layer]}
         if view_state is not None:
             map_kwargs["view_state"] = view_state
-        return self._attach_click_popup(Map(**map_kwargs))
+        clickable = self._attach_click_popup(Map(**map_kwargs))
+        clickable.layout.width = None
+        clickable.layout.flex = '1 1 0px'
+        legend = _build_legend_widget('biomes', codes)
+        return HBox([clickable, legend], layout=Layout(width='100%'))
 
     def to_realm_layer(self, cmap=None, alpha=180, stroked=True,
                        get_line_width=2, get_line_color=None,
                        simplify_tolerance=None, **kwargs):
-        """Create a BitmapTileLayer with features colored by realm (GET Level 1)."""
+        """Create a BitmapTileLayer with features colored by realm (GET Level 1).
+
+        Returns:
+            A tuple of (lonboard BitmapTileLayer, list of realm codes).
+        """
         self._ensure_level3_column()
         fc_with_realm = self._add_derived_column('_realm', self._parse_realm_code)
         original_data = self.data
@@ -361,9 +379,11 @@ class VectorMapGEE(VectorMap):
                      get_line_width=2, get_line_color=None,
                      simplify_tolerance=None, view_state=None, **kwargs):
         """Create a ClickableMap with features colored by realm (GET Level 1)."""
+        from ipywidgets import HBox, Layout
         from lonboard import Map
+        from ..ecosystem_map import _build_legend_widget
 
-        layer = self.to_realm_layer(
+        layer, codes = self.to_realm_layer(
             cmap=cmap, alpha=alpha, stroked=stroked,
             get_line_width=get_line_width, get_line_color=get_line_color,
             simplify_tolerance=simplify_tolerance, **kwargs,
@@ -371,17 +391,23 @@ class VectorMapGEE(VectorMap):
         map_kwargs = {"layers": [layer]}
         if view_state is not None:
             map_kwargs["view_state"] = view_state
-        return self._attach_click_popup(Map(**map_kwargs))
+        clickable = self._attach_click_popup(Map(**map_kwargs))
+        clickable.layout.width = None
+        clickable.layout.flex = '1 1 0px'
+        legend = _build_legend_widget('realms', codes)
+        return HBox([clickable, legend], layout=Layout(width='100%'))
 
     def to_functional_group_map(self, cmap=None, alpha=180, stroked=True,
                                 get_line_width=2, get_line_color=None,
                                 simplify_tolerance=None, view_state=None,
                                 **kwargs):
         """Create a ClickableMap with features colored by functional group (GET Level 3)."""
+        from ipywidgets import HBox, Layout
         from lonboard import Map
+        from ..ecosystem_map import _build_legend_widget
 
         self._ensure_level3_column()
-        layer = self.to_functional_group_layer(
+        layer, codes = self.to_functional_group_layer(
             cmap=cmap, alpha=alpha, stroked=stroked,
             get_line_width=get_line_width, get_line_color=get_line_color,
             simplify_tolerance=simplify_tolerance, **kwargs,
@@ -389,7 +415,11 @@ class VectorMapGEE(VectorMap):
         map_kwargs = {"layers": [layer]}
         if view_state is not None:
             map_kwargs["view_state"] = view_state
-        return self._attach_click_popup(Map(**map_kwargs))
+        clickable = self._attach_click_popup(Map(**map_kwargs))
+        clickable.layout.width = None
+        clickable.layout.flex = '1 1 0px'
+        legend = _build_legend_widget('functional_groups', codes)
+        return HBox([clickable, legend], layout=Layout(width='100%'))
 
     def functional_group_dataframe(self) -> "pd.DataFrame":
         """Return functional groups as a pandas DataFrame with MultiIndex.
