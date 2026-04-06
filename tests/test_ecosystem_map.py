@@ -115,8 +115,8 @@ class TestVectorMapGEE:
         mock_require_ee.return_value = mock_ee
         mock_ee.data.getAsset.return_value = {'type': 'TABLE'}
 
-        asset_id = 'projects/goog-rle-assessments/assets/colombia/GETCol'
-        eco = VectorMapGEE(asset_id, get_level3_column='EFG1', get_level456_column='COD')
+        asset_id = 'projects/goog-rle-assessments/assets/colombia/colombia_ecosystems'
+        eco = VectorMapGEE(asset_id, get_level3_column='EFG1', get_level456_column='ECO_CODE')
         assert eco.asset_id == asset_id
 
     def test_accepts_featurecollection(self):
