@@ -354,7 +354,7 @@ class Typology:
         self,
         ecosystem_columns: list[str] = None,
         drop_columns: list[str] = None,
-        hide_empty: bool = True,
+        hide_empty: bool = None,
         ecosystem_name_column: str = None,
         ecosystem_id_column: str = None
     ) -> str:
@@ -368,14 +368,18 @@ class Typology:
             ecosystem_columns: List of column names to display for ecosystems.
                               If None and ecosystems are added, uses all non-typology columns.
             drop_columns: List of column names to exclude from display.
-            hide_empty: If True (default), hide realm, biome, and functional group
+            hide_empty: If True, hide realm, biome, and functional group
                        headings that don't contain any ecosystems.
+                       Defaults to True when ecosystems are attached, False otherwise.
             ecosystem_name_column: Column containing ecosystem names (displayed first).
             ecosystem_id_column: Column containing ecosystem IDs (displayed second).
 
         Returns:
             str: HTML string containing the hierarchical table.
         """
+        if hide_empty is None:
+            hide_empty = self.ecosystems is not None
+
         # Define realm order
         realm_order = ['T', 'M', 'F', 'S', 'MT', 'SF', 'FM', 'MFT', 'SM', 'TF']
 
