@@ -350,7 +350,11 @@ class Typology:
 
         return df
 
-    def _repr_html_(
+    def _repr_html_(self) -> str:
+        """Return typology as an HTML table for Jupyter display."""
+        return self.to_html()
+
+    def to_html(
         self,
         ecosystem_columns: list[str] = None,
         drop_columns: list[str] = None,
