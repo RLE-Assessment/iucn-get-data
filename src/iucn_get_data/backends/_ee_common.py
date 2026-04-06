@@ -19,7 +19,7 @@ def _is_file_path(data) -> bool:
         return False
     if data.startswith('gs://'):
         return True
-    for ext in ('.parquet', '.tif', '.tiff'):
+    for ext in ('.parquet', '.tif', '.tiff', '.shp', '.shx', '.dbf', '.gpkg', '.geojson', '.json', '.zip'):
         if data.endswith(ext) or data.lower().endswith(ext):
             return True
     return False

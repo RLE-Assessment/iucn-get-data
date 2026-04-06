@@ -36,6 +36,7 @@ parquet = "iucn_get_data.backends.parquet:ParquetBackend"
 cog = "iucn_get_data.backends.cog:CogBackend"
 ee_vector = "iucn_get_data.backends.ee_vector:EEVectorBackend"
 ee_raster = "iucn_get_data.backends.ee_raster:EERasterBackend"
+shapefile = "iucn_get_data.backends.shapefile:ShapefileBackend"
 
 [build-system]
 requires = ["setuptools>=61.0", "wheel"]

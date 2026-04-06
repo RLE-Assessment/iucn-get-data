@@ -15,6 +15,7 @@ _BUILTIN_BACKENDS = {
     "cog": "iucn_get_data.backends.cog:CogBackend",
     "ee_vector": "iucn_get_data.backends.ee_vector:EEVectorBackend",
     "ee_raster": "iucn_get_data.backends.ee_raster:EERasterBackend",
+    "shapefile": "iucn_get_data.backends.shapefile:ShapefileBackend",
 }
 
 
@@ -71,13 +72,12 @@ def list_engines() -> dict[str, type[EcosystemBackendEntrypoint]]:
         engines[ep.name] = ep.load()
 
     # Fallback: load built-in backends not already discovered via entry points
-    if not engines:
-        for name, dotted_path in _BUILTIN_BACKENDS.items():
-            if name not in engines:
-                try:
-                    engines[name] = _load_class(dotted_path)
-                except (ImportError, AttributeError):
-                    pass
+    for name, dotted_path in _BUILTIN_BACKENDS.items():
+        if name not in engines:
+            try:
+                engines[name] = _load_class(dotted_path)
+            except (ImportError, AttributeError):
+                pass
 
     _engines_cache = engines
     return engines
