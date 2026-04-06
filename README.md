@@ -11,6 +11,11 @@ pip install iucn-get-data
 ## Usage
 
 ```python
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["iucn-get-data @ git+https://github.com/RLE-Assessment/iucn-get-data"]
+# ///
+
 from iucn_get_data import Typology, get_realms, get_biomes, get_groups
 
 # Create a Typology instance
