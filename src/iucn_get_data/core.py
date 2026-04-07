@@ -9,6 +9,11 @@ if TYPE_CHECKING:
     import pandas as pd
 
 
+def _natural_sort_key(value):
+    """Sort key that orders numeric parts numerically (e.g. T1.1.9 before T1.1.10)."""
+    return [int(part) if part.isdigit() else part.lower() for part in re.split(r'(\d+)', str(value))]
+
+
 @dataclass
 class FunctionalGroup:
     """
@@ -120,16 +125,19 @@ class Typology:
         realms: Dictionary of realms keyed by their code.
         ecosystems: Optional DataFrame containing ecosystem records.
         ecosystems_functional_group_column: Column name for functional group codes in ecosystems.
+        ecosystems_column: Column name for ecosystem type codes (e.g. 'ECO_CODE').
 
     Example:
         >>> typology = Typology()  # Uses English
         >>> typology = Typology(language="spanish")  # Uses Spanish
-        >>> typology = Typology(ecosystems=df, ecosystems_functional_group_column='efg_code')
+        >>> typology = Typology(ecosystems=df, ecosystems_functional_group_column='EFG1', ecosystems_column='ECO_CODE')
     """
     language: str = "english"
     realms: dict[str, Realm] = field(default_factory=dict)
     ecosystems: "pd.DataFrame" = None
     ecosystems_functional_group_column: str = None
+    ecosystems_column: str = None
+    ecosystem_name_column: str = None
 
     def __post_init__(self):
         """Load typology data if realms not provided."""
@@ -137,13 +145,19 @@ class Typology:
             data = _load_yaml(language=self.language)
             self.realms = _build_realms(data)
 
-        # Validate ecosystems column if provided
-        if self.ecosystems is not None and self.ecosystems_functional_group_column is None:
-            raise ValueError("ecosystems_functional_group_column required when ecosystems is provided")
+        # Validate ecosystems columns if provided
         if self.ecosystems is not None:
+            if self.ecosystems_functional_group_column is None:
+                raise ValueError("ecosystems_functional_group_column required when ecosystems is provided")
+            if self.ecosystems_column is None:
+                raise ValueError("ecosystems_column required when ecosystems is provided")
             valid_names = list(self.ecosystems.columns) + list(self.ecosystems.index.names)
             if self.ecosystems_functional_group_column not in valid_names:
                 raise ValueError(f"Column '{self.ecosystems_functional_group_column}' not found in ecosystems DataFrame columns or index")
+            if self.ecosystems_column not in valid_names:
+                raise ValueError(f"Column '{self.ecosystems_column}' not found in ecosystems DataFrame columns or index")
+            if self.ecosystem_name_column is not None and self.ecosystem_name_column not in valid_names:
+                raise ValueError(f"Column '{self.ecosystem_name_column}' not found in ecosystems DataFrame columns or index")
 
     def get_biomes(self, realm: str = None) -> dict[str, Biome]:
         """
@@ -208,26 +222,34 @@ class Typology:
 
         return all_groups
 
-    def add_ecosystems(self, data: "pd.DataFrame", functional_group_column: str) -> None:
+    def add_ecosystems(self, data: "pd.DataFrame", functional_group_column: str, ecosystems_column: str, ecosystem_name_column: str = None) -> None:
         """
         Add ecosystem data to be merged with typology.
 
         Args:
             data: DataFrame containing ecosystem records.
             functional_group_column: Name of column or index level containing functional group codes.
+            ecosystems_column: Name of column containing ecosystem type codes.
+            ecosystem_name_column: Optional column containing ecosystem names.
 
         Example:
             >>> typology = Typology(language="spanish")
-            >>> typology.add_ecosystems(ecosystems_df, functional_group_column='efg_code')
+            >>> typology.add_ecosystems(ecosystems_df, functional_group_column='EFG1', ecosystems_column='ECO_CODE')
             >>> typology.dataframe  # Returns merged data
         """
         # Check both columns and index names
         valid_names = list(data.columns) + list(data.index.names)
         if functional_group_column not in valid_names:
             raise ValueError(f"Column '{functional_group_column}' not found in DataFrame columns or index")
+        if ecosystems_column not in valid_names:
+            raise ValueError(f"Column '{ecosystems_column}' not found in DataFrame columns or index")
+        if ecosystem_name_column is not None and ecosystem_name_column not in valid_names:
+            raise ValueError(f"Column '{ecosystem_name_column}' not found in DataFrame columns or index")
 
         self.ecosystems = data
         self.ecosystems_functional_group_column = functional_group_column
+        self.ecosystems_column = ecosystems_column
+        self.ecosystem_name_column = ecosystem_name_column
 
     def __str__(self):
         """Return a tree-style text representation of the typology hierarchy."""
@@ -239,24 +261,21 @@ class Typology:
 
         # Build ecosystem lookup if ecosystems are added
         ecosystem_lookup = {}
-        if self.ecosystems is not None:
+        if self.ecosystems is not None and self.ecosystems_column:
             df = self.dataframe
-            typology_cols = {'realm_code', 'biome_code', 'functional_group_code',
-                            'realm_name', 'biome_name', 'functional_group_name',
-                            'description', 'url', 'index',
-                            self.ecosystems_functional_group_column}
-            # Find first non-typology column for display
-            eco_col = self.ecosystem_name_column if hasattr(self, 'ecosystem_name_column') and self.ecosystem_name_column else None
-            if eco_col is None:
-                for col in df.columns:
-                    if col not in typology_cols:
-                        eco_col = col
-                        break
-            if eco_col:
-                for _, row in df.iterrows():
-                    fg_code = row['functional_group_code']
-                    if fg_code not in ecosystem_lookup:
-                        ecosystem_lookup[fg_code] = []
+            eco_col = self.ecosystems_column
+            name_col = self.ecosystem_name_column
+            dedup_cols = ['functional_group_code', eco_col]
+            if name_col:
+                dedup_cols.append(name_col)
+            deduped = df[dedup_cols].drop_duplicates()
+            for _, row in deduped.iterrows():
+                fg_code = row['functional_group_code']
+                if fg_code not in ecosystem_lookup:
+                    ecosystem_lookup[fg_code] = []
+                if name_col:
+                    ecosystem_lookup[fg_code].append((row[eco_col], row[name_col]))
+                else:
                     ecosystem_lookup[fg_code].append(row[eco_col])
 
         lines = []
@@ -298,8 +317,12 @@ class Typology:
 
                     lines.append(f"      └─ {fg_code}: {fg.name}")
 
-                    for eco in ecosystems_list:
-                        lines.append(f"          └─ {eco}")
+                    sort_key = (lambda e: _natural_sort_key(e[0])) if self.ecosystem_name_column else _natural_sort_key
+                    for eco in sorted(ecosystems_list, key=sort_key):
+                        if isinstance(eco, tuple):
+                            lines.append(f"          └─ {eco[0]}: {eco[1]}")
+                        else:
+                            lines.append(f"          └─ {eco}")
 
         return '\n'.join(lines)
 
@@ -428,7 +451,9 @@ class Typology:
         ecosystem_lookup = {}
         if self.ecosystems is not None and eco_cols:
             df = self.dataframe
-            for _, row in df.iterrows():
+            display_cols = ['functional_group_code'] + eco_cols
+            deduped = df[display_cols].drop_duplicates()
+            for _, row in deduped.iterrows():
                 fg_code = row['functional_group_code']
                 if fg_code not in ecosystem_lookup:
                     ecosystem_lookup[fg_code] = []
@@ -500,7 +525,9 @@ class Typology:
                     rows.append('</tr>')
 
                     # Ecosystem rows - two level indent (48px = 2 × 24px), white background
-                    for eco in ecosystems_list:
+                    sort_col = self.ecosystems_column if self.ecosystems_column and self.ecosystems_column in eco_cols else eco_cols[0] if eco_cols else None
+                    sorted_ecosystems = sorted(ecosystems_list, key=lambda e: _natural_sort_key(e.get(sort_col, ''))) if sort_col else ecosystems_list
+                    for eco in sorted_ecosystems:
                         rows.append('<tr style="background-color: #ffffff !important;">')
                         for i, col in enumerate(eco_cols):
                             # First column gets two-level indent for hierarchy
