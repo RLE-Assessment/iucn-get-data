@@ -17,7 +17,7 @@ def _is_file_path(data) -> bool:
     """Check if data is a file path (local or gs://) rather than an EE asset ID."""
     if not isinstance(data, str):
         return False
-    if data.startswith('gs://'):
+    if data.startswith(('gs://', 'https://', 'http://')):
         return True
     for ext in ('.parquet', '.tif', '.tiff', '.shp', '.shx', '.dbf', '.gpkg', '.geojson', '.json', '.zip'):
         if data.endswith(ext) or data.lower().endswith(ext):

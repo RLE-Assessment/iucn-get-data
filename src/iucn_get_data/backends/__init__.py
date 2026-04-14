@@ -89,6 +89,44 @@ def refresh_engines() -> None:
     _engines_cache = None
 
 
+def _cache_remote_file(data: str) -> str:
+    """Download a remote file to a local cache and return the local path.
+
+    Supports gs:// and https:// URIs.  If the file is already cached,
+    returns the cached path without re-downloading.  Non-remote paths
+    are returned unchanged.
+    """
+    if not isinstance(data, str):
+        return data
+    if not (data.startswith("gs://") or data.startswith("https://")):
+        return data
+
+    import hashlib
+    import logging
+    from pathlib import Path
+
+    logger = logging.getLogger(__name__)
+
+    cache_dir = Path("/tmp/iucn_get_data_cache")
+    cache_dir.mkdir(parents=True, exist_ok=True)
+
+    url_hash = hashlib.sha256(data.encode()).hexdigest()[:12]
+    # Preserve the original filename for readability
+    filename = data.rstrip("/").rsplit("/", 1)[-1]
+    cache_path = cache_dir / f"{url_hash}_{filename}"
+
+    if cache_path.exists():
+        logger.info("Using cached file: %s", cache_path)
+        return str(cache_path)
+
+    import fsspec
+
+    logger.info("Downloading %s to %s", data, cache_path)
+    fs, fpath = fsspec.core.url_to_fs(data)
+    fs.get(fpath, str(cache_path))
+    return str(cache_path)
+
+
 def open_ecosystem_map(data, *, engine: str | None = None, **kwargs) -> "EcosystemMap":
     """Open an ecosystem map using auto-detection or an explicit engine.
 
@@ -105,6 +143,7 @@ def open_ecosystem_map(data, *, engine: str | None = None, **kwargs) -> "Ecosyst
         ValueError: If no backend can handle the data, or if the named
             engine is not found.
     """
+    data = _cache_remote_file(data)
     engines = list_engines()
 
     if engine is not None:
