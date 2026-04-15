@@ -412,14 +412,22 @@ class VectorMap(EcosystemMap):
             )
             for code in codes
         ]
-        ax.legend(handles=handles, loc='upper left', bbox_to_anchor=(1.0, 1),
-                  fontsize=8, frameon=False)
+        ax.legend(
+            handles=handles,
+            loc='upper center',
+            bbox_to_anchor=(0.5, -0.08),
+            fontsize=8,
+            frameon=False,
+            ncol=1,
+        )
 
         title = _STYLE_KEY_TITLES.get(style_key, style_key)
         ax.set_title(title, fontsize=14)
         ax.set_axis_off()
-        fig.subplots_adjust(right=0.68)
-        fig.tight_layout()
+        # Place legend below map so figure width stays consistent regardless of
+        # legend text length.
+        fig.subplots_adjust(bottom=0.34)
+        fig.tight_layout(rect=(0, 0.18, 1, 1))
         plt.close(fig)
         return fig
 
