@@ -22,13 +22,26 @@ def _require_geopandas():
         ) from None
 
 
+def _normalize_gcs_uri(uri: str) -> str:
+    """Convert a public GCS HTTPS URL to a gs:// URI.
+
+    ``https://storage.googleapis.com/BUCKET/KEY`` → ``gs://BUCKET/KEY``
+
+    Non-GCS URLs and other strings are returned unchanged.
+    """
+    prefix = "https://storage.googleapis.com/"
+    if uri.startswith(prefix):
+        return "gs://" + uri[len(prefix):]
+    return uri
+
+
 class VectorMapParquet(VectorMap):
     """Vector ecosystem map stored as a GeoParquet file.
 
-    Supports local paths and gs:// URIs (requires gcsfs for GCS access).
+    Supports local paths, gs:// URIs, and public GCS HTTPS URLs.
 
     Attributes:
-        asset_id: The file path (local or gs://).
+        asset_id: The file path (local, gs://, or https://storage.googleapis.com/…).
         asset_type: Always 'TABLE'.
         get_level3_column: Column name for GET Level 3 ecosystem functional group codes.
         get_level456_column: Column name for GET Level 4 ecosystem type codes.
@@ -36,7 +49,7 @@ class VectorMapParquet(VectorMap):
     """
 
     def __init__(self, data, get_level3_column=None, get_level456_column=None, **kwargs):
-        self.asset_id = data
+        self.asset_id = _normalize_gcs_uri(data)
         self.asset_type = 'TABLE'
         self.get_level3_column = get_level3_column
         self.get_level456_column = get_level456_column
