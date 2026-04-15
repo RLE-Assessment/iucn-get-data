@@ -331,26 +331,88 @@ class VectorMap(EcosystemMap):
 
     def _dissolved_map(self, group_column, style_key, cmap=None, alpha=180,
                        stroked=True, get_line_width=2, get_line_color=None,
-                       simplify_tolerance=None, view_state=None, **kwargs):
-        """Create a Map from geometries dissolved by group_column."""
-        from ipywidgets import HBox, Layout
-        from lonboard import Map
+                       simplify_tolerance=None, view_state=None,
+                       interactive=False, **kwargs):
+        """Create a Map from geometries dissolved by group_column.
 
-        layer = self._dissolved_layer(
+        Args:
+            interactive: If True, return an interactive lonboard Map widget.
+                If False (default), return a static matplotlib Figure.
+        """
+        if interactive:
+            from ipywidgets import HBox, Layout
+            from lonboard import Map
+
+            layer = self._dissolved_layer(
+                group_column, style_key, cmap=cmap, alpha=alpha,
+                stroked=stroked, get_line_width=get_line_width,
+                get_line_color=get_line_color,
+                simplify_tolerance=simplify_tolerance, **kwargs,
+            )
+            map_kwargs = {"layers": [layer]}
+            if view_state is not None:
+                map_kwargs["view_state"] = view_state
+            m = Map(**map_kwargs)
+            m.layout.width = None
+            m.layout.flex = '1 1 0px'
+            codes = sorted(self.data[group_column].unique())
+            legend = _build_legend_widget(style_key, codes)
+            return HBox([m, legend], layout=Layout(width='100%'))
+
+        return self._dissolved_static_map(
             group_column, style_key, cmap=cmap, alpha=alpha,
-            stroked=stroked, get_line_width=get_line_width,
-            get_line_color=get_line_color,
-            simplify_tolerance=simplify_tolerance, **kwargs,
+            simplify_tolerance=simplify_tolerance,
         )
-        map_kwargs = {"layers": [layer]}
-        if view_state is not None:
-            map_kwargs["view_state"] = view_state
-        m = Map(**map_kwargs)
-        m.layout.width = None
-        m.layout.flex = '1 1 0px'
-        codes = sorted(self.data[group_column].unique())
-        legend = _build_legend_widget(style_key, codes)
-        return HBox([m, legend], layout=Layout(width='100%'))
+
+    def _dissolved_static_map(self, group_column, style_key, cmap=None,
+                              alpha=180, simplify_tolerance=None):
+        """Create a static matplotlib Figure from geometries dissolved by group_column."""
+        import matplotlib.pyplot as plt
+        import matplotlib.patches as mpatches
+
+        dissolved = self.data.dissolve(by=group_column).reset_index()
+
+        if simplify_tolerance is not None:
+            dissolved = self._simplify_geodataframe(dissolved, simplify_tolerance)
+
+        if cmap is None:
+            cmap = _load_map_style().get(style_key, {})
+
+        names = _build_code_name_lookup()
+        codes = sorted(dissolved[group_column].unique())
+
+        # Build color list matching the dissolved rows
+        color_map = {}
+        for code in codes:
+            rgb = cmap.get(code, [128, 128, 128])
+            color_map[code] = [c / 255 for c in rgb] + [alpha / 255]
+
+        fig, ax = plt.subplots(1, 1, figsize=(12, 8))
+        for _, row in dissolved.iterrows():
+            code = row[group_column]
+            from geopandas import GeoDataFrame
+            GeoDataFrame([row], geometry='geometry', crs=dissolved.crs).plot(
+                ax=ax, color=[color_map[code]], edgecolor='#333333', linewidth=0.5,
+            )
+
+        # Legend
+        handles = [
+            mpatches.Patch(
+                facecolor=color_map[code],
+                edgecolor='#333333',
+                label=f'{code} — {names.get(code, code)}',
+            )
+            for code in codes
+        ]
+        ax.legend(handles=handles, loc='upper left', bbox_to_anchor=(1.02, 1),
+                  fontsize=9, frameon=False)
+
+        title = _STYLE_KEY_TITLES.get(style_key, style_key)
+        ax.set_title(title, fontsize=14)
+        ax.set_axis_off()
+        fig.tight_layout()
+        plt.close(fig)
+        return fig
 
     def _ensure_level3_column(self):
         """Raise if get_level3_column is not set."""
@@ -387,7 +449,7 @@ class VectorMap(EcosystemMap):
     def to_functional_group_map(self, cmap=None, alpha=180, stroked=True,
                                 get_line_width=2, get_line_color=None,
                                 simplify_tolerance=None, view_state=None,
-                                **kwargs):
+                                interactive=False, **kwargs):
         """Create a Map with geometries dissolved by functional group (GET Level 3).
 
         Args:
@@ -398,17 +460,19 @@ class VectorMap(EcosystemMap):
             get_line_color: RGBA list for outline color. Defaults to [0, 0, 0, 150].
             simplify_tolerance: Optional geometry simplification tolerance in degrees.
             view_state: Optional MapViewState to set the initial camera position.
+            interactive: If True, return interactive lonboard Map. Default False (static).
             **kwargs: Additional keyword arguments passed to PolygonLayer.from_geopandas.
 
         Returns:
-            A lonboard Map.
+            A matplotlib Figure (default) or lonboard Map (interactive=True).
         """
         self._ensure_level3_column()
         return self._dissolved_map(
             self.get_level3_column, 'functional_groups', cmap=cmap, alpha=alpha,
             stroked=stroked, get_line_width=get_line_width,
             get_line_color=get_line_color,
-            simplify_tolerance=simplify_tolerance, view_state=view_state, **kwargs,
+            simplify_tolerance=simplify_tolerance, view_state=view_state,
+            interactive=interactive, **kwargs,
         )
 
     def to_biome_layer(self, cmap=None, alpha=180, stroked=True,
@@ -442,7 +506,8 @@ class VectorMap(EcosystemMap):
 
     def to_biome_map(self, cmap=None, alpha=180, stroked=True,
                      get_line_width=2, get_line_color=None,
-                     simplify_tolerance=None, view_state=None, **kwargs):
+                     simplify_tolerance=None, view_state=None,
+                     interactive=False, **kwargs):
         """Create a Map with geometries dissolved by biome (GET Level 2).
 
         Args:
@@ -453,10 +518,11 @@ class VectorMap(EcosystemMap):
             get_line_color: RGBA list for outline color. Defaults to [0, 0, 0, 150].
             simplify_tolerance: Optional geometry simplification tolerance in degrees.
             view_state: Optional MapViewState to set the initial camera position.
+            interactive: If True, return interactive lonboard Map. Default False (static).
             **kwargs: Additional keyword arguments passed to PolygonLayer.from_geopandas.
 
         Returns:
-            A lonboard Map.
+            A matplotlib Figure (default) or lonboard Map (interactive=True).
         """
         self._ensure_level3_column()
         self.data['_biome'] = self.data[self.get_level3_column].map(self._parse_biome_code)
@@ -466,7 +532,7 @@ class VectorMap(EcosystemMap):
                 stroked=stroked, get_line_width=get_line_width,
                 get_line_color=get_line_color,
                 simplify_tolerance=simplify_tolerance, view_state=view_state,
-                **kwargs,
+                interactive=interactive, **kwargs,
             )
         finally:
             self.data.drop(columns='_biome', inplace=True)
@@ -502,7 +568,8 @@ class VectorMap(EcosystemMap):
 
     def to_realm_map(self, cmap=None, alpha=180, stroked=True,
                      get_line_width=2, get_line_color=None,
-                     simplify_tolerance=None, view_state=None, **kwargs):
+                     simplify_tolerance=None, view_state=None,
+                     interactive=False, **kwargs):
         """Create a Map with geometries dissolved by realm (GET Level 1).
 
         Args:
@@ -513,10 +580,11 @@ class VectorMap(EcosystemMap):
             get_line_color: RGBA list for outline color. Defaults to [0, 0, 0, 150].
             simplify_tolerance: Optional geometry simplification tolerance in degrees.
             view_state: Optional MapViewState to set the initial camera position.
+            interactive: If True, return interactive lonboard Map. Default False (static).
             **kwargs: Additional keyword arguments passed to PolygonLayer.from_geopandas.
 
         Returns:
-            A lonboard Map.
+            A matplotlib Figure (default) or lonboard Map (interactive=True).
         """
         self._ensure_level3_column()
         self.data['_realm'] = self.data[self.get_level3_column].map(self._parse_realm_code)
@@ -526,7 +594,7 @@ class VectorMap(EcosystemMap):
                 stroked=stroked, get_line_width=get_line_width,
                 get_line_color=get_line_color,
                 simplify_tolerance=simplify_tolerance, view_state=view_state,
-                **kwargs,
+                interactive=interactive, **kwargs,
             )
         finally:
             self.data.drop(columns='_realm', inplace=True)
