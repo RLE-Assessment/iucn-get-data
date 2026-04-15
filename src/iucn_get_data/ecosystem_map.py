@@ -390,7 +390,7 @@ class VectorMap(EcosystemMap):
 
         # Keep static maps narrow enough for book/report content columns while
         # leaving dedicated room for the legend on the right.
-        fig, ax = plt.subplots(1, 1, figsize=(6, 4))
+        fig, ax = plt.subplots(1, 1, figsize=(6, 6))
         for _, row in dissolved.iterrows():
             code = row[group_column]
             from geopandas import GeoDataFrame
