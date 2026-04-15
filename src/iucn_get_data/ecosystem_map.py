@@ -367,6 +367,7 @@ class VectorMap(EcosystemMap):
     def _dissolved_static_map(self, group_column, style_key, cmap=None,
                               alpha=180, simplify_tolerance=None):
         """Create a static matplotlib Figure from geometries dissolved by group_column."""
+        import textwrap
         import matplotlib.pyplot as plt
         import matplotlib.patches as mpatches
 
@@ -402,17 +403,22 @@ class VectorMap(EcosystemMap):
             mpatches.Patch(
                 facecolor=color_map[code],
                 edgecolor='#333333',
-                label=f'{code} — {names.get(code, code)}',
+                label=textwrap.fill(
+                    f'{code} — {names.get(code, code)}',
+                    width=32,
+                    break_long_words=False,
+                    break_on_hyphens=False,
+                ),
             )
             for code in codes
         ]
         ax.legend(handles=handles, loc='upper left', bbox_to_anchor=(1.0, 1),
-                  fontsize=9, frameon=False)
+                  fontsize=8, frameon=False)
 
         title = _STYLE_KEY_TITLES.get(style_key, style_key)
         ax.set_title(title, fontsize=14)
         ax.set_axis_off()
-        fig.subplots_adjust(right=0.75)
+        fig.subplots_adjust(right=0.68)
         fig.tight_layout()
         plt.close(fig)
         return fig
