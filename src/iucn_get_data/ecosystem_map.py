@@ -387,7 +387,9 @@ class VectorMap(EcosystemMap):
             rgb = cmap.get(code, [128, 128, 128])
             color_map[code] = [c / 255 for c in rgb] + [alpha / 255]
 
-        fig, ax = plt.subplots(1, 1, figsize=(12, 8))
+        # Keep static maps narrow enough for book/report content columns while
+        # leaving dedicated room for the legend on the right.
+        fig, ax = plt.subplots(1, 1, figsize=(9, 6.5))
         for _, row in dissolved.iterrows():
             code = row[group_column]
             from geopandas import GeoDataFrame
@@ -404,12 +406,13 @@ class VectorMap(EcosystemMap):
             )
             for code in codes
         ]
-        ax.legend(handles=handles, loc='upper left', bbox_to_anchor=(1.02, 1),
+        ax.legend(handles=handles, loc='upper left', bbox_to_anchor=(1.0, 1),
                   fontsize=9, frameon=False)
 
         title = _STYLE_KEY_TITLES.get(style_key, style_key)
         ax.set_title(title, fontsize=14)
         ax.set_axis_off()
+        fig.subplots_adjust(right=0.75)
         fig.tight_layout()
         plt.close(fig)
         return fig
