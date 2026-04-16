@@ -365,11 +365,16 @@ class VectorMap(EcosystemMap):
         )
 
     def _dissolved_static_map(self, group_column, style_key, cmap=None,
-                              alpha=180, simplify_tolerance=None):
-        """Create a static matplotlib Figure from geometries dissolved by group_column."""
+                              alpha=180, simplify_tolerance=None, dpi=150):
+        """Create a static map image from geometries dissolved by group_column.
+
+        Returns an IPython.display.Image (PNG) to avoid huge PDF serialization.
+        """
+        import io
         import textwrap
         import matplotlib.pyplot as plt
         import matplotlib.patches as mpatches
+        from IPython.display import Image
 
         dissolved = self.data.dissolve(by=group_column).reset_index()
 
@@ -428,8 +433,11 @@ class VectorMap(EcosystemMap):
         # legend text length.
         fig.subplots_adjust(bottom=0.34)
         fig.tight_layout(rect=(0, 0.18, 1, 1))
+        buf = io.BytesIO()
+        fig.savefig(buf, format='png', dpi=dpi, bbox_inches='tight')
         plt.close(fig)
-        return fig
+        buf.seek(0)
+        return Image(data=buf.read(), format='png')
 
     def _ensure_level3_column(self):
         """Raise if get_level3_column is not set."""
