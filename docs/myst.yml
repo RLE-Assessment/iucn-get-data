@@ -1,0 +1,41 @@
+version: 1
+project:
+  id: iucn-get-data
+  title: iucn-get-data
+  description: Tools for working with IUCN Global Ecosystem Typology (GET) data — Realms, Biomes, and Functional Groups.
+  keywords:
+    - IUCN
+    - Global Ecosystem Typology
+    - GET
+    - ecology
+    - biodiversity
+    - Python
+  authors:
+    - name: RLE Assessment Team
+  github: https://github.com/RLE-Assessment/iucn-get-data
+  license:
+    code: MIT
+  toc:
+    - file: index.md
+    - title: Getting started
+      children:
+        - file: installation.md
+        - file: quickstart.md
+    - title: Guides
+      children:
+        - file: typology.md
+        - file: ecosystem-maps.md
+        - file: languages.md
+    - title: Reference
+      children:
+        - file: api.md
+        - file: backends.md
+    - title: About
+      children:
+        - file: data-source.md
+        - file: contributing.md
+site:
+  template: book-theme
+  options:
+    favicon: ""
+    logo_text: iucn-get-data
