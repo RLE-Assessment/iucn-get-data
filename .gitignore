@@ -71,3 +71,6 @@ tests/test_data/colombian_ecoregions.parquet
 
 # MyST build output
 docs/_build/
+
+# MyST build outputs
+_build
