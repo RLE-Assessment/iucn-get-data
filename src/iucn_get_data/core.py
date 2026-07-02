@@ -1,7 +1,5 @@
 import re
-import yaml
 from dataclasses import dataclass, field
-from importlib import resources
 from importlib.metadata import version
 from typing import TYPE_CHECKING
 
@@ -21,7 +19,7 @@ class FunctionalGroup:
 
     Ecosystem Functional Groups (EFGs) are groups of related ecosystems within a
     biome that share common ecological drivers, ecological traits, and assembly
-    processes. There are 109 EFGs in GET 2.0.
+    processes. There are 110 EFGs in the source vocabulary.
 
     See: https://global-ecosystems.org/
 
@@ -77,9 +75,10 @@ class Realm:
     Level 1 of the IUCN Global Ecosystem Typology: Realm.
 
     Realms are the highest level of ecosystem classification, distinguished
-    by the major environmental factors that shape ecosystem properties. GET 2.0
-    includes 4 core realms (Terrestrial, Freshwater, Marine, Subterranean) and
-    6 transitional realms at their interfaces (e.g., Marine-Terrestrial).
+    by the major environmental factors that shape ecosystem properties. The
+    source vocabulary includes 5 core realms (Terrestrial, Freshwater, Marine,
+    Subterranean, Atmospheric) and 6 transitional realms at their interfaces
+    (e.g., Marine-Terrestrial).
 
     See: https://global-ecosystems.org/
 
@@ -114,9 +113,9 @@ class Typology:
     - Lower levels (composition-based): Biogeographic ecotypes → Global ecosystem types → Subglobal types
 
     This library provides access to the three upper levels:
-    - 10 Realms (4 core + 6 transitional)
+    - 11 Realms (5 core + 6 transitional)
     - 25 Biomes
-    - 109 Ecosystem Functional Groups
+    - 110 Ecosystem Functional Groups
 
     See: https://global-ecosystems.org/
 
@@ -142,8 +141,9 @@ class Typology:
     def __post_init__(self):
         """Load typology data if realms not provided."""
         if not self.realms:
-            data = _load_yaml(language=self.language)
-            self.realms = _build_realms(data)
+            from . import vocabulary
+            graph = vocabulary.load_vocabulary()
+            self.realms = vocabulary.build_realms_from_graph(graph, self.language)
 
         # Validate ecosystems columns if provided
         if self.ecosystems is not None:
@@ -539,63 +539,6 @@ class Typology:
 
         rows.append('</tbody></table>')
         return '\n'.join(rows)
-
-
-def _get_default_typology_path(language="english"):
-    """Get the path to the bundled YAML file."""
-    return resources.files("iucn_get_data").joinpath(f"data/{language}.yaml")
-
-
-def _load_yaml(language="english"):
-    """Load YAML data from the bundled file for the specified language."""
-    typology_file = _get_default_typology_path(language)
-    with resources.as_file(typology_file) as path:
-        with open(path, 'r') as f:
-            return yaml.safe_load(f)
-
-
-def _build_realms(data: dict) -> dict[str, Realm]:
-    """Build realms dictionary from raw YAML data."""
-    realms = {}
-
-    for realm_data in data.get('realms', []):
-        realm_code = realm_data.get('code')
-
-        biomes = {}
-        for biome_data in realm_data.get('biomes', []):
-            biome_code = biome_data.get('code')
-
-            functional_groups = {}
-            for fg_data in biome_data.get('functional_groups', []):
-                fg_code = fg_data.get('code')
-                functional_groups[fg_code] = FunctionalGroup(
-                    code=fg_code,
-                    name=fg_data.get('name', ''),
-                    description=fg_data.get('description', ''),
-                    url=fg_data.get('url', ''),
-                    biome_code=biome_code,
-                    realm_code=realm_code,
-                )
-
-            biomes[biome_code] = Biome(
-                code=biome_code,
-                name=biome_data.get('name', ''),
-                description=biome_data.get('description', ''),
-                url=biome_data.get('url', ''),
-                functional_groups=functional_groups,
-                realm_code=realm_code,
-            )
-
-        realms[realm_code] = Realm(
-            code=realm_code,
-            name=realm_data.get('name', ''),
-            description=realm_data.get('description', ''),
-            transitional=realm_data.get('transitional', False),
-            url=realm_data.get('url', ''),
-            biomes=biomes,
-        )
-
-    return realms
 
 
 def get_realms(language="english") -> dict[str, Realm]:

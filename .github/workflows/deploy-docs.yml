@@ -36,12 +36,26 @@ jobs:
         with:
           node-version: '22'
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install docs execution dependencies
+        # The docs contain executable {code-cell} blocks; MyST needs a Jupyter
+        # kernel and the package (to import iucn_get_data and load the bundled
+        # vocabulary) to run them.
+        run: |
+          python -m pip install --upgrade pip
+          pip install jupyter-server ipykernel
+          pip install .
+          python -m ipykernel install --user --name python3
+
       - name: Install MyST
         run: npm install -g mystmd
 
       - name: Build HTML
         working-directory: docs
-        run: myst build --html
+        run: myst build --html --execute
 
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request'

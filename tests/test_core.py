@@ -17,9 +17,9 @@ def test_get_realms_values_are_realm_instances():
 
 
 def test_get_realms_count():
-    """Test that get_realms returns 10 realms (4 core + 6 transitional)."""
+    """Test that get_realms returns 11 realms (5 core + 6 transitional)."""
     realms = get_realms()
-    assert len(realms) == 10
+    assert len(realms) == 11
 
 
 def test_get_realms_structure():
@@ -35,13 +35,13 @@ def test_get_realms_structure():
 
 
 def test_get_realms_core_realms():
-    """Test that there are 4 core realms (T, M, F, S)."""
+    """Test that there are 5 core realms (T, M, F, S, A)."""
     realms = get_realms()
     core_realms = [r for r in realms.values() if not r.transitional]
 
-    assert len(core_realms) == 4
+    assert len(core_realms) == 5
     core_codes = {r.code for r in core_realms}
-    assert core_codes == {'T', 'M', 'F', 'S'}
+    assert core_codes == {'T', 'M', 'F', 'S', 'A'}
 
 
 def test_get_realms_transitional_realms():
@@ -60,7 +60,7 @@ def test_get_realms_biomes_structure():
 
     for realm in realms.values():
         assert isinstance(realm.biomes, dict)
-        assert len(realm.biomes) > 0, f"Realm {realm.code} has no biomes"
+        # Realm 'A' (Atmospheric) has no biomes in the current vocabulary.
 
         for biome in realm.biomes.values():
             assert isinstance(biome, Biome)
@@ -87,7 +87,7 @@ def test_get_realms_functional_groups_structure():
 
 
 def test_get_realms_total_functional_groups():
-    """Test that there are 109 total functional groups."""
+    """Test that there are 110 total functional groups."""
     realms = get_realms()
     total_fgs = 0
 
@@ -95,7 +95,7 @@ def test_get_realms_total_functional_groups():
         for biome in realm.biomes.values():
             total_fgs += len(biome.functional_groups)
 
-    assert total_fgs == 109
+    assert total_fgs == 110
 
 
 def test_get_realms_url_format():
@@ -162,25 +162,27 @@ def test_typology_has_realms():
 
 
 def test_typology_realms_count():
-    """Test that Typology() returns 10 realms."""
+    """Test that Typology() returns 11 realms."""
     typology = Typology()
-    assert len(typology.realms) == 10
+    assert len(typology.realms) == 11
 
 
 def test_typology_complete_structure():
     """Test that Typology() returns complete hierarchical structure."""
     typology = Typology()
 
-    # Verify structure exists
+    # Verify structure exists. Use a realm known to be fully populated
+    # (Atmospheric has no biomes in the current vocabulary).
     assert len(typology.realms) > 0
-    first_realm = next(iter(typology.realms.values()))
-    assert hasattr(first_realm, 'code')
-    assert hasattr(first_realm, 'name')
-    assert hasattr(first_realm, 'biomes')
-    assert len(first_realm.biomes) > 0
+    realm = typology.realms['T']
+    assert hasattr(realm, 'code')
+    assert hasattr(realm, 'name')
+    assert hasattr(realm, 'biomes')
+    assert len(realm.biomes) > 0
 
-    first_biome = next(iter(first_realm.biomes.values()))
+    first_biome = next(iter(realm.biomes.values()))
     assert hasattr(first_biome, 'functional_groups')
+    assert len(first_biome.functional_groups) > 0
 
 
 def test_get_biomes_returns_dict():
@@ -289,7 +291,7 @@ def test_typology_get_groups_method():
 
     # Get all groups
     all_groups = typology.get_groups()
-    assert len(all_groups) == 109
+    assert len(all_groups) == 110
 
     # Get groups for a specific realm
     t_groups = typology.get_groups(realm='T')
@@ -298,3 +300,26 @@ def test_typology_get_groups_method():
     # Get groups for a specific biome
     t1_groups = typology.get_groups(biome='T1')
     assert len(t1_groups) == 4
+
+
+def test_biome_names_are_translated():
+    """Biome names are available per-language in the vocabulary."""
+    english = Typology(language="english").realms['M'].biomes['M1'].name
+    spanish = Typology(language="spanish").realms['M'].biomes['M1'].name
+
+    assert english == 'Marine shelf'
+    assert spanish == 'Bioma de plataforma marina'
+    assert english != spanish
+
+
+def test_realm_names_fall_back_to_english():
+    """Realm/EFG labels are English-only, so es/fr fall back to English."""
+    en = Typology(language="english")
+    es = Typology(language="spanish")
+
+    # Realm name has no Spanish translation -> English fallback.
+    assert es.realms['T'].name == en.realms['T'].name == 'Terrestrial'
+    # EFG name likewise falls back.
+    en_efg = en.realms['T'].biomes['T1'].functional_groups['T1.1'].name
+    es_efg = es.realms['T'].biomes['T1'].functional_groups['T1.1'].name
+    assert es_efg == en_efg

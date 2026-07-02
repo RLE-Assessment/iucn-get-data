@@ -1,0 +1,17 @@
+# Registry of bundled IUCN GET controlled-vocabulary versions.
+#
+# To add a new drop (same JSON-LD/SKOS format):
+#   1. Copy the file into this directory.
+#   2. Add an entry under `versions:` keyed by its version id.
+#   3. Bump `current:` if it should become the default.
+#
+# To serve a version from an external CDN instead of the bundled file, set its
+# `url:` (https:// or gs://). The loader fetches + caches it and no code changes
+# are needed; `file:` is then only a fallback.
+current: "2026-04-01-v3"
+versions:
+  "2026-04-01-v3":
+    file: iucn-get_2026-04-01-v3.jsonld
+    format: json-ld
+    date: 2026-04-01
+    # url: https://<cdn-host>/iucn-get_2026-04-01-v3.jsonld

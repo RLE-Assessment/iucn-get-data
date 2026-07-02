@@ -31,23 +31,20 @@ def _load_map_style() -> dict:
 
 
 @lru_cache(maxsize=1)
-def _load_language_data() -> dict:
-    """Load and cache the English language data from english.yaml."""
-    lang_file = resources.files('iucn_get_data') / 'data' / 'english.yaml'
-    return yaml.safe_load(lang_file.read_text(encoding='utf-8'))
-
-
-@lru_cache(maxsize=1)
 def _build_code_name_lookup() -> dict[str, str]:
-    """Build a flat {code: name} lookup from the nested language YAML."""
-    data = _load_language_data()
+    """Build a flat {code: name} lookup from the English vocabulary."""
+    from . import vocabulary
+
+    realms = vocabulary.build_realms_from_graph(
+        vocabulary.load_vocabulary(), "english"
+    )
     lookup = {}
-    for realm in data.get('realms', []):
-        lookup[realm['code']] = realm['name']
-        for biome in realm.get('biomes', []):
-            lookup[biome['code']] = biome['name']
-            for fg in biome.get('functional_groups', []):
-                lookup[fg['code']] = fg['name']
+    for realm in realms.values():
+        lookup[realm.code] = realm.name
+        for biome in realm.biomes.values():
+            lookup[biome.code] = biome.name
+            for fg in biome.functional_groups.values():
+                lookup[fg.code] = fg.name
     return lookup
 
 

@@ -12,6 +12,7 @@ dependencies = [
     "matplotlib>=3.7.0",
     "pyyaml>=6.0",
     "rdflib>=7.0",
+    "fsspec>=2023.0.0",
 ]
 
 [project.optional-dependencies]
@@ -49,7 +50,7 @@ packages = ["iucn_get_data", "iucn_get_data.backends"]
 package-dir = {"" = "src"}
 
 [tool.setuptools.package-data]
-iucn_get_data = ["py.typed", "data/*.yaml"]
+iucn_get_data = ["py.typed", "data/*.yaml", "data/vocabulary/*.jsonld", "data/vocabulary/*.yaml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

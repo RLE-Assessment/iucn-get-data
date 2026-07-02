@@ -1450,6 +1450,7 @@ version = "0.0.9"
 source = { editable = "." }
 dependencies = [
     { name = "earthengine-api" },
+    { name = "fsspec" },
     { name = "ipykernel" },
     { name = "lonboard" },
     { name = "matplotlib" },
@@ -1483,6 +1484,7 @@ gcs = [
 requires-dist = [
     { name = "earthengine-api", specifier = ">=1.7.16" },
     { name = "earthengine-api", marker = "extra == 'ee'", specifier = ">=1.6.14" },
+    { name = "fsspec", specifier = ">=2023.0.0" },
     { name = "gcsfs", marker = "extra == 'gcs'", specifier = ">=2024.0.0" },
     { name = "geopandas", marker = "extra == 'gcs'", specifier = ">=1.0.0" },
     { name = "ipykernel", specifier = ">=7.1.0" },

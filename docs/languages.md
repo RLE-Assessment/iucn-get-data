@@ -1,19 +1,22 @@
 ---
 title: Languages
+kernelspec:
+  name: python3
+  display_name: Python 3
 ---
 
 # Languages
 
-The package bundles GET 2.0 data in three languages:
+The package bundles the GET typology as a single SKOS / JSON-LD source
+vocabulary that stores all languages together as language-tagged literals. Every
+public function and constructor that loads typology data accepts a `language=`
+keyword argument selecting which language's labels to return:
 
-| Language code | File |
+| Language | `language=` value |
 |---|---|
-| `english` (default) | `data/english.yaml` |
-| `spanish` | `data/spanish.yaml` |
-| `french` | `data/french.yaml` |
-
-Every public function and constructor that loads typology data accepts a
-`language=` keyword argument:
+| English (default) | `"english"` |
+| Spanish | `"spanish"` |
+| French | `"french"` |
 
 ```python
 from iucn_get_data import Typology, get_realms, get_biomes, get_groups
@@ -24,26 +27,45 @@ get_biomes(realm="T", language="spanish")
 get_groups(biome="M1", language="french")
 ```
 
-Codes (e.g., `T`, `M1`, `T1.1`) are stable across languages — only `name`
-and `description` change.
+Codes (e.g., `T`, `M1`, `T1.1`) are stable across languages — only `name` and
+`description` change, and only where a translation exists in the vocabulary:
 
-```python
-Typology(language="english").realms["T"].name   # "Terrestrial"
-Typology(language="spanish").realms["T"].name   # "Terrestre"
+```{code-cell} python
+from iucn_get_data import Typology
+
+biome_en = Typology(language="english").realms["M"].biomes["M1"].name
+biome_es = Typology(language="spanish").realms["M"].biomes["M1"].name
+biome_en, biome_es
+```
+
+## Coverage: which labels are translated
+
+In the current vocabulary, **Biome** names/definitions and the descriptive EFG
+properties carry English / Spanish / French text, but **Realm** and **Ecosystem
+Functional Group** `prefLabel`s are English-only. A request for a missing
+translation falls back to English:
+
+```{code-cell} python
+en = Typology(language="english")
+es = Typology(language="spanish")
+
+# Realm names are English-only, so Spanish falls back to English.
+{"realm_en": en.realms["T"].name, "realm_es": es.realms["T"].name}
 ```
 
 ## Language-tagged literals in the source vocabulary
 
-The bundled YAML is pre-split by language, but the source SKOS vocabulary
-(see [](typology.md#reading-the-source-vocabulary-directly)) stores every
-language together as language-tagged RDF literals. rdflib keeps the tag on
-each `Literal` (`literal.language`), so you can pull a concept's properties
-per language straight from the graph:
+To read labels per language straight from the RDF graph, load the vocabulary and
+inspect the language tag rdflib keeps on each `Literal`
+(see [](typology.md#reading-the-source-vocabulary-directly)):
 
-```python
+```{code-cell} python
 from rdflib import Literal
 from rdflib.namespace import SKOS
 
+from iucn_get_data import load_vocabulary
+
+graph = load_vocabulary()
 LANGUAGES = {"en": "English", "es": "Español", "fr": "Français"}
 
 # Look up F1.1 (Permanent upland streams) by its skos:notation.
@@ -51,33 +73,25 @@ concept = graph.value(predicate=SKOS.notation, object=Literal("F1.1"))
 
 
 def by_language(concept, prop):
-    """Map each language code to the value of `prop`, or None if untranslated."""
+    """Map each language name to the value of `prop`, or None if untranslated."""
     values = {obj.language: str(obj) for obj in graph.objects(concept, prop)}
-    return {code: values.get(code) for code in LANGUAGES}
+    return {name: values.get(code) for code, name in LANGUAGES.items()}
 
 
-by_language(concept, SKOS.note)
+for prop_name, prop in [("prefLabel", SKOS.prefLabel), ("note", SKOS.note)]:
+    print(prop_name)
+    for lang, text in by_language(concept, prop).items():
+        snippet = (text[:70] + "…") if text else "(not translated)"
+        print(f"  {lang:9}{snippet}")
 ```
 
-Not every property is translated. For Ecosystem Functional Groups the
-`skos:prefLabel` is English-only, while the descriptive properties
-(`skos:note`, `iucn-get:ecologicalDrivers`, `iucn-get:ecosystemProperties`, …)
-carry the full English / Spanish / French text:
+The `note` property is fully translated, while the EFG `prefLabel` is
+English-only — the reason Spanish/French EFG names fall back to English above.
 
-```text
-# prefLabel
-  English  Permanent upland streams
-  Español  (not translated)
-  Français (not translated)
+## Adding or completing a language
 
-# note
-  English  High proportion of global stream length. In steep to moderate terrain …
-  Español  Alta proporción de la longitud global de los arroyos. En terrenos …
-  Français Forte proportion de la longueur des cours d'eau dans le monde. Sur …
-```
-
-## Adding a language
-
-The YAML files live in `src/iucn_get_data/data/`. To add a translation,
-add a new file (e.g., `portuguese.yaml`) mirroring the structure of
-`english.yaml` and pass `language="portuguese"`.
+Languages come from the source vocabulary, not from the package. To add a new
+language, or to fill the English-only gaps (Realm and EFG names), the upstream
+IUCN GET JSON-LD must supply the language-tagged literals. A new export is then
+dropped into `data/vocabulary/` and registered in `manifest.yaml` — no code
+changes are needed.

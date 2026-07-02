@@ -13,7 +13,7 @@ filtering by realm or biome, and inspecting functional groups.
 from iucn_get_data import Typology
 
 typology = Typology()
-print(len(typology.realms))   # 10
+print(len(typology.realms))   # 11
 print(typology)               # tree-style text representation
 ```
 
@@ -39,7 +39,7 @@ plain dictionaries:
 ```python
 from iucn_get_data import get_realms, get_biomes, get_groups
 
-get_realms()                        # 10 Realms
+get_realms()                        # 11 Realms
 get_biomes()                        # 25 Biomes
 get_biomes(realm="T")               # 7 Terrestrial biomes
 get_groups(biome="T1")              # 4 EFGs in biome T1
@@ -53,16 +53,18 @@ you can omit `realm`; the helpers infer it.
 
 ## Languages
 
-The typology data ships in English (default), Spanish, and French:
+The typology ships in English (default), Spanish, and French. Codes are stable
+across languages; labels are localized where a translation exists (Biome names
+are translated; Realm and EFG names are currently English-only):
 
 ```python
 es = Typology(language="spanish")
-es.realms["T"].name  # "Terrestre"
+es.realms["M"].biomes["M1"].name  # "Bioma de plataforma marina"
 
 get_realms(language="spanish")
 ```
 
-See [](languages.md) for the full list of language-aware functions.
+See [](languages.md) for coverage details and the language-aware functions.
 
 ## Next steps
 
