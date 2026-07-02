@@ -120,3 +120,70 @@ typology.to_html(
 
 `Realm`, `Biome`, and `FunctionalGroup` are simple `dataclass` types — see
 [](api.md#data-classes) for their attributes.
+
+## Reading the source vocabulary directly
+
+`Typology` reads the bundled per-language YAML. If you instead want the
+*source* IUCN GET vocabulary — the SKOS-encoded JSON-LD (or Turtle) export
+distributed with the package — parse it with
+[rdflib](https://rdflib.readthedocs.io/), which is a dependency of this
+package and reads both formats (switch `format="json-ld"` to
+`format="turtle"`). This exposes the raw `Realm` / `Biome` /
+`EcosystemFunctionalGroup` concepts, their `skos:notation` codes, the
+hierarchy (`skos:broader`), and multilingual descriptions.
+
+```python
+import pandas as pd
+from rdflib import Graph, Namespace, RDF
+from rdflib.namespace import SKOS
+
+# IUCN GET ontology namespace (the Realm/Biome/EFG classes and code properties).
+GETO = Namespace("https://w3id.org/iucn-get/ontology#")
+
+datafile = "src/iucn_get_data/data/ands-nc_iucn-get-example_2026-04-01-v3.jsonld"
+graph = Graph().parse(datafile, format="json-ld")
+
+# The three GET ontology classes, in hierarchy order, with their code property.
+GET_CLASSES = [
+    ("Realm", 1, GETO.realmCode),
+    ("Biome", 2, GETO.biomeCode),
+    ("EcosystemFunctionalGroup", 3, GETO.efgCode),
+]
+
+
+def classify(concept):
+    """Return (get_class, level, code) from a concept's GET rdf:type."""
+    for name, level, code_prop in GET_CLASSES:
+        if (concept, RDF.type, GETO[name]) in graph:
+            return name, level, graph.value(concept, code_prop)
+    return None, None, None
+
+
+rows = []
+for concept in graph.subjects(RDF.type, SKOS.Concept):
+    get_class, level, _code = classify(concept)
+    rows.append({
+        "notation": str(graph.value(concept, SKOS.notation)),
+        "pref_label": str(graph.value(concept, SKOS.prefLabel)),
+        "get_class": get_class,
+        "level": level,
+        "broader": graph.value(concept, SKOS.broader),
+    })
+
+df = pd.DataFrame(rows).sort_values(["level", "notation"]).reset_index(drop=True)
+df["get_class"].value_counts()
+```
+
+This yields one row per `skos:Concept`:
+
+```text
+EcosystemFunctionalGroup    110
+Biome                        25
+Realm                        11
+```
+
+The demo export bundled here carries 11 realms / 25 biomes / 110 EFGs; the
+packaged YAML exposes the stable 10 / 25 / 109 subset (see
+[](data-source.md#coverage)). The vocabulary is aspatial — join the
+`notation` column to a mapped ecosystem layer (GeoParquet, Earth Engine, …)
+to give the concepts geometry.
