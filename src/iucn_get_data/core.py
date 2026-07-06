@@ -480,7 +480,7 @@ class Typology:
 
             # Realm row - grey background, spans all columns
             rows.append('<tr>')
-            rows.append(f'<td colspan="{num_cols}" style="background-color: #e0e0e0; padding: 8px; font-weight: bold; text-align: left;">'
+            rows.append(f'<td colspan="{num_cols}" style="background-color: #e0e0e0; color: #000000; padding: 8px; font-weight: bold; text-align: left;">'
                        f'REALM: {realm.name} ({realm_code})</td>')
             rows.append('</tr>')
 
@@ -501,7 +501,7 @@ class Typology:
 
                 # Biome row - white background, spans all columns
                 rows.append('<tr>')
-                rows.append(f'<td colspan="{num_cols}" style="background-color: #ffffff; padding: 8px; font-weight: bold; text-align: left;">'
+                rows.append(f'<td colspan="{num_cols}" style="background-color: #ffffff; color: #000000; padding: 8px; font-weight: bold; text-align: left;">'
                            f'{biome.name} ({biome_code})</td>')
                 rows.append('</tr>')
 
@@ -520,7 +520,7 @@ class Typology:
 
                     # Functional group row - white background, single indent
                     rows.append('<tr>')
-                    rows.append(f'<td colspan="{num_cols}" style="background-color: #ffffff; padding: 8px 8px 8px 24px; text-align: left;">'
+                    rows.append(f'<td colspan="{num_cols}" style="background-color: #ffffff; color: #000000; padding: 8px 8px 8px 24px; text-align: left;">'
                                f'{fg.name} ({fg_code})</td>')
                     rows.append('</tr>')
 
@@ -532,9 +532,9 @@ class Typology:
                         for i, col in enumerate(eco_cols):
                             # First column gets two-level indent for hierarchy
                             if i == 0:
-                                rows.append(f'<td style="background-color: #ffffff !important; border: 1px solid #ddd; padding: 8px 8px 8px 48px; text-align: left;">{eco.get(col, "")}</td>')
+                                rows.append(f'<td style="background-color: #ffffff !important; color: #000000; border: 1px solid #ddd; padding: 8px 8px 8px 48px; text-align: left;">{eco.get(col, "")}</td>')
                             else:
-                                rows.append(f'<td style="background-color: #ffffff !important; border: 1px solid #ddd; padding: 8px; text-align: left;">{eco.get(col, "")}</td>')
+                                rows.append(f'<td style="background-color: #ffffff !important; color: #000000; border: 1px solid #ddd; padding: 8px; text-align: left;">{eco.get(col, "")}</td>')
                         rows.append('</tr>')
 
         rows.append('</tbody></table>')
