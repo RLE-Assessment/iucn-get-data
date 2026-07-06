@@ -64,11 +64,3 @@ from iucn_get_data import list_engines
 list_engines()
 # {'parquet': ParquetBackend, 'cog': CogBackend, ...}
 ```
-
-## Example notebooks
-
-The repository's `examples/` directory contains runnable notebooks:
-
-- `examples/load_parquet.ipynb`
-- `examples/load_gee_vector.ipynb`
-- `examples/ecosystem_map_display.ipynb`

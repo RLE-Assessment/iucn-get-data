@@ -1,7 +1,5 @@
 import re
-import yaml
-from dataclasses import dataclass, field
-from importlib import resources
+from dataclasses import asdict, dataclass, field
 from importlib.metadata import version
 from typing import TYPE_CHECKING
 
@@ -14,6 +12,33 @@ def _natural_sort_key(value):
     return [int(part) if part.isdigit() else part.lower() for part in re.split(r'(\d+)', str(value))]
 
 
+def _json_tree_html(value, label=None, _open=True):
+    """Render a JSON-serializable value as a collapsible HTML tree.
+
+    Nested dicts/lists become expandable ``<details>`` nodes; scalars render as
+    ``key: value``. Uses only inherited text color and opacity (no hardcoded
+    backgrounds), so it stays readable in both light and dark themes.
+    """
+    from html import escape
+
+    key = f'<span style="opacity:0.6">{escape(str(label))}: </span>' if label is not None else ''
+    ul = 'list-style:none;margin:0;padding-left:1.2em'
+
+    if isinstance(value, dict):
+        rows = ''.join(f'<li>{_json_tree_html(v, k, _open=False)}</li>' for k, v in value.items())
+        count = f'<span style="opacity:0.5">{{{len(value)}}}</span>'
+        return (f'<details{" open" if _open else ""}><summary style="cursor:pointer">{key}{count}</summary>'
+                f'<ul style="{ul}">{rows}</ul></details>')
+
+    if isinstance(value, (list, tuple)):
+        rows = ''.join(f'<li>{_json_tree_html(v, i, _open=False)}</li>' for i, v in enumerate(value))
+        count = f'<span style="opacity:0.5">[{len(value)}]</span>'
+        return (f'<details{" open" if _open else ""}><summary style="cursor:pointer">{key}{count}</summary>'
+                f'<ul style="{ul}">{rows}</ul></details>')
+
+    return f'{key}<span>{escape(str(value))}</span>'
+
+
 @dataclass
 class FunctionalGroup:
     """
@@ -21,7 +46,7 @@ class FunctionalGroup:
 
     Ecosystem Functional Groups (EFGs) are groups of related ecosystems within a
     biome that share common ecological drivers, ecological traits, and assembly
-    processes. There are 109 EFGs in GET 2.0.
+    processes. There are 110 EFGs in the source vocabulary.
 
     See: https://global-ecosystems.org/
 
@@ -39,6 +64,10 @@ class FunctionalGroup:
     url: str
     biome_code: str = None
     realm_code: str = None
+
+    def _repr_json_(self):
+        """Render as an interactive JSON tree in Jupyter/IPython."""
+        return asdict(self)
 
 
 @dataclass
@@ -70,6 +99,10 @@ class Biome:
     functional_groups: dict[str, FunctionalGroup] = field(default_factory=dict)
     realm_code: str = None
 
+    def _repr_json_(self):
+        """Render as an interactive JSON tree in Jupyter/IPython."""
+        return asdict(self)
+
 
 @dataclass
 class Realm:
@@ -77,9 +110,10 @@ class Realm:
     Level 1 of the IUCN Global Ecosystem Typology: Realm.
 
     Realms are the highest level of ecosystem classification, distinguished
-    by the major environmental factors that shape ecosystem properties. GET 2.0
-    includes 4 core realms (Terrestrial, Freshwater, Marine, Subterranean) and
-    6 transitional realms at their interfaces (e.g., Marine-Terrestrial).
+    by the major environmental factors that shape ecosystem properties. The
+    source vocabulary includes 5 core realms (Terrestrial, Freshwater, Marine,
+    Subterranean, Atmospheric) and 6 transitional realms at their interfaces
+    (e.g., Marine-Terrestrial).
 
     See: https://global-ecosystems.org/
 
@@ -98,6 +132,15 @@ class Realm:
     url: str
     biomes: dict[str, Biome] = field(default_factory=dict)
 
+    def _repr_json_(self):
+        """Return the realm as JSON data (JupyterLab's native JSON viewer)."""
+        return asdict(self)
+
+    def _repr_html_(self):
+        """Render as a collapsible JSON tree (works in Jupyter, MyST, and static HTML)."""
+        tree = _json_tree_html(asdict(self), label=f'{self.name} ({self.code})')
+        return f'<div style="font-family:monospace;font-size:0.9em;line-height:1.5">{tree}</div>'
+
 
 @dataclass
 class Typology:
@@ -114,9 +157,9 @@ class Typology:
     - Lower levels (composition-based): Biogeographic ecotypes → Global ecosystem types → Subglobal types
 
     This library provides access to the three upper levels:
-    - 10 Realms (4 core + 6 transitional)
+    - 11 Realms (5 core + 6 transitional)
     - 25 Biomes
-    - 109 Ecosystem Functional Groups
+    - 110 Ecosystem Functional Groups
 
     See: https://global-ecosystems.org/
 
@@ -142,8 +185,9 @@ class Typology:
     def __post_init__(self):
         """Load typology data if realms not provided."""
         if not self.realms:
-            data = _load_yaml(language=self.language)
-            self.realms = _build_realms(data)
+            from . import vocabulary
+            graph = vocabulary.load_vocabulary()
+            self.realms = vocabulary.build_realms_from_graph(graph, self.language)
 
         # Validate ecosystems columns if provided
         if self.ecosystems is not None:
@@ -480,7 +524,7 @@ class Typology:
 
             # Realm row - grey background, spans all columns
             rows.append('<tr>')
-            rows.append(f'<td colspan="{num_cols}" style="background-color: #e0e0e0; padding: 8px; font-weight: bold; text-align: left;">'
+            rows.append(f'<td colspan="{num_cols}" style="background-color: #e0e0e0; color: #000000; padding: 8px; font-weight: bold; text-align: left;">'
                        f'REALM: {realm.name} ({realm_code})</td>')
             rows.append('</tr>')
 
@@ -501,7 +545,7 @@ class Typology:
 
                 # Biome row - white background, spans all columns
                 rows.append('<tr>')
-                rows.append(f'<td colspan="{num_cols}" style="background-color: #ffffff; padding: 8px; font-weight: bold; text-align: left;">'
+                rows.append(f'<td colspan="{num_cols}" style="background-color: #ffffff; color: #000000; padding: 8px; font-weight: bold; text-align: left;">'
                            f'{biome.name} ({biome_code})</td>')
                 rows.append('</tr>')
 
@@ -520,7 +564,7 @@ class Typology:
 
                     # Functional group row - white background, single indent
                     rows.append('<tr>')
-                    rows.append(f'<td colspan="{num_cols}" style="background-color: #ffffff; padding: 8px 8px 8px 24px; text-align: left;">'
+                    rows.append(f'<td colspan="{num_cols}" style="background-color: #ffffff; color: #000000; padding: 8px 8px 8px 24px; text-align: left;">'
                                f'{fg.name} ({fg_code})</td>')
                     rows.append('</tr>')
 
@@ -532,70 +576,13 @@ class Typology:
                         for i, col in enumerate(eco_cols):
                             # First column gets two-level indent for hierarchy
                             if i == 0:
-                                rows.append(f'<td style="background-color: #ffffff !important; border: 1px solid #ddd; padding: 8px 8px 8px 48px; text-align: left;">{eco.get(col, "")}</td>')
+                                rows.append(f'<td style="background-color: #ffffff !important; color: #000000; border: 1px solid #ddd; padding: 8px 8px 8px 48px; text-align: left;">{eco.get(col, "")}</td>')
                             else:
-                                rows.append(f'<td style="background-color: #ffffff !important; border: 1px solid #ddd; padding: 8px; text-align: left;">{eco.get(col, "")}</td>')
+                                rows.append(f'<td style="background-color: #ffffff !important; color: #000000; border: 1px solid #ddd; padding: 8px; text-align: left;">{eco.get(col, "")}</td>')
                         rows.append('</tr>')
 
         rows.append('</tbody></table>')
         return '\n'.join(rows)
-
-
-def _get_default_typology_path(language="english"):
-    """Get the path to the bundled YAML file."""
-    return resources.files("iucn_get_data").joinpath(f"data/{language}.yaml")
-
-
-def _load_yaml(language="english"):
-    """Load YAML data from the bundled file for the specified language."""
-    typology_file = _get_default_typology_path(language)
-    with resources.as_file(typology_file) as path:
-        with open(path, 'r') as f:
-            return yaml.safe_load(f)
-
-
-def _build_realms(data: dict) -> dict[str, Realm]:
-    """Build realms dictionary from raw YAML data."""
-    realms = {}
-
-    for realm_data in data.get('realms', []):
-        realm_code = realm_data.get('code')
-
-        biomes = {}
-        for biome_data in realm_data.get('biomes', []):
-            biome_code = biome_data.get('code')
-
-            functional_groups = {}
-            for fg_data in biome_data.get('functional_groups', []):
-                fg_code = fg_data.get('code')
-                functional_groups[fg_code] = FunctionalGroup(
-                    code=fg_code,
-                    name=fg_data.get('name', ''),
-                    description=fg_data.get('description', ''),
-                    url=fg_data.get('url', ''),
-                    biome_code=biome_code,
-                    realm_code=realm_code,
-                )
-
-            biomes[biome_code] = Biome(
-                code=biome_code,
-                name=biome_data.get('name', ''),
-                description=biome_data.get('description', ''),
-                url=biome_data.get('url', ''),
-                functional_groups=functional_groups,
-                realm_code=realm_code,
-            )
-
-        realms[realm_code] = Realm(
-            code=realm_code,
-            name=realm_data.get('name', ''),
-            description=realm_data.get('description', ''),
-            transitional=realm_data.get('transitional', False),
-            url=realm_data.get('url', ''),
-            biomes=biomes,
-        )
-
-    return realms
 
 
 def get_realms(language="english") -> dict[str, Realm]:

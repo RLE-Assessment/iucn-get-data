@@ -8,9 +8,9 @@ description: Python tools for the IUCN Global Ecosystem Typology (GET).
 `iucn-get-data` provides Python access to the upper three levels of the
 [IUCN Global Ecosystem Typology (GET) 2.0](https://global-ecosystems.org/):
 
-- **10 Realms** (Level 1) — 4 core + 6 transitional
+- **11 Realms** (Level 1) — 5 core + 6 transitional
 - **25 Biomes** (Level 2)
-- **109 Ecosystem Functional Groups** (Level 3)
+- **110 Ecosystem Functional Groups** (Level 3)
 
 It also provides a pluggable {term}`ecosystem map` interface for loading
 ecosystem datasets from Parquet, Cloud-Optimized GeoTIFFs, Shapefiles, and

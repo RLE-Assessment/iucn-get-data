@@ -20,7 +20,7 @@ from iucn_get_data import (
 
 ### `get_realms(language="english")`
 
-Return all 10 realms as `dict[str, Realm]` keyed by realm code.
+Return all 11 realms as `dict[str, Realm]` keyed by realm code.
 
 ### `get_biomes(realm=None, language="english")`
 

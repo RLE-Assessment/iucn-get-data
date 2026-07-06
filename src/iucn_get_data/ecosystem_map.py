@@ -31,23 +31,20 @@ def _load_map_style() -> dict:
 
 
 @lru_cache(maxsize=1)
-def _load_language_data() -> dict:
-    """Load and cache the English language data from english.yaml."""
-    lang_file = resources.files('iucn_get_data') / 'data' / 'english.yaml'
-    return yaml.safe_load(lang_file.read_text(encoding='utf-8'))
-
-
-@lru_cache(maxsize=1)
 def _build_code_name_lookup() -> dict[str, str]:
-    """Build a flat {code: name} lookup from the nested language YAML."""
-    data = _load_language_data()
+    """Build a flat {code: name} lookup from the English vocabulary."""
+    from . import vocabulary
+
+    realms = vocabulary.build_realms_from_graph(
+        vocabulary.load_vocabulary(), "english"
+    )
     lookup = {}
-    for realm in data.get('realms', []):
-        lookup[realm['code']] = realm['name']
-        for biome in realm.get('biomes', []):
-            lookup[biome['code']] = biome['name']
-            for fg in biome.get('functional_groups', []):
-                lookup[fg['code']] = fg['name']
+    for realm in realms.values():
+        lookup[realm.code] = realm.name
+        for biome in realm.biomes.values():
+            lookup[biome.code] = biome.name
+            for fg in biome.functional_groups.values():
+                lookup[fg.code] = fg.name
     return lookup
 
 
@@ -652,11 +649,11 @@ class VectorMap(EcosystemMap):
         header_cells = []
         for p in props:
             if p == self.get_level3_column:
-                header_cells.append(f'<th style="padding: 4px 8px; border: 1px solid #ddd; background-color: #cce5ff; font-weight: bold;">{p}</th>')
+                header_cells.append(f'<th style="padding: 4px 8px; border: 1px solid #ddd; background-color: #cce5ff; color: #000000; font-weight: bold;">{p}</th>')
             elif p == self.get_level456_column:
-                header_cells.append(f'<th style="padding: 4px 8px; border: 1px solid #ddd; background-color: #d4edda; font-weight: bold;">{p}</th>')
+                header_cells.append(f'<th style="padding: 4px 8px; border: 1px solid #ddd; background-color: #d4edda; color: #000000; font-weight: bold;">{p}</th>')
             else:
-                header_cells.append(f'<th style="padding: 4px 8px; border: 1px solid #ddd; background-color: #f5f5f5;">{p}</th>')
+                header_cells.append(f'<th style="padding: 4px 8px; border: 1px solid #ddd; background-color: #f5f5f5; color: #000000;">{p}</th>')
         header_row = f'<tr>{"".join(header_cells)}</tr>'
 
         # Build data rows with highlight for GET columns
@@ -666,9 +663,9 @@ class VectorMap(EcosystemMap):
             for p in props:
                 val = row.get(p, "")
                 if p == self.get_level3_column:
-                    cells.append(f'<td style="padding: 4px 8px; border: 1px solid #ddd; background-color: #cce5ff;">{val}</td>')
+                    cells.append(f'<td style="padding: 4px 8px; border: 1px solid #ddd; background-color: #cce5ff; color: #000000;">{val}</td>')
                 elif p == self.get_level456_column:
-                    cells.append(f'<td style="padding: 4px 8px; border: 1px solid #ddd; background-color: #d4edda;">{val}</td>')
+                    cells.append(f'<td style="padding: 4px 8px; border: 1px solid #ddd; background-color: #d4edda; color: #000000;">{val}</td>')
                 else:
                     cells.append(f'<td style="padding: 4px 8px; border: 1px solid #ddd;">{val}</td>')
             data_rows.append(f'<tr>{"".join(cells)}</tr>')
@@ -721,9 +718,9 @@ class RasterMap(EcosystemMap):
             return ""
 
         # Build header row
-        header_cells = [f'<th style="padding: 4px 8px; border: 1px solid #ddd; background-color: #f5f5f5;">{df.index.name or "ecosystem_id"}</th>']
+        header_cells = [f'<th style="padding: 4px 8px; border: 1px solid #ddd; background-color: #f5f5f5; color: #000000;">{df.index.name or "ecosystem_id"}</th>']
         for col in df.columns:
-            header_cells.append(f'<th style="padding: 4px 8px; border: 1px solid #ddd; background-color: #f5f5f5;">{col}</th>')
+            header_cells.append(f'<th style="padding: 4px 8px; border: 1px solid #ddd; background-color: #f5f5f5; color: #000000;">{col}</th>')
         header_row = f'<tr>{"".join(header_cells)}</tr>'
 
         # Build data rows

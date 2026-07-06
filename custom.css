@@ -1,0 +1,10 @@
+.scrollable-output table.typology-table {
+    display: block;      /* tables ignore max-height without this */
+    max-height: 200px;
+    overflow: auto;
+}
+
+.scrollable-output pre.myst-jp-stream-output {
+    max-height: 200px;
+    overflow: auto;
+}
