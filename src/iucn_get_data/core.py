@@ -1,5 +1,5 @@
 import re
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from importlib.metadata import version
 from typing import TYPE_CHECKING
 
@@ -10,6 +10,33 @@ if TYPE_CHECKING:
 def _natural_sort_key(value):
     """Sort key that orders numeric parts numerically (e.g. T1.1.9 before T1.1.10)."""
     return [int(part) if part.isdigit() else part.lower() for part in re.split(r'(\d+)', str(value))]
+
+
+def _json_tree_html(value, label=None, _open=True):
+    """Render a JSON-serializable value as a collapsible HTML tree.
+
+    Nested dicts/lists become expandable ``<details>`` nodes; scalars render as
+    ``key: value``. Uses only inherited text color and opacity (no hardcoded
+    backgrounds), so it stays readable in both light and dark themes.
+    """
+    from html import escape
+
+    key = f'<span style="opacity:0.6">{escape(str(label))}: </span>' if label is not None else ''
+    ul = 'list-style:none;margin:0;padding-left:1.2em'
+
+    if isinstance(value, dict):
+        rows = ''.join(f'<li>{_json_tree_html(v, k, _open=False)}</li>' for k, v in value.items())
+        count = f'<span style="opacity:0.5">{{{len(value)}}}</span>'
+        return (f'<details{" open" if _open else ""}><summary style="cursor:pointer">{key}{count}</summary>'
+                f'<ul style="{ul}">{rows}</ul></details>')
+
+    if isinstance(value, (list, tuple)):
+        rows = ''.join(f'<li>{_json_tree_html(v, i, _open=False)}</li>' for i, v in enumerate(value))
+        count = f'<span style="opacity:0.5">[{len(value)}]</span>'
+        return (f'<details{" open" if _open else ""}><summary style="cursor:pointer">{key}{count}</summary>'
+                f'<ul style="{ul}">{rows}</ul></details>')
+
+    return f'{key}<span>{escape(str(value))}</span>'
 
 
 @dataclass
@@ -37,6 +64,10 @@ class FunctionalGroup:
     url: str
     biome_code: str = None
     realm_code: str = None
+
+    def _repr_json_(self):
+        """Render as an interactive JSON tree in Jupyter/IPython."""
+        return asdict(self)
 
 
 @dataclass
@@ -68,6 +99,10 @@ class Biome:
     functional_groups: dict[str, FunctionalGroup] = field(default_factory=dict)
     realm_code: str = None
 
+    def _repr_json_(self):
+        """Render as an interactive JSON tree in Jupyter/IPython."""
+        return asdict(self)
+
 
 @dataclass
 class Realm:
@@ -96,6 +131,15 @@ class Realm:
     transitional: bool
     url: str
     biomes: dict[str, Biome] = field(default_factory=dict)
+
+    def _repr_json_(self):
+        """Return the realm as JSON data (JupyterLab's native JSON viewer)."""
+        return asdict(self)
+
+    def _repr_html_(self):
+        """Render as a collapsible JSON tree (works in Jupyter, MyST, and static HTML)."""
+        tree = _json_tree_html(asdict(self), label=f'{self.name} ({self.code})')
+        return f'<div style="font-family:monospace;font-size:0.9em;line-height:1.5">{tree}</div>'
 
 
 @dataclass
