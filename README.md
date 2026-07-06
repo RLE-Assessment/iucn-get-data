@@ -147,12 +147,6 @@ print(f'{terrestrial_groups = }')
 #### Get functional groups from a specific biome
 
 ```{code-cell}
-t1_groups = get_groups(biome='T1')
-print(f'{len(t1_groups) = }')
-print(f'{t1_groups = }')
-```
-
-```{code-cell}
 m1_groups = get_groups(biome='M1')
 print(f'{len(m1_groups) = }')
 print(f'{m1_groups = }')
