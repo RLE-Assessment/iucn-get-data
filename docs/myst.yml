@@ -10,8 +10,6 @@ project:
     - ecology
     - biodiversity
     - Python
-  authors:
-    - name: RLE Assessment Team
   github: https://github.com/RLE-Assessment/iucn-get-data
   license:
     code: MIT
