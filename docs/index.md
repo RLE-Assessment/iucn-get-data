@@ -1,29 +1,33 @@
 ---
 title: iucn-get-data
 description: Python tools for the IUCN Global Ecosystem Typology (GET).
+kernelspec:
+  name: python3
+  display_name: 'Python 3'
 ---
 
 # iucn-get-data
 
+```{code-cell}
+---
+tags: [remove-cell]
+---
+from iucn_get_data import Typology, get_realms, get_biomes, get_groups
+
+realms_core = {k: v for k, v in get_realms().items() if v.transitional==False}
+realms_transitional = {k: v for k, v in get_realms().items() if v.transitional==True}
+
+```
+
+
+
 `iucn-get-data` provides Python access to the upper three levels of the
 [IUCN Global Ecosystem Typology (GET) 2.0](https://global-ecosystems.org/):
 
-- **11 Realms** (Level 1) — 5 core + 6 transitional
-- **25 Biomes** (Level 2)
-- **110 Ecosystem Functional Groups** (Level 3)
+- **{eval}`len(get_realms())` Realms** (Level 1) — {eval}`len(realms_core)` core + {eval}`len(realms_transitional)` transitional
+- **{eval}`len(get_biomes())` Biomes** (Level 2)
+- **{eval}`len(get_groups())` Ecosystem Functional Groups** (Level 3)
 
-It also provides a pluggable {term}`ecosystem map` interface for loading
-ecosystem datasets from Parquet, Cloud-Optimized GeoTIFFs, Shapefiles, and
-Google Earth Engine assets, and merging them with the typology.
-
-:::{card} Get started in two lines
-:link: quickstart.md
-
-```python
-from iucn_get_data import Typology
-print(Typology())
-```
-:::
 
 ## What's inside
 
@@ -47,11 +51,6 @@ Navigate the realm → biome → functional group hierarchy.
 Work with `Typology`, `Realm`, `Biome`, and `FunctionalGroup`.
 :::
 
-:::{card} Ecosystem maps
-:link: ecosystem-maps.md
-
-Load Parquet, COG, Shapefile, or Earth Engine ecosystem maps.
-:::
 
 :::{card} API reference
 :link: api.md
@@ -82,8 +81,4 @@ Ecosystem Functional Group
 : Level 3 of GET — groups of related ecosystems within a biome that share
   common ecological drivers, traits, and assembly processes. Often
   abbreviated EFG.
-
-ecosystem map
-: A spatial dataset (vector or raster) whose features or pixels are mapped
-  to GET functional groups.
 ```
