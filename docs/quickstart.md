@@ -1,5 +1,8 @@
 ---
 title: Quickstart
+kernelspec:
+  name: python3
+  display_name: 'Python 3'
 ---
 
 # Quickstart
@@ -69,5 +72,4 @@ See [](languages.md) for coverage details and the language-aware functions.
 ## Next steps
 
 - Attach an ecosystem dataset and render a merged table → [](typology.md#attaching-ecosystems)
-- Load a spatial ecosystem map → [](ecosystem-maps.md)
 - See every public function → [](api.md)

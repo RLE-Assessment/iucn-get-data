@@ -18,8 +18,7 @@ pip install -e ".[dev]"
 pytest
 ```
 
-The suite covers core typology loading, backend dispatch, and the
-ecosystem-map classes.
+The suite covers core typology loading and the vocabulary parser.
 
 ## Building these docs
 
@@ -42,10 +41,8 @@ docs/
 ├── installation.md
 ├── quickstart.md
 ├── typology.md
-├── ecosystem-maps.md
 ├── languages.md
 ├── api.md
-├── backends.md
 ├── data-source.md
 └── contributing.md
 ```
@@ -55,6 +52,3 @@ docs/
 - Keep code samples runnable against the current `main` branch.
 - Use MyST cross-references (`[](page.md#anchor)`) rather than raw URLs
   for in-repo links — they get checked at build time.
-- When documenting a new backend, add a row to both
-  [](ecosystem-maps.md#built-in-backends) and
-  [](backends.md#built-in-backends).

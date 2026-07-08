@@ -4,15 +4,21 @@ kernelspec:
   display_name: 'Python 3'
 ---
 
+
 # iucn-get-data
 
 Tools for working with IUCN Global Ecosystem Typology (GET) data for levels 1 (Realms), 2 (Biomes), and 3 (Functional Groups).
 
-## Installation
 
-```bash
-pip install iucn-get-data
+:::{card} Get started in two lines
+:link: quickstart.md
+
+```{code-cell}
+from iucn_get_data import Typology
+Typology()
 ```
+:::
+
 
 ## Usage
 
@@ -83,7 +89,7 @@ realms['T']
 #### Core vs. Transitional Realms
 
 ```{code-cell}
-realms_core = {k: v for k, v in realms.items() if v.transitional==True}
+realms_core = {k: v for k, v in realms.items() if v.transitional==False}
 
 from IPython.display import display
 for r in realms_core.values():
@@ -91,7 +97,7 @@ for r in realms_core.values():
 ```
 
 ```{code-cell}
-realms_transitional = {k: v for k, v in realms.items() if v.transitional==False}
+realms_transitional = {k: v for k, v in realms.items() if v.transitional==True}
 for r in realms_transitional.values():
     print(r)
 ```
@@ -219,11 +225,8 @@ iucn-get-data/
 │       ├── __init__.py
 │       ├── core.py            # Typology, Realm, Biome, FunctionalGroup
 │       ├── vocabulary.py      # loads the JSON-LD source of truth
-│       ├── ecosystem_map.py
 │       ├── examples.py
-│       ├── backends/          # data backends (parquet, COG, Earth Engine, shapefile)
 │       └── data/
-│           ├── map_style.yaml
 │           └── vocabulary/
 │               ├── iucn-get_2026-04-01-v3.jsonld  # SKOS controlled vocabulary
 │               └── manifest.yaml                  # version registry

@@ -11,8 +11,6 @@ relative to the top-level `iucn_get_data` module:
 from iucn_get_data import (
     Typology, Realm, Biome, FunctionalGroup,
     get_realms, get_biomes, get_groups,
-    EcosystemMap, VectorMap, RasterMap,
-    open_ecosystem_map, list_engines,
 )
 ```
 
@@ -33,17 +31,6 @@ Return functional groups as `dict[str, FunctionalGroup]`. If `biome=` is
 provided without `realm=`, the realm is inferred from the biome code's
 leading letters. Raises `ValueError` if the biome is not found in the
 inferred or supplied realm.
-
-### `open_ecosystem_map(data, *, engine=None, **kwargs)`
-
-Open an ecosystem map. With `engine=None` (the default), registered
-backends are tried in priority order; the first whose `guess_can_open(data)`
-returns `True` is used.
-
-### `list_engines()`
-
-Return the registry of available backends as
-`dict[str, type[EcosystemBackendEntrypoint]]`.
 
 ## Data classes
 
@@ -101,11 +88,3 @@ Properties:
 | `name` / `description` / `url` | `str` | Localized fields. |
 | `biome_code` | `str` | Parent biome code. |
 | `realm_code` | `str` | Parent realm code. |
-
-## Ecosystem map classes
-
-See [](backends.md) for the backend API. The user-facing classes are:
-
-- `EcosystemMap` — base class.
-- `VectorMap` — for vector backends (`parquet`, `shapefile`, `ee_vector`).
-- `RasterMap` — for raster backends (`cog`, `ee_raster`).

@@ -22,12 +22,10 @@ project:
     - title: Guides
       children:
         - file: typology.md
-        - file: ecosystem-maps.md
         - file: languages.md
     - title: Reference
       children:
         - file: api.md
-        - file: backends.md
     - title: About
       children:
         - file: data-source.md

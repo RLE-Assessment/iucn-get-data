@@ -171,6 +171,6 @@ df = pd.DataFrame(rows).sort_values(["level", "notation"]).reset_index(drop=True
 df["get_class"].value_counts()
 ```
 
-The vocabulary holds 11 realms, 25 biomes, and 110 EFGs. It is aspatial — join
-the `notation` column to a mapped ecosystem layer (GeoParquet, Earth Engine, …)
+The vocabulary holds 11 realms, 25 biomes, and 110 EFGs. It is aspatial — the
+`notation` column can be joined to a separately-sourced mapped ecosystem layer
 to give the concepts geometry.

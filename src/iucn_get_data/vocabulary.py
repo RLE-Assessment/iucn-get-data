@@ -4,7 +4,7 @@ The bundled vocabulary lives under ``data/vocabulary/`` alongside a
 ``manifest.yaml`` registry. New versions in the same JSON-LD/SKOS format are
 added by dropping the file in and adding a manifest entry (see the manifest
 comments). A version may instead point at an external ``url`` (e.g. a CDN),
-which is fetched and cached transparently via the backends' remote-file cache —
+which is fetched and cached transparently via :func:`_cache_remote_file` —
 no code changes needed when the source moves off-disk.
 
 ``load_vocabulary()`` returns a parsed :class:`rdflib.Graph`;
@@ -97,12 +97,48 @@ def load_vocabulary(version: str = "current", source: str | None = None) -> Grap
     location = resolve_source(version=version, source=source)
     graph = Graph()
     if location.startswith(_REMOTE_PREFIXES):
-        from .backends import _cache_remote_file
-
         graph.parse(_cache_remote_file(location), format=fmt)
     else:
         graph.parse(location, format=fmt)
     return graph
+
+
+def _cache_remote_file(data: str) -> str:
+    """Download a remote file to a local cache and return the local path.
+
+    Supports gs:// and https:// URIs.  If the file is already cached,
+    returns the cached path without re-downloading.  Non-remote paths
+    are returned unchanged.
+    """
+    if not isinstance(data, str):
+        return data
+    if not (data.startswith("gs://") or data.startswith("https://")):
+        return data
+
+    import hashlib
+    import logging
+    from pathlib import Path
+
+    logger = logging.getLogger(__name__)
+
+    cache_dir = Path("/tmp/iucn_get_data_cache")
+    cache_dir.mkdir(parents=True, exist_ok=True)
+
+    url_hash = hashlib.sha256(data.encode()).hexdigest()[:12]
+    # Preserve the original filename for readability
+    filename = data.rstrip("/").rsplit("/", 1)[-1]
+    cache_path = cache_dir / f"{url_hash}_{filename}"
+
+    if cache_path.exists():
+        logger.info("Using cached file: %s", cache_path)
+        return str(cache_path)
+
+    import fsspec
+
+    logger.info("Downloading %s to %s", data, cache_path)
+    fs, fpath = fsspec.core.url_to_fs(data)
+    fs.get(fpath, str(cache_path))
+    return str(cache_path)
 
 
 # Alias for callers that prefer the lower-level name.

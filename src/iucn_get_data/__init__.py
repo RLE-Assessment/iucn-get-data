@@ -13,18 +13,5 @@ __all__ = [
     'get_realms', 'get_biomes', 'get_groups',
     'Typology', 'Realm', 'Biome', 'FunctionalGroup',
     'load_vocabulary', 'build_realms_from_graph',
-    'EcosystemMap', 'VectorMap', 'RasterMap',
-    'open_ecosystem_map', 'list_engines',
     '__version__'
 ]
-
-
-def __getattr__(name):
-    """Lazy import for ecosystem_map and backends modules."""
-    if name in ('EcosystemMap', 'VectorMap', 'RasterMap'):
-        from . import ecosystem_map
-        return getattr(ecosystem_map, name)
-    if name in ('open_ecosystem_map', 'list_engines'):
-        from . import backends
-        return getattr(backends, name)
-    raise AttributeError(f"module 'iucn_get_data' has no attribute {name!r}")
