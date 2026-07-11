@@ -36,7 +36,14 @@ _GET_CLASSES = [("Realm", 1), ("Biome", 2), ("EcosystemFunctionalGroup", 3)]
 # global-ecosystems.org browse-URL path segment per level.
 _URL_SEGMENT = {1: "realms", 2: "biomes", 3: "groups"}
 
-_REMOTE_PREFIXES = ("http://", "https://", "gs://")
+# Remote URL scheme -> optional-dependency extra providing its fsspec backend.
+_SCHEME_EXTRAS = {
+    "http://": "remote",
+    "https://": "remote",
+    "gs://": "gs",
+    "s3://": "s3",
+}
+_REMOTE_PREFIXES = tuple(_SCHEME_EXTRAS)  # used by load_vocabulary() to route remote URLs
 
 
 def _manifest() -> dict:
@@ -104,15 +111,15 @@ def load_vocabulary(version: str = "current", source: str | None = None) -> Grap
 
 
 def _cache_remote_file(data: str) -> str:
-    """Download a remote file to a local cache and return the local path.
+    """Download a remote (http/https/gs/s3) file to a local cache; return the local path.
 
-    Supports gs:// and https:// URIs.  If the file is already cached,
-    returns the cached path without re-downloading.  Non-remote paths
-    are returned unchanged.
+    If the file is already cached, returns the cached path without re-downloading.
+    Non-remote paths are returned unchanged.
     """
     if not isinstance(data, str):
         return data
-    if not (data.startswith("gs://") or data.startswith("https://")):
+    extra = next((x for prefix, x in _SCHEME_EXTRAS.items() if data.startswith(prefix)), None)
+    if extra is None:
         return data
 
     import hashlib
@@ -133,11 +140,20 @@ def _cache_remote_file(data: str) -> str:
         logger.info("Using cached file: %s", cache_path)
         return str(cache_path)
 
-    import fsspec
+    scheme = data.split("://", 1)[0] + "://"
+    try:
+        import fsspec
 
-    logger.info("Downloading %s to %s", data, cache_path)
-    fs, fpath = fsspec.core.url_to_fs(data)
-    fs.get(fpath, str(cache_path))
+        logger.info("Downloading %s to %s", data, cache_path)
+        fs, fpath = fsspec.core.url_to_fs(data)
+        fs.get(fpath, str(cache_path))
+    except ImportError as e:
+        # Missing fsspec, or the scheme's backend (aiohttp/gcsfs/s3fs) — both raise
+        # ImportError. Point the user at the extra that provides this scheme's backend.
+        raise ImportError(
+            f"Loading a '{scheme}' vocabulary requires the '{extra}' extra: "
+            f"pip install iucn-get-data[{extra}]"
+        ) from e
     return str(cache_path)
 
 
