@@ -12,6 +12,20 @@ def _natural_sort_key(value):
     return [int(part) if part.isdigit() else part.lower() for part in re.split(r'(\d+)', str(value))]
 
 
+def _is_geometry_column(series) -> bool:
+    """Return True for a (geo)spatial geometry column.
+
+    Geometry values are long WKB/WKT blobs that are meaningless in a display
+    table, so they are excluded from auto-selected columns. Detected without a
+    hard geopandas dependency: geopandas registers its extension dtype under the
+    name ``geometry``, and the conventional active geometry column is also named
+    ``geometry``.
+    """
+    if getattr(series, 'name', None) == 'geometry':
+        return True
+    return getattr(getattr(series, 'dtype', None), 'name', '') == 'geometry'
+
+
 def _json_tree_html(value, label=None, _open=True):
     """Render a JSON-serializable value as a collapsible HTML tree.
 
@@ -463,7 +477,12 @@ class Typology:
                             'realm_name', 'biome_name', 'functional_group_name',
                             'description', 'url', self.ecosystems_functional_group_column}
             if ecosystem_columns is None:
-                available_cols = [col for col in df.columns if col not in typology_cols and col not in drop_set]
+                available_cols = [
+                    col for col in df.columns
+                    if col not in typology_cols
+                    and col not in drop_set
+                    and not _is_geometry_column(df[col])
+                ]
                 # Order columns: name first, then ID, then remaining
                 ordered_cols = []
                 if ecosystem_name_column and ecosystem_name_column in available_cols:

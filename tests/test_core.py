@@ -323,3 +323,38 @@ def test_realm_names_fall_back_to_english():
     en_efg = en.realms['T'].biomes['T1'].functional_groups['T1.1'].name
     es_efg = es.realms['T'].biomes['T1'].functional_groups['T1.1'].name
     assert es_efg == en_efg
+
+
+def test_to_html_excludes_geometry_column():
+    """A GeoDataFrame's geometry column must not render in the typology table.
+
+    Regression test for issue #22: the raw geometry (WKB/WKT) is very long and
+    leaked into the ecosystem overview table via to_html()'s auto-selection of
+    all non-typology columns.
+    """
+    import pandas as pd
+
+    long_geom = 'POLYGON ((0 0, 1 0, 1 1, 0 1, 0 0))' * 50
+    ecosystems_df = pd.DataFrame({
+        'EFG': ['T1.1'],
+        'ECO_CODE': ['ECO-1'],
+        'ECO_NAME': ['Test ecosystem'],
+        'geometry': [long_geom],
+    })
+
+    typology = Typology(
+        language='english',
+        ecosystems=ecosystems_df,
+        ecosystems_functional_group_column='EFG',
+        ecosystems_column='ECO_CODE',
+        ecosystem_name_column='ECO_NAME',
+    )
+
+    html = typology.to_html()
+
+    # The ecosystem itself is still rendered...
+    assert 'ECO-1' in html
+    assert 'Test ecosystem' in html
+    # ...but the geometry column (header and values) is dropped.
+    assert 'geometry' not in html
+    assert 'POLYGON' not in html
